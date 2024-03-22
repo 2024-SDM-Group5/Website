@@ -1,28 +1,25 @@
 import React, { ReactNode } from 'react';
-import Navbar from '@/components/Navbar';
+
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 type Props = {
-  children: ReactNode;
+	children: ReactNode;
 };
 
 const Layout = ({ children }: Props) => {
-  return (
-    <div className="w-full flex flex-col min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 py-5 text-center">
-          <h1 className="text-xl font-bold text-gray-700">APP Name</h1>
-        </div>
-		<Navbar /> 
+	return (
+		<div className="flex max-h-screen w-full flex-col">
+			<div className="mx-auto max-w-6xl px-4 py-5 text-center">
+				<h1 className="text-xl font-bold text-gray-700">APP Name</h1>
+			</div>
+			<Navbar />
 
-      <main className="flex-grow">
-        {children}
-      </main>
+			<main className="flex flex-1 overflow-auto">{children}</main>
 
-      
-        <Footer />
-      
-    </div>
-  );
+			<Footer />
+		</div>
+	);
 };
 
 export default Layout;
