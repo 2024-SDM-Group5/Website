@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -9,7 +11,7 @@ const Navbar = () => {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
 	const rootPath = pathSegments[0];
-
+	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
 
 	if (rootPath === 'map') {
@@ -31,13 +33,21 @@ const Navbar = () => {
 		];
 	} else if (rootPath === 'profile') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: '/profile/overview' },
-			{ value: 'archive', label: '我的收藏', href: '/profile/archive' },
+			{ value: 'overview', label: '總覽', href: '/profile/1/overview' },
+			{ value: 'archive', label: '我的收藏', href: '/profile/1/archive' },
 		];
 	}
+	// const pathname = usePathname();
+	const [changes, setChanges] = useState(0);
 
+	useEffect(() => {
+		console.log(`Route changed to: ${pathname}`);
+		// setChanges((prev) => prev + 1);
+		// pathSegments = pathname.split('/').filter(Boolean);
+		setActiveTab(pathname.split('/').filter(Boolean)[2]);
+	}, [pathname]);
 	return (
-		<Tabs defaultValue={tabsConfig[0]?.value} className="w-full">
+		<Tabs value={activeTab} className="w-full">
 			<TabsList className="w-full rounded-none bg-transparent p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger

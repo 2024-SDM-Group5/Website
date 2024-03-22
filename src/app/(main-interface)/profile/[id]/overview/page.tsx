@@ -149,7 +149,8 @@ const UserProfile = () => {
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
 					<Image
-						src={userDetail.avatarUrl}
+						// src={userDetail.avatarUrl}
+						src=""
 						alt="User Avatar"
 						width={80}
 						height={80}
@@ -185,7 +186,8 @@ const UserProfile = () => {
 					{userDiaries.map((diary) => (
 						<div key={diary.id} className="relative ">
 							<Image
-								src={diary.imageUrl}
+								src=""
+								// src={diary.imageUrl}
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}

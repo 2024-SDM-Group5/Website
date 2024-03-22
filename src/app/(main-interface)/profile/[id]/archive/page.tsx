@@ -161,7 +161,8 @@ const UserArchive = () => {
 					{userDiaries.map((diary) => (
 						<div key={diary.id} className="relative ">
 							<Image
-								src={diary.imageUrl}
+								// src={diary.imageUrl}
+								src=""
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}
