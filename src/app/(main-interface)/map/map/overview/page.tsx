@@ -175,7 +175,7 @@ function HomePage() {
 									</div>
 								</div>
 								<div>
-									<Button>收藏</Button>
+									<Button style={{ backgroundColor: '#222222', color: "#ffffff" }}>收藏</Button>
 								</div>
 							</CardContent>
 						</Card>
