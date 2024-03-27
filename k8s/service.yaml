@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-service                    #須根據服務進行調整
+spec:
+  selector:
+    app: website-service                   #須根據服務進行調整
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  # sessionAffinity: ClientIP 確保來自同一客戶端 IP 的請求
+  # 被發送到同一個 Pod。這有助於在無狀態的 Pods 間保持會話一致性。
+  sessionAffinity: ClientIP
