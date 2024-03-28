@@ -39,7 +39,6 @@ const Navbar = () => {
 	}
 
 	useEffect(() => {
-		console.log(pathname, pathname.split('/').filter(Boolean));
 		setActiveTab(pathname.split('/').slice(-1)[0]);
 	}, [pathname]);
 

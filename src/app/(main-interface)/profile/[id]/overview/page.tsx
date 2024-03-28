@@ -24,7 +24,7 @@ interface UserDetail {
 const mockUserDetail: UserDetail = {
 	id: 12345,
 	displayName: 'Claire',
-	avatarUrl: '',
+	avatarUrl: '/images/1.jpg',
 	following: 15,
 	followed: 20,
 	mapId: 67890,
@@ -34,63 +34,63 @@ const mockUserDetail: UserDetail = {
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 ];
 
@@ -149,12 +149,12 @@ const UserProfile = () => {
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
 					<Image
-						// src={userDetail.avatarUrl}
-						src=""
+						src={userDetail.avatarUrl}
 						alt="User Avatar"
 						width={80}
 						height={80}
-						className="rounded-full bg-[#D9D9D9]"
+						priority={true}
+						className="rounded-full"
 					/>
 
 					<div className="ml-4 flex space-x-4">
@@ -186,14 +186,12 @@ const UserProfile = () => {
 					{userDiaries.map((diary) => (
 						<div key={diary.id} className="relative ">
 							<Image
-								src=""
-								// src={diary.imageUrl}
+								src={diary.imageUrl}
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}
+								priority={true}
 								// fill={true}
-								layout="responsive"
-								className="rounded-md bg-[#D9D9D9] "
 							/>
 						</div>
 					))}
