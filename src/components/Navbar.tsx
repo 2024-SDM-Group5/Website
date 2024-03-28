@@ -37,15 +37,12 @@ const Navbar = () => {
 			{ value: 'archive', label: '我的收藏', href: '/profile/1/archive' },
 		];
 	}
-	// const pathname = usePathname();
-	const [changes, setChanges] = useState(0);
 
 	useEffect(() => {
-		console.log(`Route changed to: ${pathname}`);
-		// setChanges((prev) => prev + 1);
-		// pathSegments = pathname.split('/').filter(Boolean);
-		setActiveTab(pathname.split('/').filter(Boolean)[2]);
+		console.log(pathname, pathname.split('/').filter(Boolean));
+		setActiveTab(pathname.split('/').slice(-1)[0]);
 	}, [pathname]);
+
 	return (
 		<Tabs value={activeTab} className="w-full">
 			<TabsList className="w-full rounded-none bg-transparent p-0">
