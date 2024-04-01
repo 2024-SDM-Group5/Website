@@ -2,7 +2,7 @@ FROM node:20
 COPY ./ .
 RUN yarn install
 RUN yarn run build
-RUN mv .next next
+RUN mv .next _next
 
 EXPOSE 8080
 
