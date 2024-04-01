@@ -1,6 +1,7 @@
 FROM node:20
 COPY ./ .
 COPY nginx.conf /etc/nginx/
+RUN apt autoremove
 RUN apt update
 RUN apt install -y nginx
 RUN yarn install
