@@ -1,9 +1,5 @@
 FROM node:20
-RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
-COPY ./ /home/node/app
-COPY --chown=10101 ./.next ./_next
-COPY --chown=10101 ./public ./public
-WORKDIR /home/node/app
+COPY ./ .
 RUN yarn install
 RUN yarn run build
 
