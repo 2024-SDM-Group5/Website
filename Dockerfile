@@ -1,7 +1,8 @@
 FROM node:20
 COPY ./ .
 COPY nginx.conf /etc/nginx/
-RUN apt update && apt install -y nginx
+RUN apt update
+RUN apt install -y nginx
 RUN yarn install
 RUN yarn run build
 RUN cp -r .next _next
