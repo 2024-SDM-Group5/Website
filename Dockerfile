@@ -10,4 +10,4 @@ RUN cp -r .next _next
 
 EXPOSE 8080
 
-ENTRYPOINT  ["/bin/bash", "-c", "service start nginx && yarn run start -p 8080"]
+ENTRYPOINT  ["/bin/bash", "-c", "systemctl start nginx && yarn run start -p 8080"]
