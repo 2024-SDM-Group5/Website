@@ -16,25 +16,25 @@ const Navbar = () => {
 
 	if (rootPath === 'map') {
 		tabsConfig = [
-			{ value: 'general', label: '總地圖', href: '/map/general' },
-			{ value: 'map', label: '地圖總覽', href: '/map/map/overview' },
-			{ value: 'restaurant', label: '餐廳總覽', href: '/map/restaurants/overview' },
-			{ value: 'archive', label: '我的收藏', href: '/map/archive' },
+			{ value: 'general', label: '總地圖', href: '/website/map/general' },
+			{ value: 'map', label: '地圖總覽', href: '/website/map/map/overview' },
+			{ value: 'restaurant', label: '餐廳總覽', href: '/website/map/restaurants/overview' },
+			{ value: 'archive', label: '我的收藏', href: '/website/map/archive' },
 		];
 	} else if (rootPath === 'community') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: '/community/overview' },
-			{ value: 'following', label: '追蹤中', href: '/community/following' },
+			{ value: 'overview', label: '總覽', href: '/website/community/overview' },
+			{ value: 'following', label: '追蹤中', href: '/website/community/following' },
 		];
 	} else if (rootPath === 'mymap') {
 		tabsConfig = [
-			{ value: 'map', label: '地圖總覽', href: '/mymap/map' },
-			{ value: 'restaurants', label: '餐廳總覽', href: '/mymap/restaurants' },
+			{ value: 'map', label: '地圖總覽', href: '/website/mymap/map' },
+			{ value: 'restaurants', label: '餐廳總覽', href: '/website/mymap/restaurants' },
 		];
 	} else if (rootPath === 'profile') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: '/profile/1/overview' },
-			{ value: 'archive', label: '我的收藏', href: '/profile/1/archive' },
+			{ value: 'overview', label: '總覽', href: '/website/profile/1/overview' },
+			{ value: 'archive', label: '我的收藏', href: '/website/profile/1/archive' },
 		];
 	}
 

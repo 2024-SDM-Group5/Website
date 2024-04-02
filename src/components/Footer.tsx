@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const tabsConfig = [
-	{ value: 'general', label: '地圖探索', href: '/map/general' },
-	{ value: 'map', label: '美食社群', href: '/community/overview' },
-	{ value: 'restaurant', label: '我的地圖', href: '/map/restaurants/overview' },
-	{ value: 'archive', label: '帳戶', href: '/profile/1/overview' },
+	{ value: 'general', label: '地圖探索', href: '/website/map/general' },
+	{ value: 'map', label: '美食社群', href: '/website/community/overview' },
+	{ value: 'restaurant', label: '我的地圖', href: '/website/map/restaurants/overview' },
+	{ value: 'archive', label: '帳戶', href: '/website/profile/1/overview' },
 ];
 
 const Footer = () => {
