@@ -1,9 +1,9 @@
 FROM node:20
 COPY ./ .
-COPY nginx.conf /etc/nginx/
 RUN apt-get autoremove
 RUN apt-get update
 RUN apt-get -o DPkg::Options::="--force-confnew" install -y nginx
+COPY nginx.conf /etc/nginx/
 RUN yarn install
 RUN yarn run build
 
