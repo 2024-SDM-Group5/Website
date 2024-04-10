@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { SearchOutlined } from '@ant-design/icons';
+import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { Input } from 'antd';
-import GoogleMapReact from 'google-map-react';
 
 interface Coordinate {
 	lat: number | undefined;
@@ -45,28 +45,27 @@ function HomePage() {
 			>
 				<Input prefix={<SearchOutlined />} />
 			</div>
-
-			<GoogleMapReact
-				bootstrapURLKeys={{ key: 'AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o' }}
-				defaultCenter={{
-					lat: 10.99835602,
-					lng: 77.01502627,
-				}}
-				defaultZoom={9}
-				yesIWantToUseGoogleMapApiInternals
-				onDragEnd={(map: google.maps.Map) => {
-					let ne = map.getBounds()?.getNorthEast();
-					let sw = map.getBounds()?.getSouthWest();
-					setBound([
-						{ lat: ne?.lat(), lng: ne?.lng() },
-						{ lat: sw?.lat(), lng: sw?.lng() },
-					]);
-				}}
-			>
-				<>
-					<Marker lat={10.99835602} lng={70.01502627} />
-				</>
-			</GoogleMapReact>
+			{
+				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
+					<Map
+						mapId="1234"
+						defaultZoom={9}
+						defaultCenter={{
+							lat: 10.99835602,
+							lng: 77.01502627,
+						}}
+					>
+						<AdvancedMarker
+							position={{
+								lat: 10.99835602,
+								lng: 77.01502627,
+							}}
+						>
+							<Pin/>
+						</AdvancedMarker>
+					</Map>
+				</APIProvider>
+			}
 		</div>
 	);
 }
