@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const Navbar = () => {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
-	const rootPath = pathSegments[0];
+	const rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
 

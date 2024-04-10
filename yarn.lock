@@ -2535,6 +2535,11 @@ google-map-react@^2.2.1:
     eventemitter3 "^4.0.4"
     prop-types "^15.7.2"
 
+google-maps-react-markers@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/google-maps-react-markers/-/google-maps-react-markers-2.0.8.tgz#24c174f90d465c85da104076cdc394675ae2a8dd"
+  integrity sha512-nRmaD/iNmjmV06C3JETtbdPZ+lEdtqya99ihj8YTMB4NgC3YNxeT90ZVcUDfn3+9GJciClyKQtwse4kklOnAnA==
+
 gopd@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/gopd/-/gopd-1.0.1.tgz"

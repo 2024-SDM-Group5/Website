@@ -5,15 +5,15 @@ import Link from 'next/link';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const tabsConfig = [
-	{ value: 'general', label: '地圖探索', href: '/website/map/general' },
-	{ value: 'map', label: '美食社群', href: '/website/community/overview' },
-	{ value: 'restaurant', label: '我的地圖', href: '/website/map/restaurants/overview' },
-	{ value: 'archive', label: '帳戶', href: '/website/profile/1/overview' },
+	{ value: 'map', label: '地圖探索', href: '/website/map/general' },
+	{ value: 'community', label: '美食社群', href: '/website/community/overview' },
+	{ value: 'mymap', label: '我的地圖', href: '/website/map/restaurants/overview' },
+	{ value: 'profile', label: '帳戶', href: '/website/profile/1/overview' },
 ];
 
 const Footer = () => {
 	return (
-		<Tabs defaultValue={tabsConfig[3]?.value} className="w-full">
+		<Tabs defaultValue={tabsConfig[0]?.value} className="w-full">
 			<TabsList className="border-b-none w-full rounded-none bg-transparent p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger

@@ -6,12 +6,13 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import GoogleMapReact from 'google-map-react';
 
-
 interface Coordinate {
 	lat: number | undefined;
 	lng: number | undefined;
 }
-
+const Marker = ({ lat, lng }: { lat: Number; lng: Number }) => {
+	return <div className="marker" />;
+};
 function HomePage() {
 	const [bound, setBound] = React.useState<Array<Coordinate>>([
 		{
@@ -52,6 +53,7 @@ function HomePage() {
 					lng: 77.01502627,
 				}}
 				defaultZoom={9}
+				yesIWantToUseGoogleMapApiInternals
 				onDragEnd={(map: google.maps.Map) => {
 					let ne = map.getBounds()?.getNorthEast();
 					let sw = map.getBounds()?.getSouthWest();
@@ -60,7 +62,11 @@ function HomePage() {
 						{ lat: sw?.lat(), lng: sw?.lng() },
 					]);
 				}}
-			></GoogleMapReact>
+			>
+				<>
+					<Marker lat={10.99835602} lng={70.01502627} />
+				</>
+			</GoogleMapReact>
 		</div>
 	);
 }
