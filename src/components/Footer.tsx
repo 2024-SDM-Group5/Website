@@ -7,7 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const tabsConfig = [
 	{ value: 'map', label: '地圖探索', href: '/website/map/general' },
 	{ value: 'community', label: '美食社群', href: '/website/community/overview' },
-	{ value: 'mymap', label: '我的地圖', href: '/website/map/restaurants/overview' },
+	{ value: 'mymap', label: '我的地圖', href: '/website/mymap/map' },
 	{ value: 'profile', label: '帳戶', href: '/website/profile/1/overview' },
 ];
 
