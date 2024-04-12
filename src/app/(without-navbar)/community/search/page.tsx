@@ -15,63 +15,63 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '',
+		imageUrl: '/images/1.jpg',
 	},
 ];
 interface Diary {
@@ -79,6 +79,44 @@ interface Diary {
 	imageUrl: string;
 }
 
+interface User {
+	id: number;
+	imageUrl: string;
+	userName: string;
+}
+
+const mockUserList: User[] = [
+	{
+		id: 1,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+	{
+		id: 2,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+	{
+		id: 3,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+	{
+		id: 4,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+	{
+		id: 5,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+	{
+		id: 6,
+		imageUrl: '/images/1.jpg',
+		userName: 'John',
+	},
+];
 export default function Page() {
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
@@ -136,8 +174,8 @@ export default function Page() {
 								{userDiaries.map((diary) => (
 									<div key={diary.id} className="relative ">
 										<Image
-											// src={diary.imageUrl}
-											src=""
+											src={diary.imageUrl}
+											// src=""
 											alt={`Diary ${diary.id}`}
 											width={500}
 											height={500}
@@ -151,7 +189,29 @@ export default function Page() {
 						</div>
 					</div>
 				</TabsContent>
-
+				<TabsContent value="user">
+					<div className="flex w-full flex-1 flex-col">
+						<Separator className="m-1" />
+						<div className="flex w-full flex-1 overflow-auto">
+							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
+								{userDiaries.map((diary) => (
+									<div key={diary.id} className="relative ">
+										<Image
+											src={diary.imageUrl}
+											// src=""
+											alt={`Diary ${diary.id}`}
+											width={500}
+											height={500}
+											// fill={true}
+											layout="responsive"
+											className="rounded-md bg-[#D9D9D9] "
+										/>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
+				</TabsContent>
 				<TabsContent value="account"></TabsContent>
 
 				<TabsContent value="tags">
@@ -162,8 +222,8 @@ export default function Page() {
 								{userDiaries.map((diary) => (
 									<div key={diary.id} className="relative ">
 										<Image
-											// src={diary.imageUrl}
-											src=""
+											src={diary.imageUrl}
+											// src=""
 											alt={`Diary ${diary.id}`}
 											width={500}
 											height={500}

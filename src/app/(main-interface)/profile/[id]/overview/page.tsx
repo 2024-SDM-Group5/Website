@@ -98,10 +98,31 @@ interface Diary {
 	id: number;
 	imageUrl: string;
 }
+interface DiaryDetail {
+	id: number;
+	authorName: string;
+	authorAvatarUrl: string;
+	imageUrl: string;
+	content: string;
+	replies: [{ id: number; username: string; content: string }];
+	favCount: 25;
+}
+
+const mockDiaryDetail: DiaryDetail = {
+	id: 1,
+	authorName: 'Jane',
+	authorAvatarUrl: '/images/1.jpg',
+	imageUrl: '/images/1.jpg',
+	content: 'Tried this amazing boba place today!',
+	replies: [{ id: 1, username: 'bobaLover', content: 'Looks delicious!' }],
+	favCount: 25,
+};
 
 const UserProfile = () => {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
+	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
+	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const params = useParams<{ id: string }>();
 	const handleEditProfile = () => {
 		// Handle edit profile logic
@@ -114,6 +135,27 @@ const UserProfile = () => {
 	const handleFollow = () => {
 		// Handle follow logic
 	};
+
+	const handleBack = () => {
+		setSelectedDiaryId(null);
+		setSelectedDiaryDetail(null);
+	};
+
+	useEffect(() => {
+		const fetchDiaryDetail = async () => {
+			if (selectedDiaryId) {
+				try {
+					// const response = await axios.get(`/api/v1/diaries/${selectedDiaryId}`);
+					// setSelectedDiaryDetail(response.data);
+					setSelectedDiaryDetail(mockDiaryDetail);
+				} catch (error) {
+					console.error('Failed to fetch diary details:', error);
+				}
+			}
+		};
+		fetchDiaryDetail();
+	}, [selectedDiaryId]);
+
 	useEffect(() => {
 		const fetchUserDetail = async () => {
 			try {
@@ -144,6 +186,44 @@ const UserProfile = () => {
 
 	if (!userDetail) return <div>Loading...</div>;
 
+	if (selectedDiaryId && selectedDiaryDetail) {
+		return (
+			<div className="w-full">
+				<button onClick={handleBack} className="m-4">
+					Back
+				</button>
+				<div className="flex w-full flex-col items-center justify-center">
+					<div className="mb-4 ml-4 flex w-full items-center justify-start">
+						<Image
+							src={selectedDiaryDetail.authorAvatarUrl}
+							alt="Author"
+							width={80}
+							height={80}
+							className="rounded-full"
+						/>
+						<span className="ml-4">{selectedDiaryDetail.authorName}</span>
+					</div>
+					<Image
+						src={selectedDiaryDetail.imageUrl}
+						alt="Diary"
+						width={800}
+						height={800}
+						className="w-full"
+					/>
+					<div className="mb-4 ml-4 flex w-full flex-col items-start justify-center">
+						<span className="text-xl">❤️ {selectedDiaryDetail.favCount}</span>
+						{/* </div>
+				<div> */}
+						{selectedDiaryDetail.replies.map((reply) => (
+							<div key={reply.id}>
+								{reply.username}: {reply.content}
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		);
+	}
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="p-4 pt-8">
@@ -184,7 +264,11 @@ const UserProfile = () => {
 			<div className="flex w-full flex-1 overflow-auto">
 				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
 					{userDiaries.map((diary) => (
-						<div key={diary.id} className="relative ">
+						<div
+							key={diary.id}
+							className="relative"
+							onClick={() => setSelectedDiaryId(diary.id)}
+						>
 							<Image
 								src={diary.imageUrl}
 								alt={`Diary ${diary.id}`}
