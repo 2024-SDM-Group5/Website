@@ -17,8 +17,8 @@ const Navbar = () => {
 	if (rootPath === 'map') {
 		tabsConfig = [
 			{ value: 'general', label: '總地圖', href: '/website/map/general' },
-			{ value: 'map', label: '地圖總覽', href: '/website/map/map/overview' },
-			{ value: 'restaurant', label: '餐廳總覽', href: '/website/map/restaurants/overview' },
+			{ value: 'map', label: '地圖總覽', href: '/website/map/map' },
+			{ value: 'restaurant', label: '餐廳總覽', href: '/website/map/restaurant' },
 			{ value: 'archive', label: '我的收藏', href: '/website/map/archive' },
 		];
 	} else if (rootPath === 'community') {
