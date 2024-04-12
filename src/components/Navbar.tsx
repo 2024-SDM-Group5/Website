@@ -13,7 +13,7 @@ const Navbar = () => {
 	const rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
-	console.log(rootPath)
+	console.log(rootPath);
 	if (rootPath === 'map') {
 		tabsConfig = [
 			{ value: 'general', label: '總地圖', href: '/website/map/general' },
@@ -49,7 +49,7 @@ const Navbar = () => {
 					<TabsTrigger
 						key={tab.value}
 						value={tab.value}
-						className="text-muted-foreground data-[state=active]:border-b-black relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0"
+						className="text-muted-foreground relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-black"
 					>
 						<Link href={tab.href}>{tab.label}</Link>
 					</TabsTrigger>
