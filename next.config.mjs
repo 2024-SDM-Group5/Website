@@ -1,3 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { reactStrictMode: false, assetPrefix: 'https://pc214.ee.ntu.edu.tw/website' };
+
+const isProd = process.env.NODE_ENV === 'production'
+
+const nextConfig = { reactStrictMode: false, assetPrefix: isProd ? 'https://pc214.ee.ntu.edu.tw/website' : undefined };
+
 export default nextConfig;
