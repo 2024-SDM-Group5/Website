@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
+import SinglePost from '@/components/SinglePost';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -185,45 +186,23 @@ const UserProfile = () => {
 	}, [params.id]);
 
 	if (!userDetail) return <div>Loading...</div>;
-
 	if (selectedDiaryId && selectedDiaryDetail) {
 		return (
 			<div className="w-full">
 				<button onClick={handleBack} className="m-4">
 					Back
 				</button>
-				<div className="flex w-full flex-col items-center justify-center">
-					<div className="mb-4 ml-4 flex w-full items-center justify-start">
-						<Image
-							src={selectedDiaryDetail.authorAvatarUrl}
-							alt="Author"
-							width={80}
-							height={80}
-							className="rounded-full"
-						/>
-						<span className="ml-4">{selectedDiaryDetail.authorName}</span>
-					</div>
-					<Image
-						src={selectedDiaryDetail.imageUrl}
-						alt="Diary"
-						width={800}
-						height={800}
-						className="w-full"
-					/>
-					<div className="mb-4 ml-4 flex w-full flex-col items-start justify-center">
-						<span className="text-xl">❤️ {selectedDiaryDetail.favCount}</span>
-						{/* </div>
-				<div> */}
-						{selectedDiaryDetail.replies.map((reply) => (
-							<div key={reply.id}>
-								{reply.username}: {reply.content}
-							</div>
-						))}
-					</div>
-				</div>
+				<SinglePost
+					authorAvatarUrl={selectedDiaryDetail.authorAvatarUrl}
+					authorName={selectedDiaryDetail.authorName}
+					imageUrl={selectedDiaryDetail.imageUrl}
+					favCount={selectedDiaryDetail.favCount}
+					replies={selectedDiaryDetail.replies}
+				/>
 			</div>
 		);
 	}
+
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="p-4 pt-8">
