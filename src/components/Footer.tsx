@@ -13,7 +13,7 @@ const tabsConfig = [
 
 const Footer = () => {
 	return (
-		<Tabs defaultValue={tabsConfig[0]?.value} className="w-full">
+		<Tabs defaultValue={tabsConfig[3]?.value} className="fixed bottom-0 w-full bg-white">
 			<TabsList className="border-b-none w-full rounded-none bg-transparent p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger

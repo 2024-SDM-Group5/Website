@@ -15,7 +15,7 @@ const Layout = ({ children }: Props) => {
 			</div>
 			<Navbar />
 
-			<main className="flex flex-1 overflow-auto">{children}</main>
+			<main className="flex flex-1 overflow-hidden">{children}</main>
 
 			<Footer />
 		</div>
