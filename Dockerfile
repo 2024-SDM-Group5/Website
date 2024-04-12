@@ -1,10 +1,12 @@
 FROM node:20
-RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
-COPY ./ /home/node/app
-WORKDIR /home/node/app
+COPY ./ .
+RUN apt-get autoremove
+RUN apt-get update
+RUN apt-get -o DPkg::Options::="--force-confnew" install -y nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN yarn install
 RUN yarn run build
 
 EXPOSE 8080
 
-ENTRYPOINT  ["yarn", "run", "start", "-p", "8080"]
+ENTRYPOINT  ["/bin/bash", "-c", "service nginx start && yarn run start -p 3000"]

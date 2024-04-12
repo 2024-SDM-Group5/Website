@@ -38,7 +38,7 @@ const GoogleSignInButton = () => {
 		<div className="flex justify-center">
 			<Button
 				variant="outline"
-				onClick={() => signIn('google', { callbackUrl: '/profile/1/overview' })}
+				onClick={() => signIn('google', { callbackUrl: '/website/profile/1/overview' })}
 				className="bg-white px-10 py-10 text-2xl hover:bg-gray-200"
 			>
 				<GoogleIcon />
