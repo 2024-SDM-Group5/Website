@@ -1,19 +1,24 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const tabsConfig = [
-	{ value: 'map', label: '地圖探索', href: '/website/map/general' },
-	{ value: 'community', label: '美食社群', href: '/website/community/overview' },
-	{ value: 'mymap', label: '我的地圖', href: '/website/mymap/map' },
-	{ value: 'profile', label: '帳戶', href: '/website/profile/1/overview' },
+	{ value: 'map', label: '地圖探索', href: '/map/general' },
+	{ value: 'community', label: '美食社群', href: '/community/overview' },
+	{ value: 'mymap', label: '我的地圖', href: '/mymap/map' },
+	{ value: 'profile', label: '帳戶', href: '/profile/1/overview' },
 ];
 
 const Footer = () => {
+	const pathname = usePathname();
+	const pathSegments = pathname.split('/').filter(Boolean);
+	const activeTab = pathSegments[0];
+
 	return (
-		<Tabs defaultValue={tabsConfig[3]?.value} className="fixed bottom-0 w-full bg-white">
+		<Tabs value={activeTab} className="fixed bottom-0 w-full bg-white">
 			<TabsList className="border-b-none w-full rounded-none bg-transparent p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger
