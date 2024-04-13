@@ -1,6 +1,15 @@
 import Image from 'next/image';
 
-interface SinglePostProps {
+export interface SinglePostType {
+	id: number;
+	authorAvatarUrl: string;
+	authorName: string;
+	imageUrl: string;
+	favCount: number;
+	replies: { id: number; username: string; content: string }[];
+}
+
+export interface SinglePostProps {
 	authorAvatarUrl: string;
 	authorName: string;
 	imageUrl: string;

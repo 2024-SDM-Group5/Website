@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -12,8 +13,12 @@ const tabsConfig = [
 ];
 
 const Footer = () => {
+	const pathname = usePathname();
+	const pathSegments = pathname.split('/').filter(Boolean);
+	const activeTab = pathSegments[0];
+
 	return (
-		<Tabs defaultValue={tabsConfig[3]?.value} className="fixed bottom-0 w-full bg-white">
+		<Tabs value={activeTab} className="fixed bottom-0 w-full bg-white">
 			<TabsList className="border-b-none w-full rounded-none bg-transparent p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
@@ -73,6 +74,18 @@ const mockDiary: Diary[] = [
 		id: 15,
 		imageUrl: '/images/1.jpg',
 	},
+	{
+		id: 16,
+		imageUrl: '/images/1.jpg',
+	},
+	{
+		id: 17,
+		imageUrl: '/images/1.jpg',
+	},
+	{
+		id: 18,
+		imageUrl: '/images/1.jpg',
+	},
 ];
 interface Diary {
 	id: number;
@@ -120,6 +133,10 @@ const mockUserList: User[] = [
 export default function Page() {
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
+	const router = useRouter();
+	const handleBackClick = () => {
+		router.push('/community/overview');
+	};
 	useEffect(() => {
 		const fetchUserDiaries = async () => {
 			try {
@@ -140,11 +157,11 @@ export default function Page() {
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="flex items-center space-x-2">
-				<ChevronLeftIcon className="h-5 w-5 cursor-pointer" />
+				<ChevronLeftIcon className="h-5 w-5 cursor-pointer" onClick={handleBackClick} />
 				<Input placeholder="Search..." />
 			</div>
 
-			<Tabs defaultValue="diary" className="w-full">
+			<Tabs defaultValue="diary" className="w-full ">
 				<TabsList className="w-full rounded-none bg-transparent p-0">
 					<TabsTrigger
 						value="diary"
@@ -167,10 +184,10 @@ export default function Page() {
 				</TabsList>
 
 				<TabsContent value="diary">
-					<div className="flex w-full flex-1 flex-col">
+					<div className="flex w-full flex-1 flex-col ">
 						<Separator className="m-1" />
 						<div className="flex w-full flex-1 overflow-auto">
-							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
+							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white ">
 								{userDiaries.map((diary) => (
 									<div key={diary.id} className="relative ">
 										<Image
