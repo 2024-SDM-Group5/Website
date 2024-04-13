@@ -19,7 +19,7 @@ type RootLayoutProps = {
 function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang="en">
-			<body className={`${inter.className} min-h-screen bg-gray-100`}>{children}</body>
+			<body className={`${inter.className} min-h-screen bg-white`}>{children}</body>
 		</html>
 	);
 }
