@@ -49,7 +49,7 @@ const Navbar = () => {
 					<TabsTrigger
 						key={tab.value}
 						value={tab.value}
-						className="text-muted-foreground relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-black"
+						className="border-b-gray text-muted-foreground relative flex-1 rounded-none border-b-2 bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-black"
 					>
 						<Link href={tab.href}>{tab.label}</Link>
 					</TabsTrigger>
