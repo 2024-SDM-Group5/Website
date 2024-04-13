@@ -30,8 +30,8 @@ const SinglePost = ({
 				<Image
 					src={authorAvatarUrl}
 					alt="Author"
-					width={80}
-					height={80}
+					width={60}
+					height={60}
 					className="rounded-full"
 				/>
 				<span className="ml-4">{authorName}</span>

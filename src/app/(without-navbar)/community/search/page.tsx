@@ -229,7 +229,23 @@ export default function Page() {
 						</div>
 					</div>
 				</TabsContent>
-				<TabsContent value="account"></TabsContent>
+				<TabsContent value="account">
+					<div className="m-8 flex h-full flex-col">
+						{/* <Separator className="m-1" /> */}
+						{mockUserList.map((user) => (
+							<div key={user.id} className="mt-4 flex items-center ">
+								<Image
+									src={user.imageUrl}
+									alt={`User ${user.id}`}
+									width={50}
+									height={50}
+									className="rounded-full"
+								/>
+								<p className="ml-2">{user.userName}</p>
+							</div>
+						))}
+					</div>
+				</TabsContent>
 
 				<TabsContent value="tags">
 					<div className="flex w-full flex-1 flex-col">
