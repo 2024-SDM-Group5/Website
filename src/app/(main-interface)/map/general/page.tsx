@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 
-import MapSearchBar from '@/components/MapSearchBar';
-import RestaurantDrawer from '@/components/RestaurantDrawer';
 import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
+import MapSearchBar from '@/components/MapSearchBar';
+import RestaurantDrawer from '@/components/RestaurantDrawer';
+
 interface Coordinate {
 	lat: number | undefined;
 	lng: number | undefined;

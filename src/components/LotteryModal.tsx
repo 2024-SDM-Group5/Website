@@ -1,7 +1,8 @@
-import Image from 'next/image';
-import { Button, Modal } from 'antd';
 import React, { useEffect } from 'react';
 
+import Image from 'next/image';
+
+import { Button, Modal } from 'antd';
 
 const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function }) => {
 	const [restaurantID, setID] = React.useState<string | null>(null);
@@ -58,7 +59,7 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 						}}
 					>
 						<div style={{ width: '110px' }}>
-							<Image src={''} alt={''} width={86} height={86} />
+							<Image src={'/images/1.jpg'} alt={''} width={86} height={86} />
 						</div>
 						<div
 							style={{

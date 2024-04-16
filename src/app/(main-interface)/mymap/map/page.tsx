@@ -8,8 +8,9 @@ import { SearchOutlined } from '@ant-design/icons';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { Input } from 'antd';
 
-import RestaurantDrawer from '@/components/RestaurantDrawer';
 import MapSearchBar from '@/components/MapSearchBar';
+import RestaurantDrawer from '@/components/RestaurantDrawer';
+
 interface Coordinate {
 	lat: number | undefined;
 	lng: number | undefined;

@@ -1,16 +1,17 @@
 import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
+
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 
 const RestaurantDrawer = ({
 	show,
 	setShow,
-    newDiary
+	newDiary,
 }: {
 	show: string | null;
 	setShow: React.Dispatch<string | null>;
-    newDiary: boolean
+	newDiary: boolean;
 }) => {
 	return (
 		<Drawer
