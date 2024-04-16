@@ -24,7 +24,7 @@ interface UserDetail {
 const mockUserDetail: UserDetail = {
 	id: 12345,
 	displayName: 'Claire',
-	avatarUrl: '/images/1.jpg',
+	avatarUrl: '/images/food.jpg',
 	following: 15,
 	followed: 20,
 	mapId: 67890,
@@ -34,75 +34,75 @@ const mockUserDetail: UserDetail = {
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 16,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 17,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 	{
 		id: 18,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food.jpg',
 	},
 ];
 
@@ -155,7 +155,6 @@ const UserArchive = () => {
 
 	return (
 		<div className="flex w-full flex-1 flex-col">
-			<Separator className="m-1" />
 			<div className="flex w-full flex-1 overflow-auto">
 				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
 					{userDiaries.map((diary) => (

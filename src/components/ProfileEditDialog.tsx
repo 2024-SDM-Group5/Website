@@ -65,7 +65,7 @@ export function ProfileEditDialog({ idToken }: ProfileEditDialogProps) {
 			<DialogTrigger asChild>
 				<Button
 					variant="outline"
-					className="text-md w-[32%] bg-black px-3 py-1 text-sm text-white"
+					className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 				>
 					Edit Profile
 				</Button>
@@ -103,13 +103,13 @@ export function ProfileEditDialog({ idToken }: ProfileEditDialogProps) {
 					<div className="flex w-full flex-row-reverse">
 						<Button
 							onClick={handleSaveChanges}
-							className="ml-2 w-2/5 bg-black px-3 py-1 text-sm text-white"
+							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
 							Save{' '}
 						</Button>
 						<Button
 							onClick={handleDiscard}
-							className="w-2/5 bg-[#D9D9D9] px-3 py-1 text-sm text-black"
+							className="w-2/5 bg-[#f7a072] px-3 py-1 text-sm text-black"
 						>
 							Discard
 						</Button>
