@@ -16,9 +16,10 @@ import { Label } from '@/components/ui/label';
 
 interface NewDiaryDialogProps {
 	idToken: string;
+	close: () => void;
 }
 
-export function NewDiaryDialog({ idToken }: NewDiaryDialogProps) {
+export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
 	const [name, setName] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
@@ -68,11 +69,12 @@ export function NewDiaryDialog({ idToken }: NewDiaryDialogProps) {
 					type="primary"
 					size="large"
 					style={{ color: '#000000', backgroundColor: '#EDDEA4' }}
+					onClick={close}
 				>
 					新增日記
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="top-[40%] w-[75%] bg-white">
+			<DialogContent className="w-[75%] bg-white ">
 				<DialogHeader>
 					<DialogTitle>New Diary</DialogTitle>
 				</DialogHeader>
@@ -85,7 +87,7 @@ export function NewDiaryDialog({ idToken }: NewDiaryDialogProps) {
 							品項：
 						</Label>
 						<Input
-							id="name"
+							id="name2"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 							className="col-span-3"
@@ -118,13 +120,13 @@ export function NewDiaryDialog({ idToken }: NewDiaryDialogProps) {
 					<div className="flex w-full flex-row-reverse">
 						<Button
 							onClick={handleSaveChanges}
-							className="ml-2 w-2/5 bg-black px-3 py-1 text-sm text-white"
+							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
 							Save{' '}
 						</Button>
 						<Button
 							onClick={handleDiscard}
-							className="w-2/5 bg-[#D9D9D9] px-3 py-1 text-sm text-black"
+							className="w-2/5 bg-[#f7a072] px-3 py-1 text-sm text-black"
 						>
 							Discard
 						</Button>

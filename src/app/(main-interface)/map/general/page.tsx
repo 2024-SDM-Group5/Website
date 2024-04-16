@@ -16,12 +16,12 @@ interface Coordinate {
 function HomePage() {
 	const [bound, setBound] = React.useState<Array<Coordinate>>([
 		{
-			lat: 10.99835602,
-			lng: 77.01502627,
+			lat: 25.016375,
+			lng: 121.536792,
 		},
 		{
-			lat: 10.99835602,
-			lng: 77.01502627,
+			lat: 25.016375,
+			lng: 121.536792,
 		},
 	]);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
@@ -35,16 +35,16 @@ function HomePage() {
 						onClick={() => setDrawer(null)}
 						disableDefaultUI={true}
 						mapId="1234"
-						defaultZoom={9}
+						defaultZoom={15}
 						defaultCenter={{
-							lat: 10.99835602,
-							lng: 77.01502627,
+							lat: 25.016375,
+							lng: 121.536792,
 						}}
 					>
 						<AdvancedMarker
 							position={{
-								lat: 10.99835602,
-								lng: 77.01502627,
+								lat: 25.016375,
+								lng: 121.536792,
 							}}
 							onClick={() => setDrawer('1234')}
 						>

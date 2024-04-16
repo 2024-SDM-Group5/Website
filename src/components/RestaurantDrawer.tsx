@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
@@ -93,7 +97,7 @@ const RestaurantDrawer = ({
 						>
 							已收藏
 						</Button>
-						{newDiary && <NewDiaryDialog idToken="" />}
+						{newDiary && <NewDiaryDialog idToken="" close={() => setShow(null)} />}
 					</div>
 				</div>
 			</div>
