@@ -27,14 +27,7 @@ function HomePage() {
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
 	return (
-		<div
-			style={{
-				width: '100vw',
-				height: 'calc(100vh - 148px)',
-				// marginTop: '4px',
-				marginBottom: '4px',
-			}}
-		>
+		<div className="h-full w-full flex-1">
 			<MapSearchBar />
 			{
 				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
@@ -58,7 +51,7 @@ function HomePage() {
 							<Pin />
 						</AdvancedMarker>
 					</Map>
-					<RestaurantDrawer newDiary={false} show={drawer} setShow={setDrawer} />
+					<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 					<LotteryFloatButton onClick={() => setModal(true)} />
 					<LotteryModal open={modal} onCancel={() => setModal(false)} />
 				</APIProvider>

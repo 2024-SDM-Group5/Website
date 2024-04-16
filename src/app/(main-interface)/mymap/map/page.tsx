@@ -2,12 +2,10 @@
 
 import React from 'react';
 
-import Image from 'next/image';
-
-import { SearchOutlined } from '@ant-design/icons';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
-import { Input } from 'antd';
 
+import LotteryFloatButton from '@/components/FloatButton';
+import LotteryModal from '@/components/LotteryModal';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
 
@@ -27,15 +25,9 @@ function HomePage() {
 		},
 	]);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
+	const [modal, setModal] = React.useState<boolean>(false);
 	return (
-		<div
-			style={{
-				width: '100vw',
-				height: 'calc(100vh - 148px)',
-				// marginTop: '4px',
-				marginBottom: '4px',
-			}}
-		>
+		<div className="mb-1 h-[calc(100vh-148px)] w-screen">
 			<MapSearchBar />
 			{
 				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
@@ -60,6 +52,8 @@ function HomePage() {
 						</AdvancedMarker>
 					</Map>
 					<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
+					<LotteryFloatButton onClick={() => setModal(true)} />
+					<LotteryModal open={modal} onCancel={() => setModal(false)} />
 				</APIProvider>
 			}
 		</div>
