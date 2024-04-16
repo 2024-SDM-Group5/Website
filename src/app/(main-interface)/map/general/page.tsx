@@ -27,7 +27,7 @@ function HomePage() {
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
 	return (
-		<div className="h-full w-full flex-1">
+		<div className="h-full w-full">
 			<MapSearchBar />
 			{
 				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
