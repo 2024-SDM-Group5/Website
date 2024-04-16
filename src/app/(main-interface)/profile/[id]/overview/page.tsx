@@ -24,8 +24,8 @@ interface UserDetail {
 
 const mockUserDetail: UserDetail = {
 	id: 12345,
-	displayName: 'Claire',
-	avatarUrl: '/images/1.jpg',
+	displayName: 'Jenny',
+	avatarUrl: '/images/avatar.png',
 	following: 15,
 	followed: 20,
 	mapId: 67890,
@@ -35,63 +35,63 @@ const mockUserDetail: UserDetail = {
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 ];
 
@@ -111,9 +111,9 @@ interface DiaryDetail {
 
 const mockDiaryDetail: DiaryDetail = {
 	id: 1,
-	authorName: 'Jane',
-	authorAvatarUrl: '/images/1.jpg',
-	imageUrl: '/images/1.jpg',
+	authorName: 'Jenny',
+	authorAvatarUrl: '/images/avatar.png',
+	imageUrl: '/images/food2.jpg',
 	content: 'Tried this amazing boba place today!',
 	replies: [{ id: 1, username: 'bobaLover', content: 'Looks delicious!' }],
 	favCount: 25,
@@ -222,17 +222,17 @@ const UserProfile = () => {
 						<div>{userDetail.followed} followers</div>
 					</div>
 				</div>
-				<div className="ml-6 text-xl font-bold">{userDetail.displayName}</div>
+				<div className="ml-6 text-xl">{userDetail.displayName}</div>
 				<div className="mt-2 flex w-full justify-between">
 					<ProfileEditDialog idToken="" />
 					<Button
-						className="text-md w-[32%] bg-black px-3 py-1 text-sm text-white"
+						className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						onClick={handleViewMap}
 					>
 						View Map
 					</Button>
 					<Button
-						className="text-md w-[32%] bg-black px-3 py-1 text-sm text-white"
+						className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						onClick={handleFollow}
 					>
 						Follow

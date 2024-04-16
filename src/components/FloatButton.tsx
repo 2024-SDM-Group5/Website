@@ -14,7 +14,7 @@ const LotteryFloatButton = ({ onClick }: { onClick: Function }) => {
 				position: 'absolute',
 				right: 25,
 				bottom: 76,
-				backgroundColor: '#D9D9D9',
+				backgroundColor: '#ffcc84',
 				paddingTop: '11px',
 				paddingLeft: '11px',
 				borderRadius: '35px',

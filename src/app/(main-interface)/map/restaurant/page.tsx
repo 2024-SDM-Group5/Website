@@ -15,7 +15,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -23,7 +23,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -31,7 +31,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -39,7 +39,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -47,7 +47,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -55,7 +55,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -63,7 +63,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -71,7 +71,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -79,7 +79,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -87,7 +87,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -95,7 +95,7 @@ const data = [
 	{
 		id: 0,
 		name: '餐廳名稱',
-		iconUrl: '/images/1.jpg',
+		iconUrl: '/images/food4.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -132,29 +132,31 @@ function HomePage() {
 					return (
 						<Card
 							key={i}
-							className="mb-4 ml-2.5 mr-2.5 h-20 overflow-hidden rounded-lg bg-white p-4 shadow-md"
+							className="mb-4 ml-2.5 mr-2.5 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						>
 							<CardContent className="flex h-full items-center p-0">
-								<div className="w-1/6">
+								<div className="mr-4 w-1/6">
 									<Image
 										src={x.iconUrl}
 										alt={`${x.name}_icon`}
-										height={50}
-										width={50}
+										height={80}
+										width={80}
 									/>
 								</div>
 								<div className="w-1/2">
 									<div className="block w-full">{x.name}</div>
 									<div className="block text-gray-400">{'@' + x.author}</div>
 								</div>
-								<div className="w-1/5">
-									<div className="block text-gray-500">{x.favCount + '收藏'}</div>
+								<div className="mr-4 w-1/5">
+									<div className="block text-gray-500 ">
+										{x.favCount + '收藏'}
+									</div>
 									<div className="block text-gray-500">
 										{x.viewCount + '瀏覽'}
 									</div>
 								</div>
 								<div>
-									<Button className="bg-gray-900 text-white">收藏</Button>
+									<Button className="bg-[#ffcc84] text-black ">收藏</Button>
 								</div>
 							</CardContent>
 						</Card>

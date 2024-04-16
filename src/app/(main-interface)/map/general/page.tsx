@@ -31,7 +31,7 @@ function HomePage() {
 			style={{
 				width: '100vw',
 				height: 'calc(100vh - 148px)',
-				marginTop: '4px',
+				// marginTop: '4px',
 				marginBottom: '4px',
 			}}
 		>

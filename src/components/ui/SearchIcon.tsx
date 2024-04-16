@@ -21,7 +21,7 @@ const SearchIcon: React.FC = () => {
 	) {
 		return (
 			<div onClick={handleSearchClick} className="cursor-pointer">
-				<MagnifyingGlassIcon width="24" height="24" />
+				<MagnifyingGlassIcon width="28" height="28" />
 			</div>
 		);
 	}

@@ -16,7 +16,10 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 			footer={null}
 			centered={true}
 			width="80vw"
-			styles={{ body: { textAlign: 'center', justifyContent: 'center' } }}
+			styles={{
+				body: { textAlign: 'center', justifyContent: 'center' },
+				content: { backgroundColor: '#FDFBF4', borderRadius: 20 },
+			}}
 		>
 			{restaurantID === null ? (
 				<>
@@ -26,9 +29,10 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 					<Button
 						onClick={() => setID('1234')}
 						style={{
-							color: '#ffffff',
-							backgroundColor: '#000000',
+							color: '#000000',
+							backgroundColor: '#ffcc84',
 							width: '60vw',
+							height: '10vw',
 							marginBottom: '15px',
 						}}
 					>
@@ -38,9 +42,10 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 					<Button
 						onClick={() => setID('1234')}
 						style={{
-							color: '#ffffff',
-							backgroundColor: '#000000',
+							color: '#000000',
+							backgroundColor: '#f7a072',
 							width: '60vw',
+							height: '10vw',
 							marginBottom: '45px',
 						}}
 					>
@@ -79,9 +84,11 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 					<Button
 						onClick={() => setID('1234')}
 						style={{
-							color: '#ffffff',
-							backgroundColor: '#000000',
+							color: '#000000',
+							backgroundColor: '#ffcc84',
 							width: '60vw',
+							height: '10vw',
+
 							marginBottom: '15px',
 						}}
 					>
@@ -91,9 +98,10 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 					<Button
 						onClick={() => setID('1234')}
 						style={{
-							color: '#ffffff',
-							backgroundColor: '#000000',
+							color: '#000000',
+							backgroundColor: '#f7a072',
 							width: '60vw',
+							height: '10vw',
 							marginBottom: '45px',
 						}}
 					>

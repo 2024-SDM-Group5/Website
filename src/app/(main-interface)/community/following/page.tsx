@@ -7,9 +7,9 @@ import PostList from '@/components/PostList';
 const posts = [
 	{
 		id: 1,
-		authorAvatarUrl: '/images/1.jpg',
+		authorAvatarUrl: '/images/avatar2.jpg',
 		authorName: 'John Doe',
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 		favCount: 120,
 		replies: [
 			{ id: 1, username: 'user1', content: 'Amazing post!' },
@@ -18,9 +18,9 @@ const posts = [
 	},
 	{
 		id: 2,
-		authorAvatarUrl: '/images/1.jpg',
+		authorAvatarUrl: '/images/avatar2.jpg',
 		authorName: 'Jane Smith',
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 		favCount: 75,
 		replies: [{ id: 3, username: 'user3', content: 'Love this!' }],
 	},

@@ -43,15 +43,17 @@ const Navbar = () => {
 	}, [pathname]);
 
 	return (
-		<Tabs value={activeTab} className="w-full">
-			<TabsList className="w-full rounded-none bg-transparent p-0">
+		<Tabs value={activeTab} className="h-15 w-full">
+			<TabsList className="h-full w-full rounded-none bg-white p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger
 						key={tab.value}
 						value={tab.value}
-						className="border-b-gray text-muted-foreground relative flex-1 rounded-none border-b-2 bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-black"
+						className="border-b-gray text-muted-foreground relative flex-1 rounded-none border-b-4 bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-[#FF990A] [&_a]:text-neutral-500 [&_a]:data-[state=active]:text-[#FF990A]"
 					>
-						<Link href={tab.href}>{tab.label}</Link>
+						<Link href={tab.href} className="text-lg">
+							{tab.label}
+						</Link>
 					</TabsTrigger>
 				))}
 			</TabsList>

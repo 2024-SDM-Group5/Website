@@ -16,75 +16,75 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 16,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 17,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 	{
 		id: 18,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/food2.jpg',
 	},
 ];
 interface Diary {
@@ -101,32 +101,32 @@ interface User {
 const mockUserList: User[] = [
 	{
 		id: 1,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/1.jpg',
+		imageUrl: '/images/avatar2.jpg',
 		userName: 'John',
 	},
 ];
