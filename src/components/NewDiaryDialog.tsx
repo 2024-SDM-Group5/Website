@@ -67,7 +67,7 @@ export function NewDiaryDialog({ idToken }: NewDiaryDialogProps) {
 				<Button
 					type="primary"
 					size="large"
-					style={{ color: '#000000', backgroundColor: '#ffffff' }}
+					style={{ color: '#000000', backgroundColor: '#EDDEA4' }}
 				>
 					新增日記
 				</Button>
