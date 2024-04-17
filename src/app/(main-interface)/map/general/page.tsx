@@ -16,25 +16,18 @@ interface Coordinate {
 function HomePage() {
 	const [bound, setBound] = React.useState<Array<Coordinate>>([
 		{
-			lat: 10.99835602,
-			lng: 77.01502627,
+			lat: 25.016375,
+			lng: 121.536792,
 		},
 		{
-			lat: 10.99835602,
-			lng: 77.01502627,
+			lat: 25.016375,
+			lng: 121.536792,
 		},
 	]);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
 	return (
-		<div
-			style={{
-				width: '100vw',
-				height: 'calc(100vh - 148px)',
-				// marginTop: '4px',
-				marginBottom: '4px',
-			}}
-		>
+		<div className="h-full w-full">
 			<MapSearchBar />
 			{
 				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
@@ -42,23 +35,23 @@ function HomePage() {
 						onClick={() => setDrawer(null)}
 						disableDefaultUI={true}
 						mapId="1234"
-						defaultZoom={9}
+						defaultZoom={15}
 						defaultCenter={{
-							lat: 10.99835602,
-							lng: 77.01502627,
+							lat: 25.016375,
+							lng: 121.536792,
 						}}
 					>
 						<AdvancedMarker
 							position={{
-								lat: 10.99835602,
-								lng: 77.01502627,
+								lat: 25.016375,
+								lng: 121.536792,
 							}}
 							onClick={() => setDrawer('1234')}
 						>
 							<Pin />
 						</AdvancedMarker>
 					</Map>
-					<RestaurantDrawer newDiary={false} show={drawer} setShow={setDrawer} />
+					<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 					<LotteryFloatButton onClick={() => setModal(true)} />
 					<LotteryModal open={modal} onCancel={() => setModal(false)} />
 				</APIProvider>

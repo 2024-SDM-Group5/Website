@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
@@ -130,6 +129,13 @@ const mockUserList: User[] = [
 		userName: 'John',
 	},
 ];
+
+const tabs = [
+	{ value: 'diary', name: '日記' },
+	{ value: 'account', name: '帳號' },
+	{ value: 'tags', name: '標籤' },
+];
+
 export default function Page() {
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
@@ -163,29 +169,19 @@ export default function Page() {
 
 			<Tabs defaultValue="diary" className="w-full ">
 				<TabsList className="w-full rounded-none bg-transparent p-0">
-					<TabsTrigger
-						value="diary"
-						className="text-muted-foreground relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0"
-					>
-						日記
-					</TabsTrigger>
-					<TabsTrigger
-						value="account"
-						className="text-muted-foreground relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0"
-					>
-						帳號
-					</TabsTrigger>
-					<TabsTrigger
-						value="tags"
-						className="text-muted-foreground relative flex-1 rounded-none border-b-2 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0"
-					>
-						標籤
-					</TabsTrigger>
+					{tabs.map((tab) => (
+						<TabsTrigger
+							key={tab.value}
+							value={tab.value}
+							className="border-b-gray relative flex-1 rounded-none border-b-4 text-neutral-500 data-[state=active]:border-b-[#FF990A] data-[state=active]:text-[#FF990A]"
+						>
+							{tab.name}
+						</TabsTrigger>
+					))}
 				</TabsList>
 
 				<TabsContent value="diary">
 					<div className="flex w-full flex-1 flex-col ">
-						<Separator className="m-1" />
 						<div className="flex w-full flex-1 overflow-auto">
 							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white ">
 								{userDiaries.map((diary) => (
@@ -231,7 +227,6 @@ export default function Page() {
 				</TabsContent>
 				<TabsContent value="account">
 					<div className="m-8 flex h-full flex-col">
-						{/* <Separator className="m-1" /> */}
 						{mockUserList.map((user) => (
 							<div key={user.id} className="mt-4 flex items-center ">
 								<Image
@@ -256,11 +251,9 @@ export default function Page() {
 									<div key={diary.id} className="relative ">
 										<Image
 											src={diary.imageUrl}
-											// src=""
 											alt={`Diary ${diary.id}`}
 											width={500}
 											height={500}
-											// fill={true}
 											layout="responsive"
 											className="rounded-md bg-[#D9D9D9] "
 										/>

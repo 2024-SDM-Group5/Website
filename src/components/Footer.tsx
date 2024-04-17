@@ -18,13 +18,13 @@ const Footer = () => {
 	const activeTab = pathSegments[0];
 
 	return (
-		<Tabs value={activeTab} className="h-15 fixed bottom-0 w-full bg-white">
-			<TabsList className="border-b-none h-full w-full rounded-none bg-transparent p-0">
+		<Tabs value={activeTab} className="h-15 z-100 fixed bottom-0 w-full bg-white">
+			<TabsList className="border-b-none z-100 h-full w-full rounded-none p-0">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger
 						key={tab.value}
 						value={tab.value}
-						className="data-[state=active]:border-b-none data-[state=active]:border-t-solid border-b-none text-muted-foreground relative flex-1 rounded-none border-b-2 border-t-4 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-t-[#FF990A] [&_a]:text-neutral-500 [&_a]:data-[state=active]:text-[#FF990A] "
+						className="data-[state=active]:border-b-none data-[state=active]:border-t-solid border-b-none text-muted-foreground z-100 relative flex-1 rounded-none border-t-4 border-b-transparent bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-t-[#FF990A] [&_a]:text-neutral-500 [&_a]:data-[state=active]:text-[#FF990A]"
 					>
 						<Link href={tab.href} className="text-lg">
 							{tab.label}

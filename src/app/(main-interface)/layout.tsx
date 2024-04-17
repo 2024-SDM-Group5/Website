@@ -10,7 +10,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
 	return (
-		<div className="flex max-h-screen w-full flex-col bg-white">
+		<div className="flex h-screen w-full flex-col bg-white">
 			<div className="fixed right-4 top-4 z-10">
 				<SearchIcon />
 			</div>

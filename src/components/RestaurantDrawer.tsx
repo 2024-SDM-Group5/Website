@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
@@ -20,19 +24,19 @@ const RestaurantDrawer = ({
 			open={show !== null}
 			height="35%"
 			rootStyle={{
-				marginBottom: '40px',
+				marginBottom: '52px',
 			}}
 			closeIcon={null}
 			style={{
 				boxShadow: 'none',
 			}}
 			styles={{
-				header: { backgroundColor: '#D9D9D9' },
+				header: { backgroundColor: '#ffcc84' },
 				content: {
 					borderTopLeftRadius: '30px',
 					borderTopRightRadius: '30px',
 				},
-				body: { backgroundColor: '#D9D9D9', paddingTop: '40px' },
+				body: { backgroundColor: '#FBF7E9', paddingTop: '40px' },
 				footer: { height: '40%' },
 			}}
 			footer={
@@ -40,7 +44,7 @@ const RestaurantDrawer = ({
 					dataSource={[
 						{
 							key: '1',
-							image: '',
+							image: '/images/food2.jpg',
 							date: '2024/2/29',
 							items: '漢寶寶一個',
 							content: '漢寶寶裡沒有寶寶，真的很令人失望 ...',
@@ -52,7 +56,7 @@ const RestaurantDrawer = ({
 							dataIndex: 'image',
 							key: 'image',
 							render: (text) => (
-								<Image src={text} alt={text} width={39} height={39} />
+								<Image src={text} alt={text} width={80} height={80} />
 							),
 						},
 						{
@@ -77,7 +81,7 @@ const RestaurantDrawer = ({
 		>
 			<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 				<div style={{ width: '174px', paddingLeft: '20px' }}>
-					<Image src={''} alt={show + ''} width={105} height={105} />
+					<Image src={'/images/food3.jpg'} alt={show + ''} width={105} height={105} />
 				</div>
 				<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
 					<div style={{ display: 'inline' }}>某間餐廳</div>
@@ -89,11 +93,11 @@ const RestaurantDrawer = ({
 					<div style={{ display: 'inline' }}>
 						<Button
 							size="large"
-							style={{ color: '#ffffff', backgroundColor: '#000000' }}
+							style={{ color: '#000000', backgroundColor: '#EDDEA4', marginRight: 4 }}
 						>
 							已收藏
 						</Button>
-						{newDiary && <NewDiaryDialog idToken="" />}
+						{newDiary && <NewDiaryDialog idToken="" close={() => setShow(null)} />}
 					</div>
 				</div>
 			</div>
