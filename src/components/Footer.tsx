@@ -15,7 +15,7 @@ const tabsConfig = [
 const Footer = () => {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
-	const activeTab = pathSegments[0];
+	const activeTab = pathSegments[1];
 
 	return (
 		<Tabs value={activeTab} className="h-15 z-100 fixed bottom-0 w-full bg-white">
