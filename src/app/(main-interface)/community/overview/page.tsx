@@ -10,7 +10,7 @@ const posts = [
 		authorAvatarUrl: '/images/avatar2.jpg',
 		authorName: 'John Doe',
 		imageUrl: '/images/food3.jpg',
-		favCount: 125,
+		favCount: 130,
 		replies: [
 			{ id: 1, username: 'user1', content: 'Amazing post!' },
 			{ id: 2, username: 'user2', content: 'Wow!' },
