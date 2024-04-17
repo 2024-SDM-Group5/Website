@@ -15,75 +15,75 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 16,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 17,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 18,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 ];
 interface Diary {
@@ -100,32 +100,32 @@ interface User {
 const mockUserList: User[] = [
 	{
 		id: 1,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/avatar2.jpg',
+		imageUrl: '/website/images/avatar2.jpg',
 		userName: 'John',
 	},
 ];
@@ -141,7 +141,7 @@ export default function Page() {
 	const params = useParams<{ id: string }>();
 	const router = useRouter();
 	const handleBackClick = () => {
-		router.push('/community/overview');
+		router.push('/website/community/overview');
 	};
 	useEffect(() => {
 		const fetchUserDiaries = async () => {

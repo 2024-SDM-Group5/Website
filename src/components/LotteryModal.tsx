@@ -64,7 +64,7 @@ const LotteryModal = ({ open, onCancel }: { open: boolean; onCancel: Function })
 						}}
 					>
 						<div style={{ width: '110px' }}>
-							<Image src={'/images/food2.jpg'} alt={''} width={86} height={86} />
+							<Image src={'/website/images/food2.jpg'} alt={''} width={86} height={86} />
 						</div>
 						<div
 							style={{

@@ -24,7 +24,7 @@ interface UserDetail {
 const mockUserDetail: UserDetail = {
 	id: 12345,
 	displayName: 'Claire',
-	avatarUrl: '/images/food.jpg',
+	avatarUrl: '/website/images/food.jpg',
 	following: 15,
 	followed: 20,
 	mapId: 67890,
@@ -34,75 +34,75 @@ const mockUserDetail: UserDetail = {
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 16,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 17,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 	{
 		id: 18,
-		imageUrl: '/images/food.jpg',
+		imageUrl: '/website/images/food.jpg',
 	},
 ];
 

@@ -25,7 +25,7 @@ interface UserDetail {
 const mockUserDetail: UserDetail = {
 	id: 12345,
 	displayName: 'Jenny',
-	avatarUrl: '/images/avatar.png',
+	avatarUrl: '/website/images/avatar.png',
 	following: 15,
 	followed: 20,
 	mapId: 67890,
@@ -35,63 +35,63 @@ const mockUserDetail: UserDetail = {
 const mockDiary: Diary[] = [
 	{
 		id: 1,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 2,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 3,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 4,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 5,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 6,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 7,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 8,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 9,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 10,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 11,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 12,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 13,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 14,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 	{
 		id: 15,
-		imageUrl: '/images/food2.jpg',
+		imageUrl: '/website/images/food2.jpg',
 	},
 ];
 
@@ -112,8 +112,8 @@ interface DiaryDetail {
 const mockDiaryDetail: DiaryDetail = {
 	id: 1,
 	authorName: 'Jenny',
-	authorAvatarUrl: '/images/avatar.png',
-	imageUrl: '/images/food2.jpg',
+	authorAvatarUrl: '/website/images/avatar.png',
+	imageUrl: '/website/images/food2.jpg',
 	content: 'Tried this amazing boba place today!',
 	replies: [{ id: 1, username: 'bobaLover', content: 'Looks delicious!' }],
 	favCount: 25,

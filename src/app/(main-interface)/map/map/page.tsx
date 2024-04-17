@@ -15,7 +15,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -23,7 +23,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -31,7 +31,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -39,7 +39,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -47,7 +47,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -55,7 +55,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -63,7 +63,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -71,7 +71,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -79,7 +79,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -87,7 +87,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,
@@ -95,7 +95,7 @@ const data = [
 	{
 		id: 0,
 		name: '地圖名稱',
-		iconUrl: '/images/food3.jpg',
+		iconUrl: '/website/images/food3.jpg',
 		author: 'Amy',
 		viewCount: 375,
 		favCount: 375,

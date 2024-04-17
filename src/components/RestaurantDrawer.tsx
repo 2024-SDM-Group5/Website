@@ -44,7 +44,7 @@ const RestaurantDrawer = ({
 					dataSource={[
 						{
 							key: '1',
-							image: '/images/food2.jpg',
+							image: '/website/images/food2.jpg',
 							date: '2024/2/29',
 							items: '漢寶寶一個',
 							content: '漢寶寶裡沒有寶寶，真的很令人失望 ...',
@@ -81,7 +81,7 @@ const RestaurantDrawer = ({
 		>
 			<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 				<div style={{ width: '174px', paddingLeft: '20px' }}>
-					<Image src={'/images/food3.jpg'} alt={show + ''} width={105} height={105} />
+					<Image src={'/website/images/food3.jpg'} alt={show + ''} width={105} height={105} />
 				</div>
 				<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
 					<div style={{ display: 'inline' }}>某間餐廳</div>
