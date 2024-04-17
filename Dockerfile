@@ -9,4 +9,4 @@ RUN yarn run build
 
 EXPOSE 8080
 
-ENTRYPOINT  ["/bin/bash", "-c", "service nginx start && yarn run start -p 3000"]
+CMD ["/bin/bash", "-c", "service nginx start && yarn run start -p 3000"]
