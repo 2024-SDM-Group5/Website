@@ -1,12 +1,16 @@
-FROM node:20
+# 階段 1: 建構階段
+FROM node:20 as builder
 COPY ./ .
-RUN apt-get autoremove
-RUN apt-get update
-RUN apt-get -o DPkg::Options::="--force-confnew" install -y nginx
+RUN yarn install && yarn run build
+
+# 階段 2: 運行階段
+FROM node:20-slim
+COPY --from=builder /app/public /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN yarn install
-RUN yarn run build
+RUN apt-get update && \
+    apt-get -o DPkg::Options::="--force-confnew" install -y nginx && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8080
-
-ENTRYPOINT ["/bin/bash", "-c", "service nginx start && yarn run start -p 3000"]
+CMD ["nginx", "-g", "daemon off;"]
