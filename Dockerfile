@@ -1,16 +1,27 @@
-# 階段 1: 建構階段
-FROM node:20 as builder
-COPY ./ .
-RUN yarn install && yarn run build
+FROM node:20
 
-# 階段 2: 運行階段
-FROM node:20-slim
-COPY --from=builder /app/public /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Set work directory to avoid polluting the container's root directory
+WORKDIR /app
+
+# Copy all local files into the container
+COPY . .
+
+# Install nginx and clean up in one layer to reduce image size
 RUN apt-get update && \
     apt-get -o DPkg::Options::="--force-confnew" install -y nginx && \
-    apt-get autoremove && \
+    apt-get autoremove -y && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Install dependencies and build the project
+RUN yarn install && \
+    yarn run build
+
+# Expose the correct port
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+
+# Set the entrypoint to start nginx and the node application
+ENTRYPOINT ["/bin/bash", "-c", "nginx -g 'daemon off;' & yarn run start -p 3000"]
