@@ -81,7 +81,12 @@ const RestaurantDrawer = ({
 		>
 			<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 				<div style={{ width: '174px', paddingLeft: '20px' }}>
-					<Image src={'/website/images/food3.jpg'} alt={show + ''} width={105} height={105} />
+					<Image
+						src={'/website/images/food3.jpg'}
+						alt={show + ''}
+						width={105}
+						height={105}
+					/>
 				</div>
 				<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
 					<div style={{ display: 'inline' }}>某間餐廳</div>

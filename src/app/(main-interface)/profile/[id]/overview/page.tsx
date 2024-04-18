@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -125,6 +126,7 @@ const UserProfile = () => {
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
 	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const params = useParams<{ id: string }>();
+	const session = useSession();
 	const handleEditProfile = () => {
 		// Handle edit profile logic
 	};
