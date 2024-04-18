@@ -21,7 +21,7 @@ export const options = {
 			user: User;
 		}): Promise<Session> {
 			session.username = token.username;
-			session.accessToken = token.accessToken;
+			session.idToken = token.idToken;
 			return session;
 		},
 		async jwt({
@@ -37,7 +37,7 @@ export const options = {
 				token.username = profile.login;
 			}
 			if (account) {
-				token.accessToken = account.access_token;
+				token.idToken = account.id_token;
 			}
 			return token;
 		},
