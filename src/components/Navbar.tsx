@@ -13,7 +13,7 @@ const Navbar = () => {
 	const rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
-	console.log(rootPath);
+	// console.log(rootPath);
 	if (rootPath === 'map') {
 		tabsConfig = [
 			{ value: 'general', label: '總地圖', href: '/website/map/general' },

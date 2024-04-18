@@ -12,6 +12,7 @@ import { ProfileEditDialog } from '@/components/ProfileEditDialog';
 import SinglePost from '@/components/SinglePost';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useUser } from '@/hook/useUser';
 
 interface UserDetail {
 	id: number;
@@ -127,6 +128,9 @@ const UserProfile = () => {
 	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const params = useParams<{ id: string }>();
 	const session = useSession();
+	// console.log(session.data?.idToken);
+	const userId = useUser(session.data?.idToken);
+	// console.log(userId)
 	const handleEditProfile = () => {
 		// Handle edit profile logic
 	};
