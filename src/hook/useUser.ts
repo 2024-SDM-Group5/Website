@@ -9,7 +9,6 @@ interface LoginResponse {
 
 export const useUser = (idToken: string) => {
 	const [userId, setUserId] = useState<number | null>(null);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -24,7 +23,6 @@ export const useUser = (idToken: string) => {
 				console.error('Failed to login:', error);
 			}
 		};
-
 		fetchData();
 	}, [idToken]);
 

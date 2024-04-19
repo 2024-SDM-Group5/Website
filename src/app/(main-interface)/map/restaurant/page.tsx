@@ -101,7 +101,7 @@ const data = [
 		favCount: 375,
 	},
 ];
-function HomePage() {
+function RestaurantOverview() {
 	return (
 		<div className="mb-1 mt-1 h-[calc(100vh-148px)] w-screen">
 			<div className="m-4 flex justify-start pt-4">
@@ -154,4 +154,4 @@ function HomePage() {
 	);
 }
 
-export default HomePage;
+export default RestaurantOverview;

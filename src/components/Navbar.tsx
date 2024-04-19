@@ -10,12 +10,15 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 function Navbar() {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
-	const rootPath = pathSegments[1];
+	let rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
 	// console.log(rootPath);
-	let prefix = "/website";
-	if(process.env.NEXT_PUBLIC_NODE_ENV == "development") prefix = "";
+	let prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+		rootPath = pathSegments[0];
+	}
 	if (rootPath === 'map') {
 		tabsConfig = [
 			{ value: 'general', label: '總地圖', href: prefix + '/map/general' },

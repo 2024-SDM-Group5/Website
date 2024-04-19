@@ -7,7 +7,9 @@ import Image from 'next/image';
 import { SearchOutlined } from '@ant-design/icons';
 import * as Select from '@radix-ui/react-select';
 import { Input } from 'antd';
+import axios from 'axios';
 
+import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -101,7 +103,8 @@ const data = [
 		favCount: 375,
 	},
 ];
-function HomePage() {
+const Archive = () => {
+	const session = useSession();
 	return (
 		<div className="mb-1 mt-1 h-[calc(100vh-148px)] w-screen">
 			<div className="m-4 flex justify-start pt-4">
@@ -154,4 +157,4 @@ function HomePage() {
 	);
 }
 
-export default HomePage;
+export default Archive;
