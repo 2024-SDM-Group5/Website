@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { Button, Modal } from 'antd';
 
-function LotteryModal(open: boolean, onCancel: Function) {
+function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function }) {
 	const [restaurantID, setID] = React.useState<string | null>(null);
 	useEffect(() => {
 		if (!open) setID(null);

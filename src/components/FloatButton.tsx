@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import lottery from './fluent_lottery-20-filled.png';
 
-function LotteryFloatButton(onClick: Function) {
+function LotteryFloatButton({ onClick }: { onClick: Function }) {
 	return (
 		<div
 			onClick={onClick as MouseEventHandler}
