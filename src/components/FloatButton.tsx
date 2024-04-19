@@ -1,10 +1,10 @@
-import { MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 
 import Image from 'next/image';
 
 import lottery from './fluent_lottery-20-filled.png';
 
-const LotteryFloatButton = ({ onClick }: { onClick: Function }) => {
+function LotteryFloatButton(onClick: Function) {
 	return (
 		<div
 			onClick={onClick as MouseEventHandler}
@@ -23,5 +23,5 @@ const LotteryFloatButton = ({ onClick }: { onClick: Function }) => {
 			<Image src={lottery} alt="lottery" />
 		</div>
 	);
-};
+}
 export default LotteryFloatButton;

@@ -1,5 +1,5 @@
 import SinglePost from './SinglePost';
-import { SinglePostType } from './SinglePost';
+import type { SinglePostType } from './SinglePost';
 
 const PostList = ({ posts }: { posts: SinglePostType[] }) => (
 	<div className="h-[100vh] overflow-hidden overflow-y-scroll">

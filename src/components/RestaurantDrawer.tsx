@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
 
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 
-const RestaurantDrawer = ({
+function RestaurantDrawer({
 	show,
 	setShow,
 	newDiary,
@@ -16,7 +14,7 @@ const RestaurantDrawer = ({
 	show: string | null;
 	setShow: React.Dispatch<string | null>;
 	newDiary: boolean;
-}) => {
+}) {
 	return (
 		<Drawer
 			mask={false}
@@ -108,5 +106,5 @@ const RestaurantDrawer = ({
 			</div>
 		</Drawer>
 	);
-};
+}
 export default RestaurantDrawer;

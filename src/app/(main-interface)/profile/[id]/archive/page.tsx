@@ -1,170 +1,102 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 
+// import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
+import type { DiaryDetail } from '../overview/page';
 import axios from 'axios';
 
-import { ProfileEditDialog } from '@/components/ProfileEditDialog';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import SinglePost from '@/components/SinglePost';
 
-interface UserDetail {
-	id: number;
-	displayName: string;
-	avatarUrl: string;
-	following: number;
-	followed: number;
-	mapId: number;
-	postCount: number;
-}
-
-const mockUserDetail: UserDetail = {
-	id: 12345,
-	displayName: 'Claire',
-	avatarUrl: '/website/images/food.jpg',
-	following: 15,
-	followed: 20,
-	mapId: 67890,
-	postCount: 15,
-};
-
-const mockDiary: Diary[] = [
-	{
-		id: 1,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 2,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 3,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 4,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 5,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 6,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 7,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 8,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 9,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 10,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 11,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 12,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 13,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 14,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 15,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 16,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 17,
-		imageUrl: '/website/images/food.jpg',
-	},
-	{
-		id: 18,
-		imageUrl: '/website/images/food.jpg',
-	},
-];
+// import { useUser } from '@/hook/useUser';
 
 interface Diary {
 	id: number;
 	imageUrl: string;
 }
 
-const UserArchive = () => {
-	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
-	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
+function UserArchive() {
+	const [userArchives, setUserArchives] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
-
-	const handleViewMap = () => {
-		// Handle view map logic
+	// const session = useSession();
+	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
+	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
+	const handleBack = () => {
+		setSelectedDiaryId(null);
+		setSelectedDiaryDetail(null);
 	};
 
-	const handleFollow = () => {
-		// Handle follow logic
-	};
 	useEffect(() => {
-		const fetchUserDetail = async () => {
-			try {
-				// const response = await axios.get<UserDetail>(`/api/v1/user/${params.id}`);
-				// setUserDetail(response.data);
-				setUserDetail(mockUserDetail);
-			} catch (error) {
-				console.error('Failed to fetch user details:', error);
+		const fetchDiaryDetail = async () => {
+			if (selectedDiaryId) {
+				try {
+					const response = await axios.get(
+						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${selectedDiaryId}`,
+					);
+					setSelectedDiaryDetail(response.data);
+					console.log('SelectedDiaryDetail: ', response.data);
+				} catch (error) {
+					console.error('Failed to fetch diary details:', error);
+				}
 			}
 		};
-		const fetchUserDiaries = async () => {
+		fetchDiaryDetail();
+	}, [selectedDiaryId]);
+
+	useEffect(() => {
+		const fetchUserArchives = async () => {
 			try {
-				// const response = await axios.get<UserDiariesResponse>(`/api/v1/users/${params.id}/diaries`);
-				// setUserDiaries(response.data.diaries);
-				setUserDiaries(mockDiary);
+				const response = await axios.get(
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/collections`,
+				);
+				setUserArchives(response.data);
 			} catch (error) {
-				if (axios.isAxiosError(error) && error.response) {
-					console.error(`Error fetching diaries: ${error.response.status}`);
+				if (axios.isAxiosError(error)) {
+					if (error.response && error.response.status === 404) {
+						console.error('User not found:', error.response.data);
+					} else if (error.response && error.response.status === 500) {
+						console.error('System error:', error.response.data);
+					} else {
+						console.error('Error fetching user archives:', error.message);
+					}
 				} else {
-					console.error('Failed to fetch user diaries:', error);
+					console.error('Non-Axios error:', error);
 				}
 			}
 		};
 
-		fetchUserDiaries();
-		fetchUserDetail();
+		fetchUserArchives();
 	}, [params.id]);
 
-	if (!userDetail) return <div>Loading...</div>;
-
+	if (selectedDiaryId && selectedDiaryDetail) {
+		return (
+			<div className="w-full">
+				<button onClick={handleBack} className="m-4">
+					Back
+				</button>
+				<SinglePost
+					avatarUrl={selectedDiaryDetail.avatarUrl}
+					authorName={selectedDiaryDetail.username}
+					imageUrl={selectedDiaryDetail.photos[0]}
+					favCount={selectedDiaryDetail.favCount}
+					replies={selectedDiaryDetail.replies}
+					content={selectedDiaryDetail.content}
+				/>
+			</div>
+		);
+	}
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="flex w-full flex-1 overflow-auto">
 				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
-					{userDiaries.map((diary) => (
+					{userArchives.map((diary) => (
 						<div key={diary.id} className="relative ">
 							<Image
 								src={diary.imageUrl}
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}
-								// fill={true}
 								priority={true}
 							/>
 						</div>
@@ -173,6 +105,6 @@ const UserArchive = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default UserArchive;

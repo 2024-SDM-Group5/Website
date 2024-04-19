@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 import Footer from '@/components/Footer';
 
@@ -6,7 +7,7 @@ type Props = {
 	children: ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+function Layout({ children }: Props) {
 	return (
 		<div className="flex max-h-screen w-full flex-col">
 			<div className="mx-auto max-w-6xl px-4 py-5 text-center">
@@ -18,6 +19,6 @@ const Layout = ({ children }: Props) => {
 			<Footer />
 		</div>
 	);
-};
+}
 
 export default Layout;

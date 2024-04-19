@@ -10,25 +10,21 @@ export interface SinglePostType {
 }
 
 export interface SinglePostProps {
-	authorAvatarUrl: string;
+	avatarUrl: string;
 	authorName: string;
 	imageUrl: string;
+	content: string;
+	replies: [{ id: number; username: string; content: string }];
 	favCount: number;
-	replies: { id: number; username: string; content: string }[];
 }
 
-const SinglePost = ({
-	authorAvatarUrl,
-	authorName,
-	imageUrl,
-	favCount,
-	replies,
-}: SinglePostProps) => {
+function SinglePost({ avatarUrl, authorName, imageUrl, favCount, replies }: SinglePostProps) {
+	console.log(avatarUrl, authorName, imageUrl, favCount, replies);
 	return (
 		<div className="flex w-full flex-col items-center justify-center">
 			<div className="mb-4 ml-4 flex w-full items-center justify-start">
 				<Image
-					src={authorAvatarUrl}
+					src={avatarUrl}
 					alt="Author"
 					width={60}
 					height={60}
@@ -47,6 +43,6 @@ const SinglePost = ({
 			</div>
 		</div>
 	);
-};
+}
 
 export default SinglePost;

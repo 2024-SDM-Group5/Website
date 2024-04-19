@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
@@ -8,7 +9,7 @@ type Props = {
 	children: ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+function Layout({ children }: Props) {
 	return (
 		<div className="flex h-screen w-full flex-col bg-white">
 			<div className="fixed right-4 top-4 z-10">
@@ -24,6 +25,6 @@ const Layout = ({ children }: Props) => {
 			<Footer />
 		</div>
 	);
-};
+}
 
 export default Layout;

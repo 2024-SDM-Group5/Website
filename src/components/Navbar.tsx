@@ -7,13 +7,12 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const Navbar = () => {
+function Navbar() {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
 	const rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
-	// console.log(rootPath);
 	if (rootPath === 'map') {
 		tabsConfig = [
 			{ value: 'general', label: '總地圖', href: '/website/map/general' },
@@ -59,6 +58,6 @@ const Navbar = () => {
 			</TabsList>
 		</Tabs>
 	);
-};
+}
 
 export default Navbar;

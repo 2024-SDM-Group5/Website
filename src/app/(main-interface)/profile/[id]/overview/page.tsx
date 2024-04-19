@@ -24,116 +24,28 @@ interface UserDetail {
 	postCount: number;
 }
 
-const mockUserDetail: UserDetail = {
-	id: 12345,
-	displayName: 'Jenny',
-	avatarUrl: '/website/images/avatar.png',
-	following: 15,
-	followed: 20,
-	mapId: 67890,
-	postCount: 15,
-};
-
-const mockDiary: Diary[] = [
-	{
-		id: 1,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 2,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 3,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 4,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 5,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 6,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 7,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 8,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 9,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 10,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 11,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 12,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 13,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 14,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 15,
-		imageUrl: '/website/images/food2.jpg',
-	},
-];
-
 interface Diary {
 	id: number;
 	imageUrl: string;
 }
-interface DiaryDetail {
+export interface DiaryDetail {
 	id: number;
-	authorName: string;
-	authorAvatarUrl: string;
-	imageUrl: string;
+	username: string;
+	avatarUrl: string;
+	photos: string[];
 	content: string;
 	replies: [{ id: number; username: string; content: string }];
-	favCount: 25;
+	favCount: number;
 }
 
-const mockDiaryDetail: DiaryDetail = {
-	id: 1,
-	authorName: 'Jenny',
-	authorAvatarUrl: '/website/images/avatar.png',
-	imageUrl: '/website/images/food2.jpg',
-	content: 'Tried this amazing boba place today!',
-	replies: [{ id: 1, username: 'bobaLover', content: 'Looks delicious!' }],
-	favCount: 25,
-};
-
-const UserProfile = () => {
+function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
 	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const params = useParams<{ id: string }>();
 	const session = useSession();
-	// console.log(session.data?.idToken);
 	const userId = useUser(session.data?.idToken);
-	// console.log(userId)
-	const handleEditProfile = () => {
-		// Handle edit profile logic
-	};
 
 	const handleViewMap = () => {
 		// Handle view map logic
@@ -152,9 +64,11 @@ const UserProfile = () => {
 		const fetchDiaryDetail = async () => {
 			if (selectedDiaryId) {
 				try {
-					// const response = await axios.get(`/api/v1/diaries/${selectedDiaryId}`);
-					// setSelectedDiaryDetail(response.data);
-					setSelectedDiaryDetail(mockDiaryDetail);
+					const response = await axios.get(
+						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${selectedDiaryId}`,
+					);
+					setSelectedDiaryDetail(response.data);
+					console.log('SelectedDiaryDetail: ', response.data);
 				} catch (error) {
 					console.error('Failed to fetch diary details:', error);
 				}
@@ -165,19 +79,31 @@ const UserProfile = () => {
 
 	useEffect(() => {
 		const fetchUserDetail = async () => {
+			const url =
+				params.id === userId?.toString()
+					? 'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me'
+					: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}`;
 			try {
-				// const response = await axios.get<UserDetail>(`/api/v1/user/${params.id}`);
-				// setUserDetail(response.data);
-				setUserDetail(mockUserDetail);
+				const response = await axios.get(url, {
+					headers:
+						params.id === userId?.toString()
+							? {
+									Authorization: `Bearer ${session.data?.idToken}`,
+								}
+							: {},
+				});
+				setUserDetail(response.data);
 			} catch (error) {
 				console.error('Failed to fetch user details:', error);
 			}
 		};
+
 		const fetchUserDiaries = async () => {
 			try {
-				// const response = await axios.get<UserDiariesResponse>(`/api/v1/users/${params.id}/diaries`);
-				// setUserDiaries(response.data.diaries);
-				setUserDiaries(mockDiary);
+				const response = await axios.get(
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/diaries`,
+				);
+				setUserDiaries(response.data);
 			} catch (error) {
 				if (axios.isAxiosError(error) && error.response) {
 					console.error(`Error fetching diaries: ${error.response.status}`);
@@ -187,9 +113,11 @@ const UserProfile = () => {
 			}
 		};
 
-		fetchUserDiaries();
-		fetchUserDetail();
-	}, [params.id]);
+		if (params.id) {
+			fetchUserDetail();
+			fetchUserDiaries();
+		}
+	}, [params.id, userId, session.data?.idToken]);
 
 	if (!userDetail) return <div>Loading...</div>;
 	if (selectedDiaryId && selectedDiaryDetail) {
@@ -199,11 +127,12 @@ const UserProfile = () => {
 					Back
 				</button>
 				<SinglePost
-					authorAvatarUrl={selectedDiaryDetail.authorAvatarUrl}
-					authorName={selectedDiaryDetail.authorName}
-					imageUrl={selectedDiaryDetail.imageUrl}
+					avatarUrl={selectedDiaryDetail.avatarUrl}
+					authorName={selectedDiaryDetail.username}
+					imageUrl={selectedDiaryDetail.photos[0]}
 					favCount={selectedDiaryDetail.favCount}
 					replies={selectedDiaryDetail.replies}
+					content={selectedDiaryDetail.content}
 				/>
 			</div>
 		);
@@ -230,7 +159,7 @@ const UserProfile = () => {
 				</div>
 				<div className="ml-6 text-xl">{userDetail.displayName}</div>
 				<div className="mt-2 flex w-full justify-between">
-					<ProfileEditDialog idToken="" />
+					<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
 					<Button
 						className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						onClick={handleViewMap}
@@ -260,7 +189,6 @@ const UserProfile = () => {
 								width={500}
 								height={500}
 								priority={true}
-								// fill={true}
 							/>
 						</div>
 					))}
@@ -268,6 +196,6 @@ const UserProfile = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default UserProfile;

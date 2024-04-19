@@ -33,7 +33,7 @@ function GoogleIcon() {
 	);
 }
 
-const GoogleSignInButton = () => {
+function GoogleSignInButton() {
 	return (
 		<div className="flex justify-center">
 			<Button
@@ -46,6 +46,6 @@ const GoogleSignInButton = () => {
 			</Button>
 		</div>
 	);
-};
+}
 
 export default GoogleSignInButton;
