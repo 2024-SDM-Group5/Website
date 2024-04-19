@@ -38,7 +38,7 @@ export interface DiaryDetail {
 	favCount: number;
 }
 
-const UserProfile = () => {
+function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
@@ -196,6 +196,6 @@ const UserProfile = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default UserProfile;

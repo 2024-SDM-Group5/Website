@@ -18,7 +18,7 @@ export interface SinglePostProps {
 	favCount: number;
 }
 
-const SinglePost = ({ avatarUrl, authorName, imageUrl, favCount, replies }: SinglePostProps) => {
+function SinglePost({ avatarUrl, authorName, imageUrl, favCount, replies }: SinglePostProps) {
 	console.log(avatarUrl, authorName, imageUrl, favCount, replies);
 	return (
 		<div className="flex w-full flex-col items-center justify-center">
@@ -43,6 +43,6 @@ const SinglePost = ({ avatarUrl, authorName, imageUrl, favCount, replies }: Sing
 			</div>
 		</div>
 	);
-};
+}
 
 export default SinglePost;

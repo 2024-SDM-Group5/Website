@@ -6,7 +6,7 @@ import { UserCircle2 } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-const UserAvatar = () => {
+function UserAvatar() {
 	const { data: session } = useSession();
 
 	return (
@@ -22,6 +22,6 @@ const UserAvatar = () => {
 			<p className="w-full text-center text-xs">{session?.user?.name}</p>
 		</div>
 	);
-};
+}
 
 export default UserAvatar;

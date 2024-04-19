@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const Navbar = () => {
+function Navbar() {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
 	const rootPath = pathSegments[1];
@@ -58,6 +58,6 @@ const Navbar = () => {
 			</TabsList>
 		</Tabs>
 	);
-};
+}
 
 export default Navbar;

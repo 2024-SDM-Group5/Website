@@ -12,7 +12,7 @@ const tabsConfig = [
 	{ value: 'profile', label: '帳戶', href: '/website/profile/1/overview' },
 ];
 
-const Footer = () => {
+function Footer() {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
 	const activeTab = pathSegments[1];
@@ -34,6 +34,6 @@ const Footer = () => {
 			</TabsList>
 		</Tabs>
 	);
-};
+}
 
 export default Footer;

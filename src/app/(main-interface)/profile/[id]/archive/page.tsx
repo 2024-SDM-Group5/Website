@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
 
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-import { DiaryDetail } from '../overview/page';
+import type { DiaryDetail } from '../overview/page';
 import axios from 'axios';
 
 import SinglePost from '@/components/SinglePost';
-import { Button } from '@/components/ui/button';
-import { useUser } from '@/hook/useUser';
+
+// import { useUser } from '@/hook/useUser';
 
 interface Diary {
 	id: number;
 	imageUrl: string;
 }
 
-const UserArchive = () => {
+function UserArchive() {
 	const [userArchives, setUserArchives] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
-	const session = useSession();
-	const userId = useUser(session.data?.idToken);
+	// const session = useSession();
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
 	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const handleBack = () => {
@@ -106,6 +105,6 @@ const UserArchive = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default UserArchive;
