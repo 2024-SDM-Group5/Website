@@ -1,8 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useSession } from 'next-auth/react';
 
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import axios from 'axios';
 
 import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
@@ -26,11 +29,13 @@ function HomePage() {
 	]);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
+	const session = useSession();
+	useEffect(() => {});
 	return (
 		<div className="h-full w-full">
 			<MapSearchBar />
 			{
-				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
+				<APIProvider apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}>
 					<Map
 						onClick={() => setDrawer(null)}
 						disableDefaultUI={true}
@@ -39,6 +44,14 @@ function HomePage() {
 						defaultCenter={{
 							lat: 25.016375,
 							lng: 121.536792,
+						}}
+						onDragend={(e) => {
+							const SW = e.map.getBounds()?.getSouthWest();
+							const NE = e.map.getBounds()?.getNorthEast();
+							setBound([
+								{ lat: SW?.lat(), lng: SW?.lng() },
+								{ lat: NE?.lat(), lng: NE?.lng() },
+							]);
 						}}
 					>
 						<AdvancedMarker

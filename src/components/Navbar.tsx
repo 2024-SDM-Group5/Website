@@ -13,27 +13,30 @@ function Navbar() {
 	const rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
+	// console.log(rootPath);
+	let prefix = "/website";
+	if(process.env.NEXT_PUBLIC_NODE_ENV == "development") prefix = "";
 	if (rootPath === 'map') {
 		tabsConfig = [
-			{ value: 'general', label: '總地圖', href: '/website/map/general' },
-			{ value: 'map', label: '地圖總覽', href: '/website/map/map' },
-			{ value: 'restaurant', label: '餐廳總覽', href: '/website/map/restaurant' },
-			{ value: 'archive', label: '我的收藏', href: '/website/map/archive' },
+			{ value: 'general', label: '總地圖', href: prefix + '/map/general' },
+			{ value: 'map', label: '地圖總覽', href: prefix + '/map/map' },
+			{ value: 'restaurant', label: '餐廳總覽', href: prefix + '/map/restaurant' },
+			{ value: 'archive', label: '我的收藏', href: prefix + '/map/archive' },
 		];
 	} else if (rootPath === 'community') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: '/website/community/overview' },
-			{ value: 'following', label: '追蹤中', href: '/website/community/following' },
+			{ value: 'overview', label: '總覽', href: prefix + '/community/overview' },
+			{ value: 'following', label: '追蹤中', href: prefix + '/community/following' },
 		];
 	} else if (rootPath === 'mymap') {
 		tabsConfig = [
-			{ value: 'map', label: '地圖總覽', href: '/website/mymap/map' },
-			{ value: 'restaurants', label: '餐廳總覽', href: '/website/mymap/restaurants' },
+			{ value: 'map', label: '地圖總覽', href: prefix + '/mymap/map' },
+			{ value: 'restaurants', label: '餐廳總覽', href: prefix + '/mymap/restaurants' },
 		];
 	} else if (rootPath === 'profile') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: '/website/profile/1/overview' },
-			{ value: 'archive', label: '我的收藏', href: '/website/profile/1/archive' },
+			{ value: 'overview', label: '總覽', href: prefix + '/profile/1/overview' },
+			{ value: 'archive', label: '我的收藏', href: prefix + '/profile/1/archive' },
 		];
 	}
 

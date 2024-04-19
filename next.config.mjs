@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development';
 
 const nextConfig = {
 	reactStrictMode: false,
@@ -8,7 +8,7 @@ const nextConfig = {
 	images: {
 		domains: ['picsum.photos', 'myphotos.com'],
 	},
-	// basePath: isDev ? '/website' : undefined,
+	basePath: isDev ? '/website' : undefined,
 };
 
 export default nextConfig;
