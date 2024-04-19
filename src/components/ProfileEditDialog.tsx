@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import axios from 'axios';
+
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
@@ -15,43 +17,72 @@ import { Label } from '@/components/ui/label';
 
 interface ProfileEditDialogProps {
 	idToken: string;
+	userId: number | null;
 }
 
-export function ProfileEditDialog({ idToken }: ProfileEditDialogProps) {
+export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 	const [name, setName] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
 
 	const handleDiscard = () => {
 		setOpen(false);
-		// TODO:
+		setName('');
+		setAvatar(null);
 	};
 
 	const handleSaveChanges = async () => {
-		setOpen(false);
-		// const formData = new FormData();
-		// formData.append('displayName', name);
-		// if (avatar) {
-		//   formData.append('avatarUrl', avatar);
-		// }
+		let avatarUrl = '';
+		if (avatar) {
+			const avatarFormData = new FormData();
+			avatarFormData.append('avatar', avatar);
 
-		// try {
-		//   const response = await fetch('/api/v1/users/update', {
-		//     method: 'PUT',
-		//     headers: {
-		//       'Authorization': `idToken: ${idToken}`,
-		//     },
-		//     body: formData,
-		//   });
+			try {
+				const avatarResponse = await axios.post(
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+					avatarFormData,
+					{
+						headers: {
+							Authorization: `Bearer ${idToken}`,
+						},
+					},
+				);
+				avatarUrl = avatarResponse.data.avatarUrl;
+			} catch (error) {
+				console.error('Failed to upload avatar:', error);
+				setOpen(false);
+				return;
+			}
+		}
 
-		//   if (response.ok) {
-		//     //
-		//   } else {
-		//     // Handle non-200 responses
-		//   }
-		// } catch (error) {
-		//   // Handle network errors
-		// }
+		const profileData = {
+			displayName: name,
+			avatarUrl: avatarUrl,
+		};
+
+		try {
+			const profileResponse = await axios.put(
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${userId}`,
+				profileData,
+				{
+					headers: {
+						Authorization: `Bearer ${idToken}`,
+					},
+				},
+			);
+
+			if (profileResponse.data.success) {
+				console.log('Profile updated:', profileResponse.data.message);
+			} else {
+				console.error('Profile update failed:', profileResponse.data.message);
+			}
+		} catch (error) {
+			console.error('Failed to update profile:', error);
+		} finally {
+			setOpen(false);
+			setName('');
+			setAvatar(null);
+		}
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files.length > 0) {
