@@ -2,16 +2,13 @@
 
 import { useState, useEffect } from 'react';
 
-// import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-import type { DiaryDetail } from '../overview/page';
 import axios from 'axios';
 
 import SinglePost from '@/components/SinglePost';
-
-// import { useUser } from '@/hook/useUser';
 
 interface Diary {
 	id: number;
@@ -21,36 +18,20 @@ interface Diary {
 function UserArchive() {
 	const [userArchives, setUserArchives] = useState<Diary[]>([]);
 	const params = useParams<{ id: string }>();
-	// const session = useSession();
+	const session = useSession();
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
-	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const handleBack = () => {
 		setSelectedDiaryId(null);
-		setSelectedDiaryDetail(null);
 	};
-
-	useEffect(() => {
-		const fetchDiaryDetail = async () => {
-			if (selectedDiaryId) {
-				try {
-					const response = await axios.get(
-						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${selectedDiaryId}`,
-					);
-					setSelectedDiaryDetail(response.data);
-					console.log('SelectedDiaryDetail: ', response.data);
-				} catch (error) {
-					console.error('Failed to fetch diary details:', error);
-				}
-			}
-		};
-		fetchDiaryDetail();
-	}, [selectedDiaryId]);
 
 	useEffect(() => {
 		const fetchUserArchives = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/collections`,
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/diary`,
+					{
+						headers: { Authorization: `Bearer ${session.data?.idToken}` },
+					},
 				);
 				setUserArchives(response.data);
 			} catch (error) {
@@ -71,20 +52,13 @@ function UserArchive() {
 		fetchUserArchives();
 	}, [params.id]);
 
-	if (selectedDiaryId && selectedDiaryDetail) {
+	if (selectedDiaryId) {
 		return (
 			<div className="w-full">
 				<button onClick={handleBack} className="m-4">
 					Back
 				</button>
-				<SinglePost
-					avatarUrl={selectedDiaryDetail.avatarUrl}
-					authorName={selectedDiaryDetail.username}
-					imageUrl={selectedDiaryDetail.photos[0]}
-					favCount={selectedDiaryDetail.favCount}
-					replies={selectedDiaryDetail.replies}
-					content={selectedDiaryDetail.content}
-				/>
+				<SinglePost diaryId={selectedDiaryId} />
 			</div>
 		);
 	}
@@ -93,7 +67,11 @@ function UserArchive() {
 			<div className="flex w-full flex-1 overflow-auto">
 				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
 					{userArchives.map((diary) => (
-						<div key={diary.id} className="relative ">
+						<div
+							key={diary.id}
+							className="relative "
+							onClick={() => setSelectedDiaryId(diary.id)}
+						>
 							<Image
 								src={diary.imageUrl}
 								alt={`Diary ${diary.id}`}
