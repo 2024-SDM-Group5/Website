@@ -20,7 +20,7 @@ function Layout({ children }: Props) {
 			</div>
 			<Navbar />
 
-			<main className="flex flex-1 overflow-hidden bg-white mb-[52px]">{children}</main>
+			<main className="mb-[52px] flex flex-1 overflow-hidden bg-white">{children}</main>
 
 			<Footer />
 		</div>

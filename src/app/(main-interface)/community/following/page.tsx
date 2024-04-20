@@ -14,7 +14,5 @@ const posts = [
 ];
 
 export default function Page() {
-	return (
-		<PostList posts={posts} />
-	);
+	return <PostList posts={posts} />;
 }
