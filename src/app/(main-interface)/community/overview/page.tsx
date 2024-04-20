@@ -6,30 +6,15 @@ import PostList from '@/components/PostList';
 
 const posts = [
 	{
-		id: 1,
-		authorAvatarUrl: '/website/images/avatar2.jpg',
-		authorName: 'John Doe',
-		imageUrl: '/website/images/food3.jpg',
-		favCount: 130,
-		replies: [
-			{ id: 1, username: 'user1', content: 'Amazing post!' },
-			{ id: 2, username: 'user2', content: 'Wow!' },
-		],
+		diaryId: 1
 	},
 	{
-		id: 2,
-		authorAvatarUrl: '/website/images/avatar2.jpg',
-		authorName: 'Jane Smith',
-		imageUrl: '/website/images/food3.jpg',
-		favCount: 75,
-		replies: [{ id: 3, username: 'user3', content: 'Love this!' }],
+		diaryId: 2
 	},
 ];
 
 export default function Page() {
 	return (
-		<div className="mt-8 w-full">
-			<PostList posts={posts} />
-		</div>
+		<PostList posts={posts} />
 	);
 }

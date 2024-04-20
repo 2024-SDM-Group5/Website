@@ -1,18 +1,14 @@
 import SinglePost from './SinglePost';
-import type { SinglePostType } from './SinglePost';
+import type { SinglePostProps } from './SinglePost';
 
-const PostList = ({ posts }: { posts: SinglePostType[] }) => (
-	<div className="h-[100vh] overflow-hidden overflow-y-scroll">
-		{/* {posts.map((post) => (
+const PostList = ({ posts }: { posts: SinglePostProps[] }) => (
+	<div className="w-full h-full overflow-auto">
+		{posts.map((post) => (
 			<SinglePost
-				key={post.id}
-				authorAvatarUrl={post.authorAvatarUrl}
-				authorName={post.authorName}
-				imageUrl={post.imageUrl}
-				favCount={post.favCount}
-				replies={post.replies}
+				key={post.diaryId}
+				diaryId={post.diaryId}
 			/>
-		))} */}
+		))}
 	</div>
 );
 export default PostList;
