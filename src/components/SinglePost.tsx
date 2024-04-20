@@ -9,21 +9,13 @@ import axios from 'axios';
 
 import { useUser } from '@/hook/useUser';
 
-export interface SinglePostType {
-	id: number;
-	authorAvatarUrl: string;
-	authorName: string;
-	imageUrl: string;
-	favCount: number;
-	replies: { id: number; username: string; content: string }[];
-}
-
 export interface SinglePostProps {
 	diaryId: number;
 }
 
 export interface Comment {
 	id: number;
+	diaryId: number;
 	content: string;
 }
 
@@ -33,58 +25,47 @@ export interface DiaryDetail {
 	avatarUrl: string;
 	photos: string[];
 	content: string;
-	replies: [{ id: number; username: string; content: string }];
+	replies: {
+		id: number;
+		username: string;
+		content: string;
+		authorId: number;
+		createdAt: number;
+		avatarUrl: string;
+	}[];
 	favCount: number;
 	hasFavorited: boolean;
 }
 
 function SinglePost({ diaryId }: SinglePostProps) {
 	const [newComment, setNewComment] = useState('');
-	const [editingComment, setEditingComment] = useState<Comment | null>(null);
 	const session = useSession();
 	const [diaryDetail, setDiaryDetail] = useState<DiaryDetail | null>(null);
 	const userId = useUser(session.data?.idToken);
 
 	const handlePostComment = async () => {
-		const postData = {
-			userId: userId,
+		const commentData = {
 			content: newComment,
-			postId: diaryId,
+			diaryId: diaryId,
 		};
 
 		try {
-			const response = await axios.post('/api/v1/comments', postData, {
+			await axios.post('/api/v1/comments', commentData, {
 				headers: { Authorization: `Bearer ${session.data?.idToken}` },
 			});
-			console.log('Comment posted:', response.data);
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
 	};
 
-	const handleEditComment = async () => {
-		if (!editingComment) return;
-		const putData = {
-			...editingComment,
-			content: newComment, // New content from state
-		};
-
-		try {
-			const response = await axios.put(`/api/v1/comments/${editingComment.id}`, putData, {
-				headers: { Authorization: `Bearer ${session.data?.idToken}` },
-			});
-			console.log('Comment edited:', response.data);
-		} catch (error) {
-			console.error('Failed to edit comment:', error);
-		}
-	};
-
 	const handleDeleteComment = async (commentId: number) => {
 		try {
-			const response = await axios.delete(`/api/v1/comments/${commentId}`, {
-				headers: { Authorization: `Bearer ${session.data?.idToken}` },
-			});
-			console.log('Comment deleted:', response.data);
+			await axios.delete(
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments/${commentId}`,
+				{
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				},
+			);
 		} catch (error) {
 			console.error('Failed to delete comment:', error);
 		}
@@ -130,26 +111,40 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						height={800}
 						className="w-full"
 					/>
-					<div className="mb-4 ml-4 flex w-full flex-col items-start justify-center">
+					<div className="m-4 mb-4 flex w-full flex-col items-start">
 						<span className="text-xl">❤️ {diaryDetail.favCount}</span>
 						{diaryDetail.replies.map((reply) => (
-							<div key={reply.id}>
-								{reply.username}: {reply.content}
+							<div key={reply.id} className="mt-2 flex w-full justify-around ">
+								<span>
+									{reply.username}: {reply.content}
+								</span>
+								{reply.authorId === userId && (
+									<div>
+										<button
+											onClick={() => handleDeleteComment(reply.id)}
+											className="rounded bg-red-500 px-4 py-2 text-white"
+										>
+											Delete
+										</button>
+									</div>
+								)}
 							</div>
 						))}
-						<input
-							type="text"
-							value={newComment}
-							onChange={(e) => setNewComment(e.target.value)}
-							placeholder="Write a comment..."
-							className="mt-2 rounded border px-2 py-1"
-						/>
-						<button
-							onClick={handlePostComment}
-							className="mt-2 rounded bg-blue-500 px-4 py-2 text-white"
-						>
-							Post Comment
-						</button>
+						<div className="mt-2 flex w-full justify-around ">
+							<input
+								type="text"
+								value={newComment}
+								onChange={(e) => setNewComment(e.target.value)}
+								placeholder="Write a comment..."
+								className="rounded border px-2 py-1"
+							/>
+							<button
+								onClick={handlePostComment}
+								className="rounded bg-blue-500 px-4 py-2 text-white"
+							>
+								Post
+							</button>
+						</div>
 					</div>
 				</div>
 			) : (
