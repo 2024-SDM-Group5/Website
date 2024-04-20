@@ -94,7 +94,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		<div>
 			{diaryDetail ? (
 				<div className="flex w-full flex-col items-center justify-center">
-					<div className="mb-4 ml-4 flex w-full items-center justify-start">
+					<div className="mb-4 pl-4 flex w-full items-center justify-start">
 						<Image
 							src={diaryDetail.avatarUrl}
 							alt="Author"
