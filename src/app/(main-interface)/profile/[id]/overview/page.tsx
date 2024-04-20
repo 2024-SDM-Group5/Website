@@ -28,21 +28,11 @@ interface Diary {
 	id: number;
 	imageUrl: string;
 }
-export interface DiaryDetail {
-	id: number;
-	username: string;
-	avatarUrl: string;
-	photos: string[];
-	content: string;
-	replies: [{ id: number; username: string; content: string }];
-	favCount: number;
-}
 
 function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
-	const [selectedDiaryDetail, setSelectedDiaryDetail] = useState<DiaryDetail | null>(null);
 	const params = useParams<{ id: string }>();
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
@@ -57,25 +47,7 @@ function UserProfile() {
 
 	const handleBack = () => {
 		setSelectedDiaryId(null);
-		setSelectedDiaryDetail(null);
 	};
-
-	useEffect(() => {
-		const fetchDiaryDetail = async () => {
-			if (selectedDiaryId) {
-				try {
-					const response = await axios.get(
-						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${selectedDiaryId}`,
-					);
-					setSelectedDiaryDetail(response.data);
-					console.log('SelectedDiaryDetail: ', response.data);
-				} catch (error) {
-					console.error('Failed to fetch diary details:', error);
-				}
-			}
-		};
-		fetchDiaryDetail();
-	}, [selectedDiaryId]);
 
 	useEffect(() => {
 		const fetchUserDetail = async () => {
@@ -120,20 +92,13 @@ function UserProfile() {
 	}, [params.id, userId, session.data?.idToken]);
 
 	if (!userDetail) return <div>Loading...</div>;
-	if (selectedDiaryId && selectedDiaryDetail) {
+	if (selectedDiaryId) {
 		return (
 			<div className="w-full">
 				<button onClick={handleBack} className="m-4">
 					Back
 				</button>
-				<SinglePost
-					avatarUrl={selectedDiaryDetail.avatarUrl}
-					authorName={selectedDiaryDetail.username}
-					imageUrl={selectedDiaryDetail.photos[0]}
-					favCount={selectedDiaryDetail.favCount}
-					replies={selectedDiaryDetail.replies}
-					content={selectedDiaryDetail.content}
-				/>
+				<SinglePost diaryId={selectedDiaryId} />
 			</div>
 		);
 	}
