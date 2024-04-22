@@ -3,152 +3,56 @@
 import { useState, useEffect } from 'react';
 
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
 
+import SinglePost from '@/components/SinglePost';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-const mockDiary: Diary[] = [
-	{
-		id: 1,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 2,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 3,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 4,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 5,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 6,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 7,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 8,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 9,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 10,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 11,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 12,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 13,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 14,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 15,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 16,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 17,
-		imageUrl: '/website/images/food2.jpg',
-	},
-	{
-		id: 18,
-		imageUrl: '/website/images/food2.jpg',
-	},
-];
-interface Diary {
-	id: number;
-	imageUrl: string;
-}
-
-interface User {
-	id: number;
-	imageUrl: string;
-	userName: string;
-}
-
-const mockUserList: User[] = [
-	{
-		id: 1,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-	{
-		id: 2,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-	{
-		id: 3,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-	{
-		id: 4,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-	{
-		id: 5,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-	{
-		id: 6,
-		imageUrl: '/website/images/avatar2.jpg',
-		userName: 'John',
-	},
-];
 
 const tabs = [
 	{ value: 'diary', name: '日記' },
 	{ value: 'account', name: '帳號' },
-	{ value: 'tags', name: '標籤' },
 ];
+interface Diary {
+	id: number;
+	imageUrl: string;
+	restaurantName: string;
+}
+interface User {
+	id: number;
+	displayName: string;
+	avatarUrl: string;
+}
 
 export default function Page() {
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
-	const params = useParams<{ id: string }>();
+	const [searchQuery, setSearchQuery] = useState('');
 	const router = useRouter();
+	const [users, setUsers] = useState<User[]>([]);
+	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
 	const handleBackClick = () => {
 		router.push('/website/community/overview');
+	};
+	const handleBack = () => {
+		setSelectedDiaryId(null);
+	};
+
+	const handleUserClick = (userId: number) => {
+		router.push(`/profile/${userId}/overview`);
 	};
 	useEffect(() => {
 		const fetchUserDiaries = async () => {
 			try {
-				// const response = await axios.get<UserDiariesResponse>(`/api/v1/users/${params.id}/diaries`);
-				// setUserDiaries(response.data.diaries);
-				setUserDiaries(mockDiary);
+				const response = await axios.get(
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
+					{
+						params: { q: searchQuery },
+					},
+				);
+				setUserDiaries(response.data);
 			} catch (error) {
 				if (axios.isAxiosError(error) && error.response) {
 					console.error(`Error fetching diaries: ${error.response.status}`);
@@ -158,13 +62,54 @@ export default function Page() {
 			}
 		};
 
-		fetchUserDiaries();
-	}, [params.id]);
+		if (searchQuery) {
+			fetchUserDiaries();
+		}
+	}, [searchQuery]);
+
+	useEffect(() => {
+		const fetchUsers = async () => {
+			if (searchQuery) {
+				try {
+					const response = await axios.get(
+						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users`,
+						{
+							params: { q: searchQuery },
+						},
+					);
+					setUsers(response.data);
+				} catch (error) {
+					if (axios.isAxiosError(error) && error.response) {
+						console.error(`Error fetching users: ${error.response.status}`);
+					} else {
+						console.error('Failed to fetch users:', error);
+					}
+				}
+			}
+		};
+
+		fetchUsers();
+	}, [searchQuery]);
+
+	if (selectedDiaryId) {
+		return (
+			<div className="w-full">
+				<button onClick={handleBack} className="m-4">
+					Back
+				</button>
+				<SinglePost diaryId={selectedDiaryId} />
+			</div>
+		);
+	}
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="flex items-center space-x-2">
 				<ChevronLeftIcon className="h-5 w-5 cursor-pointer" onClick={handleBackClick} />
-				<Input placeholder="Search..." />
+				<Input
+					placeholder="Search..."
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
+				/>
 			</div>
 
 			<Tabs defaultValue="diary" className="w-full ">
@@ -185,16 +130,18 @@ export default function Page() {
 						<div className="flex w-full flex-1 overflow-auto">
 							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white ">
 								{userDiaries.map((diary) => (
-									<div key={diary.id} className="relative ">
+									<div
+										key={diary.id}
+										className="relative"
+										onClick={() => setSelectedDiaryId(diary.id)}
+									>
 										<Image
 											src={diary.imageUrl}
-											// src=""
 											alt={`Diary ${diary.id}`}
 											width={500}
 											height={500}
-											// fill={true}
 											layout="responsive"
-											className="rounded-md bg-[#D9D9D9] "
+											className="rounded-md bg-[#D9D9D9]"
 										/>
 									</div>
 								))}
@@ -202,65 +149,25 @@ export default function Page() {
 						</div>
 					</div>
 				</TabsContent>
-				<TabsContent value="user">
-					<div className="flex w-full flex-1 flex-col">
-						<Separator className="m-1" />
-						<div className="flex w-full flex-1 overflow-auto">
-							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
-								{userDiaries.map((diary) => (
-									<div key={diary.id} className="relative ">
-										<Image
-											src={diary.imageUrl}
-											// src=""
-											alt={`Diary ${diary.id}`}
-											width={500}
-											height={500}
-											// fill={true}
-											layout="responsive"
-											className="rounded-md bg-[#D9D9D9] "
-										/>
-									</div>
-								))}
-							</div>
-						</div>
-					</div>
-				</TabsContent>
+
 				<TabsContent value="account">
 					<div className="m-8 flex h-full flex-col">
-						{mockUserList.map((user) => (
-							<div key={user.id} className="mt-4 flex items-center ">
+						{users.map((user) => (
+							<div
+								key={user.id}
+								className="mt-4 flex items-center"
+								onClick={() => handleUserClick(user.id)}
+							>
 								<Image
-									src={user.imageUrl}
+									src={user.avatarUrl}
 									alt={`User ${user.id}`}
 									width={50}
 									height={50}
 									className="rounded-full"
 								/>
-								<p className="ml-2">{user.userName}</p>
+								<p className="ml-2">{user.displayName}</p>
 							</div>
 						))}
-					</div>
-				</TabsContent>
-
-				<TabsContent value="tags">
-					<div className="flex w-full flex-1 flex-col">
-						<Separator className="m-1" />
-						<div className="flex w-full flex-1 overflow-auto">
-							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
-								{userDiaries.map((diary) => (
-									<div key={diary.id} className="relative ">
-										<Image
-											src={diary.imageUrl}
-											alt={`Diary ${diary.id}`}
-											width={500}
-											height={500}
-											layout="responsive"
-											className="rounded-md bg-[#D9D9D9] "
-										/>
-									</div>
-								))}
-							</div>
-						</div>
 					</div>
 				</TabsContent>
 			</Tabs>
