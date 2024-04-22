@@ -9,17 +9,44 @@ import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
+import { useParams } from 'next/navigation';
 
+interface Restaurant {
+	name: string;
+	address: string;
+	location: {
+		lat: number;
+		lng: number;
+	};
+	telephone: string;
+	rating: number;
+	placeId: string;
+	viewCount: number;
+	favCount: number;
+}
 function HomePage() {
 	const [center, setCenter] = React.useState<google.maps.LatLng | null>(null);
-	const [radius, setRadius] = React.useState<number>(0);
+	const [bounds, setBounds] = React.useState<Array<google.maps.LatLng | undefined> | null>(null);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
+	const [restaurants, setRestaurants] = React.useState<Array<Restaurant>>([]);
+	const params = useParams<{ id: string }>();
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((position) => {
 			setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 		});
 	}, []);
+	useEffect(() => {
+		const FetchRestaurant = async () => {
+			const res = await axios.get(
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/0/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}`,
+			);
+			setRestaurants(res?.data.restaurants);
+		};
+		if (bounds) {
+			FetchRestaurant();
+		}
+	}, [bounds]);
 	return (
 		<div className="h-full w-full">
 			<MapSearchBar />
@@ -38,48 +65,33 @@ function HomePage() {
 								lat: center?.lat(),
 								lng: center?.lng(),
 							}}
+							onTilesLoaded={(e) => {
+								const SW = e.map.getBounds()?.getSouthWest();
+								const NE = e.map.getBounds()?.getNorthEast();
+								setBounds([SW, NE]);
+							}}
 							onZoomChanged={(e) => {
 								const SW = e.map.getBounds()?.getSouthWest();
 								const NE = e.map.getBounds()?.getNorthEast();
-								const neRadius =
-									google.maps.geometry.spherical.computeDistanceBetween(
-										e.map?.getCenter() as google.maps.LatLng,
-										NE as google.maps.LatLng,
-									);
-								const swRadius =
-									google.maps.geometry.spherical.computeDistanceBetween(
-										e.map?.getCenter() as google.maps.LatLng,
-										SW as google.maps.LatLng,
-									);
-								setRadius(neRadius <= swRadius ? swRadius : neRadius);
+								setBounds([SW, NE]);
 								setCenter(e.map.getCenter() as google.maps.LatLng);
 							}}
 							onDragend={(e) => {
 								const SW = e.map.getBounds()?.getSouthWest();
 								const NE = e.map.getBounds()?.getNorthEast();
-								const neRadius =
-									google.maps.geometry.spherical.computeDistanceBetween(
-										e.map?.getCenter() as google.maps.LatLng,
-										NE as google.maps.LatLng,
-									);
-								const swRadius =
-									google.maps.geometry.spherical.computeDistanceBetween(
-										e.map?.getCenter() as google.maps.LatLng,
-										SW as google.maps.LatLng,
-									);
-								setRadius(neRadius <= swRadius ? swRadius : neRadius);
+								setBounds([SW, NE]);
 								setCenter(e.map.getCenter() as google.maps.LatLng);
 							}}
 						>
-							<AdvancedMarker
-								position={{
-									lat: 25.016375,
-									lng: 121.536792,
-								}}
-								onClick={() => setDrawer('1234')}
-							>
-								<Pin />
-							</AdvancedMarker>
+							{restaurants.map((x, i) => (
+								<AdvancedMarker
+									key={i}
+									position={x.location}
+									onClick={() => setDrawer(x.placeId)}
+								>
+									<Pin />
+								</AdvancedMarker>
+							))}
 						</Map>
 						<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 						<LotteryFloatButton onClick={() => setModal(true)} />

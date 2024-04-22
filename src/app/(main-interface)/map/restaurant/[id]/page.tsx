@@ -8,8 +8,7 @@ import Image from 'next/image';
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
-import { Input } from 'antd';
-import { message } from 'antd';
+import { Input, message } from 'antd';
 import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
@@ -23,32 +22,40 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useParams } from 'next/navigation';
 
-interface Map {
-	id: number;
+interface Restaurant {
+	placeId: string;
 	name: string;
-	iconUrl: string;
-	author: string;
+	location: object;
+	address: string;
+	telephone: string;
+	rating: number;
 	viewCount: number;
 	collectCount: number;
+	likeCount: number;
+	dislikeCount: number;
+	hasCollected: boolean;
 }
-const Archive = () => {
-	const session = useSession();
-	const [data, setData] = useState<Array<Map>>([]);
+function RestaurantOverview() {
 	const [sort, setSort] = useState('collectCount');
+	const [search, setSearch] = useState('');
+	const [data, setData] = useState<Array<Restaurant>>([]);
+	const session = useSession();
 	const [messageApi, contextHolder] = message.useMessage();
+	const params = useParams<{ id: string }>();
 	useEffect(() => {
-		const FetchMaps = async () => {
+		const FetchData = async () => {
+			let suffix = '';
+			if (search) suffix = `&q=${search}`;
 			const res = await axios.get(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/map',
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${params.id}/restaurants?` +
+					suffix,
 			);
-			setData(res?.data);
+			setData(res?.data.restaurants);
 		};
-		FetchMaps();
-	}, [session]);
+		FetchData();
+	}, [sort, search]);
 	return (
 		<div className="mb-1 mt-1 h-[calc(100vh-148px)] w-screen">
 			{contextHolder}
@@ -80,13 +87,14 @@ const Archive = () => {
 				</div>
 				<div className="inline-block w-3/4">
 					<Input
+						onChange={(e) => setSearch(e.target.value)}
 						prefix={<SearchOutlined />}
 						className="h-full w-full rounded-md border-gray-300"
 					/>
 				</div>
 			</div>
 
-			<div className="max-h-[calc(100vh-219px)] overflow-auto">
+			<div className="h-[calc(100vh-219px)] overflow-auto">
 				{data.map((x, i) => (
 					<Card
 						key={i}
@@ -94,7 +102,7 @@ const Archive = () => {
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6">
-								<img
+								<Image
 									src={x.iconUrl}
 									alt={`${x.name}_icon`}
 									height={80}
@@ -103,7 +111,7 @@ const Archive = () => {
 							</div>
 							<div className="w-1/2">
 								<div className="block w-full">{x.name}</div>
-								<div className="block text-gray-400">{'@' + x.author}</div>
+								<div className="block text-gray-400">{'評分 ' + x.rating}</div>
 							</div>
 							<div className="mr-4 w-1/5">
 								<div className="block text-gray-500 ">
@@ -112,28 +120,52 @@ const Archive = () => {
 								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
 							</div>
 							<div>
-								<Button
-									className="bg-[#f7a072] text-black h-15"
-									onClick={async (e) => {
-										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
-											{
-												headers: {
-													Authorization: `Bearer ${session.data?.idToken}`,
+								{x.hasCollected ? (
+									<Button
+										className="h-15 bg-[#f7a072] text-black"
+										onClick={async (e) => {
+											console.log(session.data?.idToken)
+											const res = await axios.delete(
+												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												{
+													headers: {
+														Authorization: `Bearer ${session.data?.idToken}`,
+													},
 												},
-											},
-										);
-										if (res?.data.success) {
-											data.splice(i, 1);
-											setData(Array.from(data));
-											messageApi.success('解除收藏成功');
-										}
-									}}
-								>
-									解除
-									<br />
-									收藏
-								</Button>
+											);
+											if (res?.data.success) {
+												data[i].hasCollected = false;
+												setData(Array.from(data));
+												messageApi.success('解除收藏成功');
+											}
+										}}
+									>
+										解除
+										<br />
+										收藏
+									</Button>
+								) : (
+									<Button
+										className="bg-[#ffcc84] text-black"
+										onClick={async (e) => {
+											const res = await axios.post(
+												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												{
+													headers: {
+														Authorization: `Bearer ${session.data?.idToken}`,
+													},
+												},
+											);
+											if (res?.data.success) {
+												data[i].hasCollected = true;
+												setData(Array.from(data));
+												messageApi.success('收藏成功');
+											}
+										}}
+									>
+										收藏
+									</Button>
+								)}
 							</div>
 						</CardContent>
 					</Card>
@@ -145,7 +177,9 @@ const Archive = () => {
 						<PaginationPrevious href="#" />
 					</PaginationItem>
 					<PaginationItem>
-						<PaginationLink isActive href="#">1</PaginationLink>
+						<PaginationLink isActive href="#">
+							1
+						</PaginationLink>
 					</PaginationItem>
 					<PaginationItem>
 						<PaginationEllipsis />
@@ -157,6 +191,6 @@ const Archive = () => {
 			</Pagination>
 		</div>
 	);
-};
+}
 
-export default Archive;
+export default RestaurantOverview;
