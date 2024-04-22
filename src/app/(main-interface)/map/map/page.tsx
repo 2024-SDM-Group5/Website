@@ -36,7 +36,7 @@ function MapOverview() {
 				let suffix = '';
 				if (search) suffix = `&q=${search}`;
 				let res = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}` +
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 						suffix,
 				);
 				setTotal(res?.data.total);
@@ -46,7 +46,7 @@ function MapOverview() {
 			}
 		};
 		FetchData();
-	}, [sort, search]);
+	}, [idx, sort, search]);
 	return (
 		<div className="mb-1 mt-1 h-[calc(100vh-148px)] w-screen">
 			{contextHolder}
