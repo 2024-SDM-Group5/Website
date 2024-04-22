@@ -12,16 +12,7 @@ import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from '@/components/ui/pagination';
-
+import Pagination from '@/components/Pagination';
 interface Map {
 	id: number;
 	name: string;
@@ -37,6 +28,8 @@ function MapOverview() {
 	const [data, setData] = useState<Array<Map>>([]);
 	const [messageApi, contextHolder] = message.useMessage();
 	const session = useSession();
+	const [idx, setIdx] = useState(0);
+	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchData = async () => {
 			try {
@@ -46,6 +39,7 @@ function MapOverview() {
 					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}` +
 						suffix,
 				);
+				setTotal(res?.data.total);
 				setData(res?.data.maps);
 			} catch (error) {
 				console.error('Failed to fetch data:', error);
@@ -93,7 +87,7 @@ function MapOverview() {
 				</div>
 			</div>
 
-			<div className="max-h-[calc(100vh-219px)] overflow-auto">
+			<div className="max-h-[calc(100vh-320px)] overflow-auto">
 				{data.map((x, i) => (
 					<Card
 						key={i}
@@ -169,22 +163,7 @@ function MapOverview() {
 					</Card>
 				))}
 			</div>
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious href="#" />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationLink isActive href="#">1</PaginationLink>
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationEllipsis />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationNext href="#" />
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			<Pagination idx={idx} total={total} setIdx={setIdx}/>
 		</div>
 	);
 }

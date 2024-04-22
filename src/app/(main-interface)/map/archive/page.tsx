@@ -14,15 +14,7 @@ import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from '@/components/ui/pagination';
+import Pagination from '@/components/Pagination';
 
 interface Map {
 	id: number;
@@ -86,7 +78,7 @@ const Archive = () => {
 				</div>
 			</div>
 
-			<div className="max-h-[calc(100vh-219px)] overflow-auto">
+			<div className="max-h-[calc(100vh-320px)] overflow-auto">
 				{data.map((x, i) => (
 					<Card
 						key={i}
@@ -139,22 +131,7 @@ const Archive = () => {
 					</Card>
 				))}
 			</div>
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious href="#" />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationLink isActive href="#">1</PaginationLink>
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationEllipsis />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationNext href="#" />
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			<Pagination idx={idx} total={total} setIdx={setIdx}/>
 		</div>
 	);
 };

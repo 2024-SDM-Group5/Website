@@ -44,7 +44,8 @@ function Navbar() {
 	}
 
 	useEffect(() => {
-		setActiveTab(pathname.split('/').slice(-1)[0]);
+		if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') setActiveTab(pathname.split('/')[2]);
+		else setActiveTab(pathname.split('/')[3]);
 	}, [pathname]);
 
 	return (

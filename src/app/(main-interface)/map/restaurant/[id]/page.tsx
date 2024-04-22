@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -13,16 +14,7 @@ import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from '@/components/ui/pagination';
-import { useParams } from 'next/navigation';
+import Pagination from '@/components/Pagination';
 
 interface Restaurant {
 	placeId: string;
@@ -44,6 +36,8 @@ function RestaurantOverview() {
 	const session = useSession();
 	const [messageApi, contextHolder] = message.useMessage();
 	const params = useParams<{ id: string }>();
+	const [idx, setIdx] = useState(0);
+	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchData = async () => {
 			let suffix = '';
@@ -52,6 +46,7 @@ function RestaurantOverview() {
 				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${params.id}/restaurants?` +
 					suffix,
 			);
+			setTotal(res?.data.total);
 			setData(res?.data.restaurants);
 		};
 		FetchData();
@@ -94,21 +89,14 @@ function RestaurantOverview() {
 				</div>
 			</div>
 
-			<div className="h-[calc(100vh-219px)] overflow-auto">
+			<div className="max-h-[calc(100vh-320px)] overflow-auto">
 				{data.map((x, i) => (
 					<Card
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 					>
 						<CardContent className="flex h-full items-center p-0">
-							<div className="mr-4 w-1/6">
-								<Image
-									src={x.iconUrl}
-									alt={`${x.name}_icon`}
-									height={80}
-									width={80}
-								/>
-							</div>
+							<div className="mr-4 w-1/6"></div>
 							<div className="w-1/2">
 								<div className="block w-full">{x.name}</div>
 								<div className="block text-gray-400">{'評分 ' + x.rating}</div>
@@ -124,7 +112,7 @@ function RestaurantOverview() {
 									<Button
 										className="h-15 bg-[#f7a072] text-black"
 										onClick={async (e) => {
-											console.log(session.data?.idToken)
+											console.log(session.data?.idToken);
 											const res = await axios.delete(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
 												{
@@ -150,6 +138,7 @@ function RestaurantOverview() {
 										onClick={async (e) => {
 											const res = await axios.post(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												{},
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -171,24 +160,7 @@ function RestaurantOverview() {
 					</Card>
 				))}
 			</div>
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious href="#" />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationLink isActive href="#">
-							1
-						</PaginationLink>
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationEllipsis />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationNext href="#" />
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			<Pagination idx={idx} total={total} setIdx={setIdx}/>
 		</div>
 	);
 }
