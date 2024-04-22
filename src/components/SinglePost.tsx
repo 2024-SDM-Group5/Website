@@ -133,6 +133,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 							width={60}
 							height={60}
 							className="rounded-full"
+							priority={true}
 						/>
 						<span className="ml-4">{diaryDetail.username}</span>
 					</div>
@@ -142,6 +143,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						width={800}
 						height={800}
 						className="w-full"
+						priority={true}
 					/>
 					<div className="m-4 mb-4 flex w-full flex-col items-start">
 						<div className="ml-4 flex items-center justify-center">
