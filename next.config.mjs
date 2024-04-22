@@ -8,7 +8,6 @@ const nextConfig = {
 	images: {
 		domains: ['picsum.photos', 'myphotos.com'],
 	},
-	basePath: isDev ? '/website' : undefined,
 };
 
 export default nextConfig;
