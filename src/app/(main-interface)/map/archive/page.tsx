@@ -12,9 +12,9 @@ import { Input } from 'antd';
 import { message } from 'antd';
 import axios from 'axios';
 
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import Pagination from '@/components/Pagination';
 
 interface Map {
 	id: number;
@@ -107,7 +107,7 @@ const Archive = () => {
 							</div>
 							<div>
 								<Button
-									className="bg-[#f7a072] text-black h-15"
+									className="h-15 bg-[#f7a072] text-black"
 									onClick={async (e) => {
 										const res = await axios.delete(
 											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
@@ -133,7 +133,7 @@ const Archive = () => {
 					</Card>
 				))}
 			</div>
-			<Pagination idx={idx} total={total} setIdx={setIdx}/>
+			<Pagination idx={idx} total={total} setIdx={setIdx} />
 		</div>
 	);
 };

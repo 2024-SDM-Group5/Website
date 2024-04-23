@@ -3,11 +3,11 @@
 import { useEffect } from 'react';
 
 import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import GoogleSignInButton from '@/components/GoogleSignInButton';
 import { useUser } from '@/hook/useUser';
-import { signOut } from "next-auth/react"
 
 export default function Login() {
 	const { data: session, status: authStatus } = useSession();
@@ -32,7 +32,7 @@ export default function Login() {
 		<div className="flex min-h-screen items-center justify-center">
 			<div>
 				<h1 className="mb-8 text-center text-7xl">食光行</h1>
-				{!session && <GoogleSignInButton />}
+				<GoogleSignInButton />
 			</div>
 		</div>
 	);

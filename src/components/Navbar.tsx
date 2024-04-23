@@ -2,18 +2,21 @@
 
 import { useEffect, useState } from 'react';
 
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useUser } from '@/hook/useUser';
 
 function Navbar() {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
 	let rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
+	const session = useSession();
+	const userId = useUser(session.data?.idToken);
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
-	// console.log(rootPath);
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
 		prefix = '';
@@ -38,15 +41,16 @@ function Navbar() {
 		];
 	} else if (rootPath === 'profile') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: prefix + '/profile/1/overview' },
-			{ value: 'archive', label: '我的收藏', href: prefix + '/profile/1/archive' },
+			{ value: 'overview', label: '總覽', href: prefix + `/profile/${userId}/overview` },
+			{ value: 'archive', label: '我的收藏', href: prefix + `/profile/${userId}/archive` },
 		];
 	}
 
 	useEffect(() => {
-		if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') setActiveTab(pathname.split('/')[2]);
-		else setActiveTab(pathname.split('/')[3]);
-	}, [pathname]);
+		const segments = pathname.split('/');
+		const lastSegment = segments[segments.length - 1];
+		setActiveTab(lastSegment);
+	}, [pathname, setActiveTab]);
 
 	return (
 		<Tabs value={activeTab} className="h-15 w-full">

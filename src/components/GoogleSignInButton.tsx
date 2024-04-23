@@ -38,11 +38,11 @@ function GoogleSignInButton() {
 		<div className="flex justify-center">
 			<Button
 				variant="outline"
-				onClick={() => signIn('google', { callbackUrl: '/website/map/general/0' })}
+				onClick={() => signIn('google')}
 				className="bg-white px-10 py-10 text-2xl hover:bg-gray-200"
 			>
 				<GoogleIcon />
-				Sign In With Google
+				<p className="ml-4">Sign In With Google</p>
 			</Button>
 		</div>
 	);

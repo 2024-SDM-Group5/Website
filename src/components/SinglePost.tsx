@@ -126,7 +126,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		<div>
 			{diaryDetail ? (
 				<div className="flex w-full flex-col items-center justify-center">
-					<div className="mb-4 flex w-full items-center justify-start pl-4">
+					<div className="mb-4 mt-4 flex w-full items-center justify-start pl-4">
 						<Image
 							src={diaryDetail.avatarUrl}
 							alt="Author"
@@ -146,7 +146,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						priority={true}
 					/>
 					<div className="m-4 mb-4 flex w-full flex-col items-start">
-						<div className="ml-4 flex items-center justify-center">
+						<div className="mb-4 ml-4 flex items-center justify-center">
 							<button onClick={toggleFavorite} className="flex text-xl ">
 								{diaryDetail.hasFavorited ? (
 									<HeartFilledIcon width="24" height="24" />
@@ -154,7 +154,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 									<HeartIcon width="24" height="24" />
 								)}
 							</button>
-							{/* <span className="ml-2">{diaryDetail.favCount}</span> */}
+
 							<button
 								onClick={toggleCollect}
 								className="ml-4 flex items-center text-xl"
@@ -167,19 +167,28 @@ function SinglePost({ diaryId }: SinglePostProps) {
 							</button>
 						</div>
 						{diaryDetail.replies.map((reply) => (
-							<div key={reply.id} className="mt-4 flex w-full justify-around ">
-								<span>
-									{reply.username}: {reply.content}
-								</span>
-								{reply.authorId === userId && (
-									<div>
-										<button
-											onClick={() => handleDeleteComment(reply.id)}
-											className="rounded bg-red-500 px-4 py-2 text-white"
-										>
-											Delete
-										</button>
+							<div>
+								{reply.authorId === userId ? (
+									<div
+										key={reply.id}
+										className="mt-4 flex w-full justify-around "
+									>
+										<span>
+											{reply.username}: {reply.content}
+										</span>
+										<div>
+											<button
+												onClick={() => handleDeleteComment(reply.id)}
+												className="rounded bg-red-500 px-4 py-2 text-white"
+											>
+												Delete
+											</button>
+										</div>
 									</div>
+								) : (
+									<span className="ml-8 mt-4 w-full text-left">
+										{reply.username}: {reply.content}
+									</span>
 								)}
 							</div>
 						))}
