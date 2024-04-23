@@ -167,7 +167,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 							</button>
 						</div>
 						{diaryDetail.replies.map((reply) => (
-							<div>
+							<>
 								{reply.authorId === userId ? (
 									<div
 										key={reply.id}
@@ -188,14 +188,14 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								) : (
 									<div
 										key={reply.id}
-										className="mt-4 flex w-full justify-around "
+										className="ml-8 mt-4 w-full text-left"
 									>
-										<span className="ml-8 mt-4 w-full text-left">
+										<span>
 											{reply.username}: {reply.content}
 										</span>
 									</div>
 								)}
-							</div>
+							</>
 						))}
 						<div className="mt-2 flex w-full justify-around ">
 							<input
