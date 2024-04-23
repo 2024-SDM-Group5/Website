@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
 import axios from 'axios';
-
+import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 
 interface Restaurant {
@@ -126,6 +126,10 @@ function RestaurantDrawer({
 							width={105}
 							height={105}
 						/>
+						<div className='flex flex-row justify-center w-[105px] pt-[10px]'>
+							<div className='border-solid w-5 h-5 rounded-md pr-[25px]'><LikeOutlined style={{fontSize: "24px"}}/></div>
+							<div className='border-solid w-5 h-5 rounded-md'><DislikeOutlined style={{fontSize: "24px"}}/></div>
+						</div>
 					</div>
 					<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
 						<div style={{ display: 'inline' }}>{restaurant?.name}</div>

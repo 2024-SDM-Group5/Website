@@ -29,6 +29,8 @@ const Archive = () => {
 	const [data, setData] = useState<Array<Map>>([]);
 	const [sort, setSort] = useState('collectCount');
 	const [messageApi, contextHolder] = message.useMessage();
+	const [idx, setIdx] = useState(0);
+	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchMaps = async () => {
 			const res = await axios.get(

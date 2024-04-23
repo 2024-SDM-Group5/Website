@@ -2,6 +2,8 @@
 
 import React, { useEffect } from 'react';
 
+import { useParams } from 'next/navigation';
+
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import axios from 'axios';
 
@@ -9,7 +11,6 @@ import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
-import { useParams } from 'next/navigation';
 
 interface Restaurant {
 	name: string;
@@ -38,14 +39,14 @@ function HomePage() {
 	}, []);
 	useEffect(() => {
 		const FetchRestaurant = async () => {
-			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/0/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}`,
-			);
-			setRestaurants(res?.data.restaurants);
+			if (bounds) {
+				const res = await axios.get(
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${params.id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}`,
+				);
+				setRestaurants(res?.data.restaurants);
+			}
 		};
-		if (bounds) {
-			FetchRestaurant();
-		}
+		FetchRestaurant();
 	}, [bounds]);
 	return (
 		<div className="h-full w-full">
