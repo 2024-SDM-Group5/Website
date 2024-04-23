@@ -10,9 +10,10 @@ import * as Select from '@radix-ui/react-select';
 import { Input, message } from 'antd';
 import axios from 'axios';
 
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import Pagination from '@/components/Pagination';
+
 interface Map {
 	id: number;
 	name: string;
@@ -163,7 +164,7 @@ function MapOverview() {
 					</Card>
 				))}
 			</div>
-			<Pagination idx={idx} total={total} setIdx={setIdx}/>
+			<Pagination idx={idx} total={total} setIdx={setIdx} />
 		</div>
 	);
 }

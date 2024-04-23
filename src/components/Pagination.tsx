@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import {
 	Pagination,
 	PaginationContent,
@@ -7,9 +9,16 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/components/ui/pagination';
-import { Dispatch, SetStateAction } from 'react';
 
-const MyPagination = ({ idx, total, setIdx }: { idx: number; total: number, setIdx: Dispatch<SetStateAction<number>> }) => {
+const MyPagination = ({
+	idx,
+	total,
+	setIdx,
+}: {
+	idx: number;
+	total: number;
+	setIdx: Dispatch<SetStateAction<number>>;
+}) => {
 	return (
 		<Pagination>
 			<PaginationContent>

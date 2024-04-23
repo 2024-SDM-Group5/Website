@@ -34,7 +34,7 @@ export default function Page() {
 	const [users, setUsers] = useState<User[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
 	const handleBackClick = () => {
-		router.push('/website/community/overview');
+		router.push('/community/overview');
 	};
 	const handleBack = () => {
 		setSelectedDiaryId(null);

@@ -102,13 +102,12 @@ function UserProfile() {
 			</div>
 		);
 	}
-
 	return (
 		<div className="flex w-full flex-1 flex-col">
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
 					<Image
-						src={userDetail.avatarUrl}
+						src={userDetail.avatarUrl || ''}
 						alt="User Avatar"
 						width={80}
 						height={80}
