@@ -1,11 +1,35 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
 import { Drawer, Button, Table } from 'antd';
-
+import axios from 'axios';
+import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 
+interface Restaurant {
+	placeid: string;
+	name: string;
+	location: {
+		lat: number;
+		lng: number;
+	};
+	address: string;
+	telephone: string;
+	rating: number;
+	viewCount: number;
+	favCount: number;
+	diaries: Array<{ id: number; imageUrl: string }>;
+	hasCollected: boolean;
+	hasLiked: boolean;
+	hasDisliked: boolean;
+	collectCount: number;
+	likeCount: number;
+	dislikeCount: number;
+}
 function RestaurantDrawer({
 	show,
 	setShow,
@@ -15,6 +39,22 @@ function RestaurantDrawer({
 	setShow: React.Dispatch<string | null>;
 	newDiary: boolean;
 }) {
+	const session = useSession();
+	const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+	useEffect(() => {
+		const FetchRestaurant = async () => {
+			const res = await axios.get(
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${show}`,
+				{
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				},
+			);
+			setRestaurant(res?.data);
+		};
+		if (show !== null) {
+			FetchRestaurant();
+		}
+	}, [show]);
 	return (
 		<Drawer
 			mask={false}
@@ -77,33 +117,56 @@ function RestaurantDrawer({
 			}
 			onClose={() => setShow(null)}
 		>
-			<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-				<div style={{ width: '174px', paddingLeft: '20px' }}>
-					<Image
-						src={'/website/images/food3.jpg'}
-						alt={show + ''}
-						width={105}
-						height={105}
-					/>
-				</div>
-				<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
-					<div style={{ display: 'inline' }}>某間餐廳</div>
-					<br />
-					<div style={{ display: 'inline' }}>大安區天堂路 999 巷 87 號</div>
-					<br />
-					<div style={{ display: 'inline' }}>0988888888</div>
-					<br />
-					<div style={{ display: 'inline' }}>
-						<Button
-							size="large"
-							style={{ color: '#000000', backgroundColor: '#EDDEA4', marginRight: 4 }}
-						>
-							已收藏
-						</Button>
-						{newDiary && <NewDiaryDialog idToken="" close={() => setShow(null)} />}
+			{restaurant && (
+				<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+					<div style={{ width: '174px', paddingLeft: '20px' }}>
+						<Image
+							src={'/website/images/food3.jpg'}
+							alt={show + ''}
+							width={105}
+							height={105}
+						/>
+						<div className='flex flex-row justify-center w-[105px] pt-[10px]'>
+							<div className='border-solid w-5 h-5 rounded-md pr-[25px]'><LikeOutlined style={{fontSize: "24px"}}/></div>
+							<div className='border-solid w-5 h-5 rounded-md'><DislikeOutlined style={{fontSize: "24px"}}/></div>
+						</div>
+					</div>
+					<div style={{ width: 'calc(100% - 174px)', fontWeight: 500, lineHeight: 2 }}>
+						<div style={{ display: 'inline' }}>{restaurant?.name}</div>
+						<br />
+						<div style={{ display: 'inline' }}>{restaurant?.address}</div>
+						<br />
+						<div style={{ display: 'inline' }}>{restaurant?.telephone}</div>
+						<br />
+						<div style={{ display: 'inline' }}>
+							{restaurant?.hasCollected ? (
+								<Button
+									size="large"
+									style={{
+										color: '#000000',
+										backgroundColor: '#EDDEA4',
+										marginRight: 4,
+									}}
+								>
+									已收藏
+								</Button>
+							) : (
+								<Button
+									size="large"
+									style={{
+										color: '#000000',
+										backgroundColor: '#EDDEA4',
+										marginRight: 4,
+									}}
+								>
+									收藏
+								</Button>
+							)}
+							{newDiary && <NewDiaryDialog idToken="" close={() => setShow(null)} />}
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</Drawer>
 	);
 }

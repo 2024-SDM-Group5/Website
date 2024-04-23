@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -13,37 +15,39 @@ import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Pagination from '@/components/Pagination';
-interface Map {
-	id: number;
+
+interface Restaurant {
+	placeId: string;
 	name: string;
-	iconUrl: string;
-	author: string;
+	location: object;
+	address: string;
+	telephone: string;
+	rating: number;
 	viewCount: number;
 	collectCount: number;
+	likeCount: number;
+	dislikeCount: number;
 	hasCollected: boolean;
 }
-function MapOverview() {
+function RestaurantOverview() {
 	const [sort, setSort] = useState('collectCount');
 	const [search, setSearch] = useState('');
-	const [data, setData] = useState<Array<Map>>([]);
-	const [messageApi, contextHolder] = message.useMessage();
+	const [data, setData] = useState<Array<Restaurant>>([]);
 	const session = useSession();
+	const [messageApi, contextHolder] = message.useMessage();
+	const params = useParams<{ id: string }>();
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchData = async () => {
-			try {
-				let suffix = '';
-				if (search) suffix = `&q=${search}`;
-				let res = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
-						suffix,
-				);
-				setTotal(res?.data.total);
-				setData(res?.data.maps);
-			} catch (error) {
-				console.error('Failed to fetch data:', error);
-			}
+			let suffix = '';
+			if (search) suffix = `&q=${search}`;
+			const res = await axios.get(
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${params.id}/restaurants?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+					suffix,
+			);
+			setTotal(res?.data.total);
+			setData(res?.data.restaurants);
 		};
 		FetchData();
 	}, [idx, sort, search]);
@@ -78,10 +82,8 @@ function MapOverview() {
 				</div>
 				<div className="inline-block w-3/4">
 					<Input
+						onChange={(e) => setSearch(e.target.value)}
 						prefix={<SearchOutlined />}
-						onChange={(e) => {
-							setSearch(e.target.value);
-						}}
 						className="h-full w-full rounded-md border-gray-300"
 					/>
 				</div>
@@ -94,17 +96,10 @@ function MapOverview() {
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 					>
 						<CardContent className="flex h-full items-center p-0">
-							<div className="mr-4 w-1/6">
-								<img
-									src={x.iconUrl}
-									alt={`${x.name}_icon`}
-									height={80}
-									width={80}
-								/>
-							</div>
+							<div className="mr-4 w-1/6"></div>
 							<div className="w-1/2">
 								<div className="block w-full">{x.name}</div>
-								<div className="block text-gray-400">{'@' + x.author}</div>
+								<div className="block text-gray-400">{'評分 ' + x.rating}</div>
 							</div>
 							<div className="mr-4 w-1/5">
 								<div className="block text-gray-500 ">
@@ -117,8 +112,9 @@ function MapOverview() {
 									<Button
 										className="h-15 bg-[#f7a072] text-black"
 										onClick={async (e) => {
+											console.log(session.data?.idToken);
 											const res = await axios.delete(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -141,7 +137,8 @@ function MapOverview() {
 										className="bg-[#ffcc84] text-black"
 										onClick={async (e) => {
 											const res = await axios.post(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												{},
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -168,4 +165,4 @@ function MapOverview() {
 	);
 }
 
-export default MapOverview;
+export default RestaurantOverview;

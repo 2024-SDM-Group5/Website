@@ -30,7 +30,7 @@ function HomePage() {
 		<div className="mb-1 h-[calc(100vh-148px)] w-screen">
 			<MapSearchBar />
 			{
-				<APIProvider apiKey="AIzaSyCZR4VCUOau8mVfA7CmTg9rMM6BpJF8f9o">
+				<APIProvider apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}>
 					<Map
 						onClick={() => setDrawer(null)}
 						disableDefaultUI={true}

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import GoogleSignInButton from '@/components/GoogleSignInButton';
 import { useUser } from '@/hook/useUser';
+import { signOut } from "next-auth/react"
 
 export default function Login() {
 	const { data: session, status: authStatus } = useSession();
@@ -15,7 +16,11 @@ export default function Login() {
 
 	useEffect(() => {
 		if (authStatus === 'authenticated' && userId) {
-			router.push(`/website/profile/${userId}/overview`);
+			let prefix = '/website';
+			if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+				prefix = '';
+			}
+			router.push(prefix + `/profile/${userId}/overview`);
 		}
 	}, [authStatus, userId, router]);
 
