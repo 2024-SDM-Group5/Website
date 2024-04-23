@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
+import MapInfoHoverCard from '@/components/MapInfoHoverCard';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
 
@@ -50,7 +51,11 @@ function HomePage() {
 	}, [bounds]);
 	return (
 		<div className="h-full w-full">
-			<MapSearchBar />
+			<div className="absolute z-10 flex w-full justify-around p-4">
+				<MapSearchBar />
+				<MapInfoHoverCard mapId={params.id} />
+			</div>
+
 			<APIProvider
 				apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
 				libraries={['geometry']}
