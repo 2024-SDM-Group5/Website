@@ -186,9 +186,14 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										</div>
 									</div>
 								) : (
-									<span className="ml-8 mt-4 w-full text-left">
-										{reply.username}: {reply.content}
-									</span>
+									<div
+										key={reply.id}
+										className="mt-4 flex w-full justify-around "
+									>
+										<span className="ml-8 mt-4 w-full text-left">
+											{reply.username}: {reply.content}
+										</span>
+									</div>
 								)}
 							</div>
 						))}
