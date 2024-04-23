@@ -186,10 +186,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										</div>
 									</div>
 								) : (
-									<div
-										key={reply.id}
-										className="ml-8 mt-4 w-full text-left"
-									>
+									<div key={reply.id} className="ml-8 mt-4 w-full text-left">
 										<span>
 											{reply.username}: {reply.content}
 										</span>
