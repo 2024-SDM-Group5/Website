@@ -96,7 +96,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 			<DialogTrigger asChild>
 				<Button
 					variant="outline"
-					className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+					className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 				>
 					Edit Profile
 				</Button>

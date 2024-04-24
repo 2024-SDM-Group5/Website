@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import axios from 'axios';
@@ -22,6 +23,7 @@ interface UserDetail {
 	followed: number;
 	mapId: number;
 	postCount: number;
+	isFollowing: boolean;
 }
 
 interface Diary {
@@ -37,12 +39,25 @@ function UserProfile() {
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
 
-	const handleViewMap = () => {
-		// Handle view map logic
-	};
+	const handleFollowUnfollow = async () => {
+		const method = userDetail?.isFollowing ? 'delete' : 'post';
+		const url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/follow`;
 
-	const handleFollow = () => {
-		// Handle follow logic
+		try {
+			await axios({
+				method,
+				url,
+				headers: {
+					Authorization: `Bearer ${session.data?.idToken}`,
+				},
+			});
+			setUserDetail((prev) => ({
+				...prev!,
+				isFollowing: !prev?.isFollowing,
+			}));
+		} catch (error) {
+			console.error('Failed to update follow status:', error);
+		}
 	};
 
 	const handleBack = () => {
@@ -121,21 +136,24 @@ function UserProfile() {
 						<div>{userDetail.followed} followers</div>
 					</div>
 				</div>
-				<div className="ml-6 text-xl">{userDetail.displayName}</div>
-				<div className="mt-2 flex w-full justify-between">
-					<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
-					<Button
-						className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
-						onClick={handleViewMap}
-					>
-						View Map
-					</Button>
-					<Button
-						className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
-						onClick={handleFollow}
-					>
-						Follow
-					</Button>
+				<div className="ml-6 text-left text-xl">{userDetail.displayName}</div>
+				<div className="mt-2 flex w-full justify-around">
+					{params.id === userId?.toString() && (
+						<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
+					)}
+					<Link href={`/map/${userDetail.mapId}/general`}>
+						<Button className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black">
+							View Map
+						</Button>
+					</Link>
+					{params.id !== userId?.toString() && (
+						<Button
+							className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+							onClick={handleFollowUnfollow}
+						>
+							{userDetail.isFollowing ? 'Unfollow' : 'Follow'}
+						</Button>
+					)}
 				</div>
 			</div>
 			<Separator className="mt-4" />

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { HeartIcon, HeartFilledIcon, StarIcon, StarFilledIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
@@ -22,6 +23,7 @@ export interface Comment {
 
 export interface DiaryDetail {
 	id: number;
+	userId: number;
 	username: string;
 	avatarUrl: string;
 	photos: string[];
@@ -127,15 +129,17 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			{diaryDetail ? (
 				<div className="flex w-full flex-col items-center justify-center">
 					<div className="mb-4 mt-4 flex w-full items-center justify-start pl-4">
-						<Image
-							src={diaryDetail.avatarUrl}
-							alt="Author"
-							width={60}
-							height={60}
-							className="rounded-full"
-							priority={true}
-						/>
-						<span className="ml-4">{diaryDetail.username}</span>
+						<Link href={`/profile/${diaryDetail.userId}/overview`}>
+							<Image
+								src={diaryDetail.avatarUrl}
+								alt="Author"
+								width={60}
+								height={60}
+								className="rounded-full"
+								priority={true}
+							/>
+							<span className="ml-4">{diaryDetail.username}</span>
+						</Link>
 					</div>
 					<Image
 						src={diaryDetail.photos[0]}
