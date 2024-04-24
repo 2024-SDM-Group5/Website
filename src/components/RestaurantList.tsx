@@ -38,7 +38,7 @@ const RestaurantList = ({ id }: { id: string }) => {
 			let suffix = '';
 			if (search) suffix = `&q=${search}`;
 			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${params.id}/restaurants?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${id}/restaurants?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 					suffix,
 			);
 			setTotal(res?.data.total);
