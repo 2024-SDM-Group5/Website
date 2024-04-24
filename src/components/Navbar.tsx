@@ -24,9 +24,9 @@ function Navbar() {
 	}
 	if (rootPath === 'map') {
 		tabsConfig = [
-			{ value: 'general', label: '總地圖', href: prefix + '/map/general/0' },
+			{ value: 'general', label: '總地圖', href: prefix + '/map/0/general' },
 			{ value: 'map', label: '地圖總覽', href: prefix + '/map/map' },
-			{ value: 'restaurant', label: '餐廳總覽', href: prefix + '/map/restaurant/0' },
+			{ value: 'restaurant', label: '餐廳總覽', href: prefix + '/map/0/restaurant' },
 			{ value: 'archive', label: '我的收藏', href: prefix + '/map/archive' },
 		];
 	} else if (rootPath === 'community') {

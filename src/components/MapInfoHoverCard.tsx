@@ -64,12 +64,12 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 	return (
 		<HoverCard>
 			<HoverCardTrigger asChild>
-				<Button variant="link" className="h-full">
+				<Button variant="link" className="h-full ">
 					<InfoCircledIcon width="28" height="28" />
 				</Button>
 			</HoverCardTrigger>
-			<HoverCardContent className="w-150 mr-8 mt-4 bg-white p-4 shadow-lg">
-				<div className="flex flex-col">
+			<HoverCardContent className="mr-8 mt-4 flex w-full bg-white p-4 shadow-lg">
+				<div className="flex w-4/5 flex-col">
 					<div className="flex">
 						<Image
 							src={mapDetails.iconUrl}

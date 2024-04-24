@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
+
 import MapContent from '@/components/MapContent';
 
 function MapPage() {

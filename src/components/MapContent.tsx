@@ -53,7 +53,7 @@ const MapContent = ({ id }: { id: string }) => {
 	}, [bounds]);
 	return (
 		<div className="h-full w-full">
-			<div className="absolute z-10 flex w-full justify-around p-4">
+			<div className="absolute z-10 flex w-full items-center justify-around p-4">
 				<MapSearchBar map_id={id} map={map as google.maps.Map} setDrawer={setDrawer} />
 				<MapInfoHoverCard mapId={id} />
 			</div>

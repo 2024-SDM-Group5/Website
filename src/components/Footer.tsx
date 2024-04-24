@@ -16,7 +16,7 @@ function Footer() {
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
 	const tabsConfig = [
-		{ value: 'map', label: '地圖探索', href: prefix + '/map/general/0' },
+		{ value: 'map', label: '地圖探索', href: prefix + '/map/0/general' },
 		{ value: 'community', label: '美食社群', href: prefix + '/community/overview' },
 		{ value: 'mymap', label: '我的地圖', href: prefix + '/mymap/map' },
 		{ value: 'profile', label: '帳戶', href: prefix + `/profile/${userId}/overview` },

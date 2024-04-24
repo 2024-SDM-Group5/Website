@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Input, message } from 'antd';
 import axios from 'axios';
 
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import Pagination from '@/components/Pagination';
 
 interface Restaurant {
 	placeId: string;

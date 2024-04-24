@@ -58,9 +58,10 @@ function MapSearchBar({
 	}, [search]);
 	return (
 		<AutoComplete
+			className="h-full w-[80%]"
 			options={options}
 			onSelect={(value, option) => {
-				console.log(map)
+				console.log(map);
 				if (map) {
 					map.panTo(
 						new google.maps.LatLng(
@@ -73,7 +74,8 @@ function MapSearchBar({
 			}}
 		>
 			<Input
-				prefix={<SearchOutlined style={{ fontSize: '24px' }} />}
+				prefix={<SearchOutlined className="text-lg" />}
+				className="h-12"
 				onChange={(e) => {
 					setSearch(e.target.value);
 				}}

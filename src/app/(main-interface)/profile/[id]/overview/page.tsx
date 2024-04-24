@@ -141,8 +141,8 @@ function UserProfile() {
 					{params.id === userId?.toString() && (
 						<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
 					)}
-					<Link href={`/map/${userDetail.mapId}/general`}>
-						<Button className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black">
+					<Link href={`/map/${userDetail.mapId}/general`} className="w-[48%]">
+						<Button className="text-md w-full bg-[#ffcc84] px-3 py-1 text-sm text-black">
 							View Map
 						</Button>
 					</Link>
