@@ -138,7 +138,20 @@ function RestaurantDrawer({
 							{restaurant.hasLiked ? (
 								<div
 									className="mr-[30px] flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-blue-500"
-									onClick={async (e) => {}}
+									onClick={async (e) => {
+										const res = await axios.delete(
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
+											{
+												headers: {
+													Authorization: `Bearer ${session.data?.idToken}`,
+												},
+											},
+										);
+										if (res?.data.success) {
+											restaurant.hasLiked = false;
+											setRestaurant(Object.assign({}, restaurant));
+										}
+									}}
 								>
 									<LikeOutlined
 										className="mb-[3px] ml-[2px] text-blue-500"
@@ -147,8 +160,23 @@ function RestaurantDrawer({
 								</div>
 							) : (
 								<div
+									onClick={async (e) => {
+										const res = await axios.post(
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
+											{},
+											{
+												headers: {
+													Authorization: `Bearer ${session.data?.idToken}`,
+												},
+											},
+										);
+										if (res?.data.success) {
+											restaurant.hasLiked = true;
+											restaurant.hasDisliked = false;
+											setRestaurant(Object.assign({}, restaurant));
+										}
+									}}
 									className="mr-[30px] flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-gray-300"
-									onClick={async (e) => {}}
 								>
 									<LikeOutlined
 										className="mb-[3px] ml-[2px] text-gray-300"
@@ -159,7 +187,20 @@ function RestaurantDrawer({
 							{restaurant.hasDisliked ? (
 								<div
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-red-600"
-									onClick={async (e) => {}}
+									onClick={async (e) => {
+										const res = await axios.delete(
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
+											{
+												headers: {
+													Authorization: `Bearer ${session.data?.idToken}`,
+												},
+											},
+										);
+										if (res?.data.success) {
+											restaurant.hasDisliked = false;
+											setRestaurant(Object.assign({}, restaurant));
+										}
+									}}
 								>
 									<DislikeOutlined
 										className="mt-[3px] text-red-600"
@@ -169,7 +210,22 @@ function RestaurantDrawer({
 							) : (
 								<div
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-gray-300"
-									onClick={async (e) => {}}
+									onClick={async (e) => {
+										const res = await axios.post(
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
+											{},
+											{
+												headers: {
+													Authorization: `Bearer ${session.data?.idToken}`,
+												},
+											},
+										);
+										if (res?.data.success) {
+											restaurant.hasDisliked = true;
+											restaurant.hasLiked = false;
+											setRestaurant(Object.assign({}, restaurant));
+										}
+									}}
 								>
 									<DislikeOutlined
 										className="mt-[3px] text-gray-300"
@@ -197,7 +253,7 @@ function RestaurantDrawer({
 									}}
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/collect`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -205,9 +261,8 @@ function RestaurantDrawer({
 											},
 										);
 										if (res?.data.success) {
-											setRestaurant(
-												Object.assign({ hasCollected: false }, restaurant),
-											);
+											restaurant.hasCollected = false;
+											setRestaurant(Object.assign({}, restaurant));
 											messageApi.success('解除收藏成功');
 										}
 									}}
@@ -233,9 +288,8 @@ function RestaurantDrawer({
 											},
 										);
 										if (res?.data.success) {
-											setRestaurant(
-												Object.assign({ hasCollected: true }, restaurant),
-											);
+											restaurant.hasCollected = true;
+											setRestaurant(Object.assign({}, restaurant));
 											messageApi.success('收藏成功');
 										}
 									}}
