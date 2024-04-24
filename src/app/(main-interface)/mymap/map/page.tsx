@@ -1,63 +1,37 @@
 'use client';
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 
-import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { useSession } from 'next-auth/react';
 
-import LotteryFloatButton from '@/components/FloatButton';
-import LotteryModal from '@/components/LotteryModal';
-import MapSearchBar from '@/components/MapSearchBar';
-import RestaurantDrawer from '@/components/RestaurantDrawer';
+import { APIProvider } from '@vis.gl/react-google-maps';
+import axios from 'axios';
 
-interface Coordinate {
-	lat: number | undefined;
-	lng: number | undefined;
-}
-function HomePage() {
-	const [bound, setBound] = React.useState<Array<Coordinate>>([
-		{
-			lat: 25.016375,
-			lng: 121.536792,
-		},
-		{
-			lat: 25.016375,
-			lng: 121.536792,
-		},
-	]);
-	const [drawer, setDrawer] = React.useState<null | string>(null);
-	const [modal, setModal] = React.useState<boolean>(false);
+import MapContent from '@/components/MapContent';
+
+function MyMapPage() {
+	const [id, setId] = useState<number | null>(null);
+	const session = useSession();
+	useEffect(() => {
+		let FetchId = async () => {
+			let res = await axios.get(
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me',
+				{
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				},
+			);
+			setId(res.data.mapId);
+		};
+		FetchId();
+	}, []);
 	return (
-		<div className="mb-1 h-[calc(100vh-148px)] w-screen">
-			<MapSearchBar />
-			{
-				<APIProvider apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}>
-					<Map
-						onClick={() => setDrawer(null)}
-						disableDefaultUI={true}
-						mapId="1234"
-						defaultZoom={15}
-						defaultCenter={{
-							lat: 25.016375,
-							lng: 121.536792,
-						}}
-					>
-						<AdvancedMarker
-							position={{
-								lat: 25.016375,
-								lng: 121.536792,
-							}}
-							onClick={() => setDrawer('1234')}
-						>
-							<Pin />
-						</AdvancedMarker>
-					</Map>
-					<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
-					<LotteryFloatButton onClick={() => setModal(true)} />
-					<LotteryModal open={modal} onCancel={() => setModal(false)} />
-				</APIProvider>
-			}
-		</div>
+		<APIProvider
+			apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
+			libraries={['geometry']}
+		>
+			{id && <MapContent id={`${id}`} />}
+		</APIProvider>
 	);
 }
 
-export default HomePage;
+export default MyMapPage;

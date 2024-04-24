@@ -6,11 +6,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-<<<<<<< HEAD
-import { Drawer, Button, Table } from 'antd';
-=======
 import { Drawer, Button, Table, message } from 'antd';
->>>>>>> 8d38335 (finish like, dislike button)
 import axios from 'axios';
 
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';

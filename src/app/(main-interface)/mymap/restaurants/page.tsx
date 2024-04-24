@@ -1,157 +1,37 @@
 'use client';
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 
-import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
-import { SearchOutlined } from '@ant-design/icons';
-import * as Select from '@radix-ui/react-select';
-import { Input } from 'antd';
+import { APIProvider } from '@vis.gl/react-google-maps';
+import axios from 'axios';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import RestaurantList from '@/components/RestaurantList';
 
-const data = [
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-	{
-		id: 0,
-		name: '餐廳名稱',
-		iconUrl: '/website/images/food4.jpg',
-		author: 'Amy',
-		viewCount: 375,
-		favCount: 375,
-	},
-];
-function HomePage() {
+function MyRestaurantPage() {
+	const [id, setId] = useState<number | null>(null);
+	const session = useSession();
+	useEffect(() => {
+		let FetchId = async () => {
+			let res = await axios.get(
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me',
+				{
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				},
+			);
+			setId(res.data.mapId);
+		};
+		FetchId();
+	}, []);
 	return (
-		<div className="mb-1 mt-1 h-[calc(100vh-148px)] w-screen">
-			<div className="m-4 flex justify-start pt-4">
-				<div className="inline-block w-1/4">
-					<Select.Root>
-						<Select.Trigger className="rounded-md border border-gray-300 bg-white px-3 py-2 text-black">
-							<Select.Value placeholder="收藏排行" />
-						</Select.Trigger>
-					</Select.Root>
-				</div>
-				<div className="inline-block w-3/4">
-					<Input
-						prefix={<SearchOutlined />}
-						className="h-full w-full rounded-md border-gray-300"
-					/>
-				</div>
-			</div>
-
-			<div className="h-[calc(100vh-183px)] overflow-auto">
-				{data.map((x, i) => (
-					<Card
-						key={i}
-						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
-					>
-						<CardContent className="flex h-full items-center p-0">
-							<div className="mr-4 w-1/6">
-								<Image
-									src={x.iconUrl}
-									alt={`${x.name}_icon`}
-									height={80}
-									width={80}
-								/>
-							</div>
-							<div className="w-1/2">
-								<div className="block w-full">{x.name}</div>
-								<div className="block text-gray-400">{'@' + x.author}</div>
-							</div>
-							<div className="mr-4 w-1/5">
-								<div className="block text-gray-500 ">{x.favCount + '收藏'}</div>
-								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
-							</div>
-							<div>
-								<Button className="bg-[#ffcc84] text-black ">收藏</Button>
-							</div>
-						</CardContent>
-					</Card>
-				))}
-			</div>
-		</div>
+		<APIProvider
+			apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
+			libraries={['geometry']}
+		>
+			{id && <RestaurantList id={`${id}`} />}
+		</APIProvider>
 	);
 }
 
-export default HomePage;
+export default MyRestaurantPage;
