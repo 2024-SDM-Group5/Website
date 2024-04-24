@@ -13,6 +13,7 @@ export default function Login() {
 	const { data: session, status: authStatus } = useSession();
 	const userId = useUser(session?.idToken);
 	const router = useRouter();
+	console.log(process.env);
 
 	useEffect(() => {
 		if (authStatus === 'authenticated' && userId) {
