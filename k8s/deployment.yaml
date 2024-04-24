@@ -21,11 +21,11 @@ spec:
                       - containerPort: 8080
                   resources:
                       requests:
-                          cpu: "100m"  # Request 100 milli-cores
+                          cpu: "200m"  # Request 100 milli-cores
                           memory: "200Mi"  # Request 200 MiB
                       limits:
-                          cpu: "200m"  # Limit to 200 milli-cores
-                          memory: "400Mi"  # Limit to 400 MiB
+                          cpu: "500m"  # Limit to 500 milli-cores
+                          memory: "1000Mi"  # Limit to 1000 MiB
                   env:
                       - name: GOOGLE_CLIENT_ID
                         valueFrom:
