@@ -25,21 +25,12 @@ interface Restaurant {
 	favCount: number;
 }
 
-const MapContent = ({ id }: { id: string }) => {
+const MapContent = ({ id, center }: { id: string; center: {lat: number, lng: number} }) => {
 	const [bounds, setBounds] = React.useState<Array<google.maps.LatLng | undefined> | null>(null);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);
 	const map = useMap();
 	const [restaurants, setRestaurants] = React.useState<Array<Restaurant>>([]);
-	useEffect(() => {
-		if (map) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				map?.setCenter(
-					new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-				);
-			});
-		}
-	}, [map]);
 	useEffect(() => {
 		const FetchRestaurant = async () => {
 			if (bounds) {
@@ -63,7 +54,7 @@ const MapContent = ({ id }: { id: string }) => {
 				disableDefaultUI={true}
 				mapId="1234"
 				defaultZoom={15}
-				defaultCenter={{ lat: 25, lng: 120 }}
+				defaultCenter={center}
 				onTilesLoaded={(e) => {
 					const SW = e.map.getBounds()?.getSouthWest();
 					const NE = e.map.getBounds()?.getNorthEast();

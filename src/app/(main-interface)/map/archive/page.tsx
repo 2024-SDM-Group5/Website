@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -30,6 +31,7 @@ const Archive = () => {
 	const [sort, setSort] = useState('collectCount');
 	const [messageApi, contextHolder] = message.useMessage();
 	const [idx, setIdx] = useState(0);
+	const router = useRouter();
 	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchMaps = async () => {
@@ -86,9 +88,14 @@ const Archive = () => {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 					>
-						<CardContent className="flex h-full items-center p-0">
+						<CardContent
+							className="flex h-full items-center p-0"
+							onClick={(e) => {
+								router.push(`/map/${x.id}/general`);
+							}}
+						>
 							<div className="mr-4 w-1/6">
-								<img
+								<Image
 									src={x.iconUrl}
 									alt={`${x.name}_icon`}
 									height={80}
@@ -109,6 +116,7 @@ const Archive = () => {
 								<Button
 									className="h-15 bg-[#f7a072] text-black"
 									onClick={async (e) => {
+										e.stopPropagation();
 										const res = await axios.delete(
 											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
 											{

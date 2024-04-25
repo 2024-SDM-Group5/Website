@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -16,7 +17,10 @@ import { Card, CardContent } from '@/components/ui/card';
 interface Restaurant {
 	placeId: string;
 	name: string;
-	location: object;
+	location: {
+		lat: number;
+		lng: number;
+	};
 	address: string;
 	telephone: string;
 	rating: number;
@@ -26,12 +30,13 @@ interface Restaurant {
 	dislikeCount: number;
 	hasCollected: boolean;
 }
-const RestaurantList = ({ id }: { id: string }) => {
+const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [sort, setSort] = useState('collectCount');
 	const [search, setSearch] = useState('');
 	const [data, setData] = useState<Array<Restaurant>>([]);
 	const session = useSession();
 	const [messageApi, contextHolder] = message.useMessage();
+	const router = useRouter();
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
 	useEffect(() => {
@@ -90,6 +95,16 @@ const RestaurantList = ({ id }: { id: string }) => {
 					<Card
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
+						onClick={(e) => {
+							if (type === 'me')
+								router.push(
+									`/mymap/map?center=${x.location.lat},${x.location.lng}`,
+								);
+							else
+								router.push(
+									`/map/${id}/general?center=${x.location.lat},${x.location.lng}`,
+								);
+						}}
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6"></div>
@@ -108,6 +123,7 @@ const RestaurantList = ({ id }: { id: string }) => {
 									<Button
 										className="h-15 bg-[#f7a072] text-black"
 										onClick={async (e) => {
+											e.stopPropagation();
 											const res = await axios.delete(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
 												{
@@ -131,6 +147,7 @@ const RestaurantList = ({ id }: { id: string }) => {
 									<Button
 										className="bg-[#ffcc84] text-black"
 										onClick={async (e) => {
+											e.stopPropagation();
 											const res = await axios.post(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
 												{},

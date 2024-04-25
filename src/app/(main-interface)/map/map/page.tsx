@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -27,6 +28,7 @@ function MapOverview() {
 	const [sort, setSort] = useState('collectCount');
 	const [search, setSearch] = useState('');
 	const [data, setData] = useState<Array<Map>>([]);
+	const router = useRouter();
 	const [messageApi, contextHolder] = message.useMessage();
 	const session = useSession();
 	const [idx, setIdx] = useState(0);
@@ -93,6 +95,9 @@ function MapOverview() {
 					<Card
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
+						onClick={(e) => {
+							router.push(`/map/${x.id}/general`);
+						}}
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6">
@@ -118,6 +123,7 @@ function MapOverview() {
 									<Button
 										className="h-15 bg-[#f7a072] text-black"
 										onClick={async (e) => {
+											e.stopPropagation();
 											const res = await axios.delete(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
 												{
@@ -141,8 +147,10 @@ function MapOverview() {
 									<Button
 										className="bg-[#ffcc84] text-black"
 										onClick={async (e) => {
+											e.stopPropagation();
 											const res = await axios.post(
 												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+												{},
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
