@@ -13,7 +13,7 @@ export default function Login() {
 	const { data: session, status: authStatus } = useSession();
 	const userId = useUser(session?.idToken);
 	const router = useRouter();
-	console.log(process.env.NODE_ENV, '\n',process.env.NEXTAUTH_URL, '\n',process.env.GOOGLE_CLIENT_ID, '\n',process.env.GOOGLE_CLIENT_SECRET, '\n',process.env.NEXT_PUBLIC_MAP_API_KEY)
+
 	useEffect(() => {
 		if (authStatus === 'authenticated' && userId) {
 			let prefix = '/website';
