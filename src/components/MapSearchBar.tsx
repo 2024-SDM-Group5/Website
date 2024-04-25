@@ -61,7 +61,6 @@ function MapSearchBar({
 			className="h-full w-[80%]"
 			options={options}
 			onSelect={(value, option) => {
-				console.log(map);
 				if (map) {
 					map.panTo(
 						new google.maps.LatLng(
