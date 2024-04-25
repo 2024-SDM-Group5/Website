@@ -6,7 +6,7 @@ import RestaurantList from '@/components/RestaurantList';
 
 function RestaurantOverview() {
 	const params = useParams<{ id: string }>();
-	return <RestaurantList id={params.id} />;
+	return <RestaurantList id={params.id} type={null} />;
 }
 
 export default RestaurantOverview;

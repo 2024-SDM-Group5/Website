@@ -29,7 +29,7 @@ function MyRestaurantPage() {
 			apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
 			libraries={['geometry']}
 		>
-			{id && <RestaurantList id={`${id}`} />}
+			{id && <RestaurantList id={`${id}`} type="me"/>}
 		</APIProvider>
 	);
 }

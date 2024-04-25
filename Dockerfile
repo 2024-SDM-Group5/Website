@@ -6,6 +6,20 @@ WORKDIR /app
 # Copy all local files into the container
 COPY . .
 
+# Declare arguments
+ARG GOOGLE_CLIENT_ID
+ARG GOOGLE_CLIENT_SECRET
+ARG NEXTAUTH_SECRET
+ARG NEXTAUTH_URL
+ARG NEXT_PUBLIC_MAP_API_KEY
+
+# Set environment variables
+ENV GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+ENV GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+ENV NEXTAUTH_URL=$NEXTAUTH_URL
+ENV NEXT_PUBLIC_MAP_API_KEY=$NEXT_PUBLIC_MAP_API_KEY
+
 # Install nginx and clean up in one layer to reduce image size
 RUN apt-get update && \
     apt-get -o DPkg::Options::="--force-confnew" install -y nginx && \
