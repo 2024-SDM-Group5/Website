@@ -30,6 +30,7 @@ interface Restaurant {
 	collectCount: number;
 	likeCount: number;
 	dislikeCount: number;
+	photos: Array<string>;
 }
 function RestaurantDrawer({
 	show,
@@ -52,6 +53,10 @@ function RestaurantDrawer({
 				},
 			);
 			setRestaurant(res?.data);
+			const a = await axios.get(
+				`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${res.data.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`,
+			);
+			console.log(a.data);
 		};
 		if (show !== null) {
 			FetchRestaurant();
@@ -128,9 +133,8 @@ function RestaurantDrawer({
 				<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
-						<Image
-							src={'/website/images/food3.jpg'}
-							alt={show + ''}
+						<iframe
+							src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${restaurant.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 							width={105}
 							height={105}
 						/>
@@ -297,7 +301,13 @@ function RestaurantDrawer({
 									收藏
 								</Button>
 							)}
-							{newDiary && <NewDiaryDialog idToken="" close={() => setShow(null)} />}
+							{newDiary && (
+								<NewDiaryDialog
+									idToken=""
+									close={() => setShow(null)}
+									restaurantId={restaurant.placeid}
+								/>
+							)}
 						</div>
 					</div>
 				</div>
