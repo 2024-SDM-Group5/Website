@@ -29,6 +29,7 @@ interface Restaurant {
 	likeCount: number;
 	dislikeCount: number;
 	hasCollected: boolean;
+	photos: Array<string>;
 }
 const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [sort, setSort] = useState('collectCount');
@@ -107,7 +108,14 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						}}
 					>
 						<CardContent className="flex h-full items-center p-0">
-							<div className="mr-4 w-1/6"></div>
+							<div className="mr-4 w-1/6">
+								<img
+									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+									alt={x.name + '_icon'}
+									width={105}
+									height={105}
+								/>
+							</div>
 							<div className="w-1/2">
 								<div className="block w-full">{x.name}</div>
 								<div className="block text-gray-400">{'評分 ' + x.rating}</div>

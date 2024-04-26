@@ -53,10 +53,7 @@ function RestaurantDrawer({
 				},
 			);
 			setRestaurant(res?.data);
-			const a = await axios.get(
-				`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${res.data.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`,
-			);
-			console.log(a.data);
+			
 		};
 		if (show !== null) {
 			FetchRestaurant();
@@ -133,8 +130,9 @@ function RestaurantDrawer({
 				<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
-						<iframe
+						<img
 							src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${restaurant.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+							alt={restaurant.name + "_icon"}
 							width={105}
 							height={105}
 						/>
