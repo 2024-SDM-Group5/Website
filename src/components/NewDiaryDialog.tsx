@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Button } from 'antd';
+import axios from 'axios';
 
 import {
 	Dialog,
@@ -16,10 +17,12 @@ import { Label } from '@/components/ui/label';
 interface NewDiaryDialogProps {
 	idToken: string;
 	close: () => void;
+	restaurantId: string;
 }
 
-export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
-	const [name, setName] = useState('');
+export function NewDiaryDialog({ idToken, close, restaurantId }: NewDiaryDialogProps) {
+	const [item, setItem] = useState('');
+	const [content, setContent] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
 
@@ -30,29 +33,15 @@ export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
 
 	const handleSaveChanges = async () => {
 		setOpen(false);
-		// const formData = new FormData();
-		// formData.append('displayName', name);
-		// if (avatar) {
-		//   formData.append('avatarUrl', avatar);
-		// }
-
-		// try {
-		//   const response = await fetch('/api/v1/users/update', {
-		//     method: 'PUT',
-		//     headers: {
-		//       'Authorization': `idToken: ${idToken}`,
-		//     },
-		//     body: formData,
-		//   });
-
-		//   if (response.ok) {
-		//     //
-		//   } else {
-		//     // Handle non-200 responses
-		//   }
-		// } catch (error) {
-		//   // Handle network errors
-		// }
+		const response = await axios.post(
+			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
+			{ content, restaurantId, photos: [] },
+			{
+				headers: {
+					Authorization: `Bearer ${idToken}`,
+				},
+			},
+		);
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files.length > 0) {
@@ -61,6 +50,8 @@ export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
 			setAvatar(null);
 		}
 	};
+	const date = new Date();
+	let date_str = `${date.getFullYear()}/${date.getMonth() + 1 > 10 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)}/${date.getDate() > 10 ? date.getDate() : '0' + date.getDate()}`;
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -79,16 +70,15 @@ export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
 				</DialogHeader>
 				<div className="text-md grid gap-4 py-4">
 					<p>餐廳： 某間餐廳</p>
-					<p>日期： 2024/2/29</p>
+					<p>日期： {date_str}</p>
 
 					<div className="grid grid-cols-4 items-center">
 						<Label htmlFor="name" className="text-md">
 							品項：
 						</Label>
 						<Input
-							id="name2"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
+							id="item"
+							onChange={(e) => setItem(e.target.value)}
 							className="col-span-3"
 						/>
 					</div>
@@ -97,9 +87,8 @@ export function NewDiaryDialog({ idToken, close }: NewDiaryDialogProps) {
 							內容：
 						</Label>
 						<Input
-							id="name"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
+							id="content"
+							onChange={(e) => setContent(e.target.value)}
 							className="col-span-3"
 						/>
 					</div>
