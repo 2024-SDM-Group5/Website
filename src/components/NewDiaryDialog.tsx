@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import axios from 'axios';
 
 import {
@@ -18,9 +18,15 @@ interface NewDiaryDialogProps {
 	idToken: string;
 	close: () => void;
 	restaurantId: string;
+	restaurantName: string;
 }
 
-export function NewDiaryDialog({ idToken, close, restaurantId }: NewDiaryDialogProps) {
+export function NewDiaryDialog({
+	idToken,
+	close,
+	restaurantId,
+	restaurantName,
+}: NewDiaryDialogProps) {
 	const [item, setItem] = useState('');
 	const [content, setContent] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
@@ -28,20 +34,42 @@ export function NewDiaryDialog({ idToken, close, restaurantId }: NewDiaryDialogP
 
 	const handleDiscard = () => {
 		setOpen(false);
-		// TODO:
+		setAvatar(null);
+		setContent('');
 	};
 
 	const handleSaveChanges = async () => {
+		let avatarUrl = '';
+		if (avatar) {
+			const avatarFormData = new FormData();
+			avatarFormData.append('avatar', avatar);
+			try {
+				const avatarResponse = await axios.post(
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+					avatarFormData,
+					{
+						headers: {
+							Authorization: `Bearer ${idToken}`,
+						},
+					},
+				);
+				avatarUrl = avatarResponse.data.avatarUrl;
+			} catch (error) {
+				console.error('Failed to upload image:', error);
+			}
+		}
+		console.log(avatarUrl);
 		setOpen(false);
 		const response = await axios.post(
 			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
-			{ content, restaurantId, photos: [] },
+			{ content, restaurantId, photos: [avatarUrl] },
 			{
 				headers: {
 					Authorization: `Bearer ${idToken}`,
 				},
 			},
 		);
+		message.success('日記新增成功');
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files.length > 0) {
@@ -69,7 +97,7 @@ export function NewDiaryDialog({ idToken, close, restaurantId }: NewDiaryDialogP
 					<DialogTitle>New Diary</DialogTitle>
 				</DialogHeader>
 				<div className="text-md grid gap-4 py-4">
-					<p>餐廳： 某間餐廳</p>
+					<p>餐廳： {restaurantName}</p>
 					<p>日期： {date_str}</p>
 
 					<div className="grid grid-cols-4 items-center">
