@@ -177,9 +177,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										key={reply.id}
 										className="mt-4 flex w-full justify-around "
 									>
-										<span>
+										<Link href={`/profile/${reply.authorId}/overview`}>
 											{reply.username}: {reply.content}
-										</span>
+										</Link>
 										<div>
 											<button
 												onClick={() => handleDeleteComment(reply.id)}
