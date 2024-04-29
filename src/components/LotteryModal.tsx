@@ -1,14 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Image from 'next/image';
-
-import { Button, Modal } from 'antd';
+import { Button, Modal, Input, message } from 'antd';
+import axios from 'axios';
 
 function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function }) {
-	const [restaurantID, setID] = React.useState<string | null>(null);
+	const [suggestion, setSuggestion] = useState<string | null>(null);
+	const [foodType, setFoodType] = useState<string>('');
+	const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
+
 	useEffect(() => {
-		if (!open) setID(null);
+		if (!open) {
+			setSuggestion(null);
+			setPosition(null);
+		} else {
+			navigator.geolocation.getCurrentPosition(
+				(pos) => {
+					setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+				},
+				() => {
+					message.error('無法獲取位置信息');
+				},
+			);
+		}
 	}, [open]);
+
+	const handleRecommendation = async () => {
+		if (position) {
+			console.log(position);
+			console.log(foodType);
+			try {
+				const response = await axios.post(
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/bots/question',
+					{
+						req: foodType,
+						position,
+					},
+				);
+				console.log(response.data);
+				setSuggestion(response.data.res);
+			} catch (error) {
+				message.error('推薦請求失敗');
+				console.error('Error posting the food type:', error);
+			}
+		} else {
+			message.error('正在獲取位置信息，請稍後再試');
+		}
+	};
+
 	return (
 		<Modal
 			open={open}
@@ -21,26 +59,17 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 				content: { backgroundColor: '#FDFBF4', borderRadius: 20 },
 			}}
 		>
-			{restaurantID === null ? (
+			{suggestion === null ? (
 				<>
-					<p style={{ paddingTop: '80px', paddingBottom: '50px', fontSize: '20px' }}>
-						想不到要吃什麼嗎？
-					</p>
+					<Input
+						size="large"
+						type="text"
+						placeholder="想吃甚麼類型的食物？"
+						onChange={(e) => setFoodType(e.target.value)}
+						style={{ marginTop: '45px', marginBottom: '20px', width: '60vw' }}
+					/>
 					<Button
-						onClick={() => setID('1234')}
-						style={{
-							color: '#000000',
-							backgroundColor: '#ffcc84',
-							width: '60vw',
-							height: '10vw',
-							marginBottom: '15px',
-						}}
-					>
-						隨機推薦
-					</Button>
-					<br />
-					<Button
-						onClick={() => setID('1234')}
+						onClick={handleRecommendation}
 						style={{
 							color: '#000000',
 							backgroundColor: '#f7a072',
@@ -53,66 +82,7 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 					</Button>
 				</>
 			) : (
-				<>
-					<div
-						style={{
-							width: '100%',
-							display: 'flex',
-							flexDirection: 'row',
-							paddingBottom: '50px',
-							paddingTop: '30px',
-						}}
-					>
-						<div style={{ width: '110px' }}>
-							<Image
-								src={'/website/images/food2.jpg'}
-								alt={''}
-								width={86}
-								height={86}
-							/>
-						</div>
-						<div
-							style={{
-								width: 'calc(100% - 110px)',
-								fontWeight: 500,
-								lineHeight: 2,
-								textAlign: 'start',
-							}}
-						>
-							<div style={{ display: 'inline' }}>某間餐廳</div>
-							<br />
-							<div style={{ display: 'inline' }}>大安區天堂路 999 巷 87 號</div>
-							<br />
-							<div style={{ display: 'inline' }}>0988888888</div>
-						</div>
-					</div>
-					<Button
-						onClick={() => setID('1234')}
-						style={{
-							color: '#000000',
-							backgroundColor: '#ffcc84',
-							width: '60vw',
-							height: '10vw',
-
-							marginBottom: '15px',
-						}}
-					>
-						詳細資訊
-					</Button>
-					<br />
-					<Button
-						onClick={() => setID('1234')}
-						style={{
-							color: '#000000',
-							backgroundColor: '#f7a072',
-							width: '60vw',
-							height: '10vw',
-							marginBottom: '45px',
-						}}
-					>
-						重新生成
-					</Button>
-				</>
+				<p style={{ padding: '20px', fontSize: '20px' }}>{suggestion}</p>
 			)}
 		</Modal>
 	);

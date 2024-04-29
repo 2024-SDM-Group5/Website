@@ -10,7 +10,11 @@ export default function Provider({
 	children: React.ReactNode;
 	session: Session | null;
 }): React.ReactNode {
-
-	const basePath = process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? '/api/auth' : '/website/api/auth';
-	return <SessionProvider session={session} basePath={basePath}>{children}</SessionProvider>;
+	const basePath =
+		process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? '/api/auth' : '/website/api/auth';
+	return (
+		<SessionProvider session={session} basePath={basePath}>
+			{children}
+		</SessionProvider>
+	);
 }

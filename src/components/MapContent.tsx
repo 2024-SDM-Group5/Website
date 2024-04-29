@@ -25,7 +25,7 @@ interface Restaurant {
 	favCount: number;
 }
 
-const MapContent = ({ id, center }: { id: string; center: {lat: number, lng: number} }) => {
+const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: number } }) => {
 	const [bounds, setBounds] = React.useState<Array<google.maps.LatLng | undefined> | null>(null);
 	const [drawer, setDrawer] = React.useState<null | string>(null);
 	const [modal, setModal] = React.useState<boolean>(false);

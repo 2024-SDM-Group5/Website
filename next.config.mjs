@@ -7,7 +7,7 @@ const nextConfig = {
 	assetPrefix: isDev ? undefined : 'https://pc214.ee.ntu.edu.tw/website/',
 	images: {
 		domains: ['picsum.photos', 'myphotos.com', 'storage.googleapis.com'],
-		path: isDev ? undefined : "/website/_next/image",
+		path: isDev ? undefined : '/website/_next/image',
 	},
 };
 
