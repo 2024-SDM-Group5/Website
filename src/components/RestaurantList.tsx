@@ -97,13 +97,15 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						onClick={(e) => {
+							let prefix = "";
+							if(process.env.NEXT_PUBLIC_NODE_ENV !== 'development') prefix = "/website"
 							if (type === 'me')
 								router.push(
-									`/mymap/map?center=${x.location.lat},${x.location.lng}`,
+									`${prefix}/mymap/map?center=${x.location.lat},${x.location.lng}`,
 								);
 							else
 								router.push(
-									`/map/${id}/general?center=${x.location.lat},${x.location.lng}`,
+									`${prefix}/map/${id}/general?center=${x.location.lat},${x.location.lng}`,
 								);
 						}}
 					>
@@ -125,7 +127,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 									{x.collectCount + '收藏'}
 								</div>
 								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
-							</div>
+							</div>``
 							<div>
 								{x.hasCollected ? (
 									<Button

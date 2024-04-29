@@ -91,7 +91,10 @@ const Archive = () => {
 						<CardContent
 							className="flex h-full items-center p-0"
 							onClick={(e) => {
-								router.push(`/map/${x.id}/general`);
+								let prefix = '';
+								if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
+									prefix = '/website';
+								router.push(`${prefix}/map/${x.id}/general`);
 							}}
 						>
 							<div className="mr-4 w-1/6">

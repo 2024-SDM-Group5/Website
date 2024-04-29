@@ -96,7 +96,10 @@ function MapOverview() {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						onClick={(e) => {
-							router.push(`/map/${x.id}/general`);
+							let prefix = '';
+							if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
+								prefix = '/website';
+							router.push(`${prefix}/map/${x.id}/general`);
 						}}
 					>
 						<CardContent className="flex h-full items-center p-0">

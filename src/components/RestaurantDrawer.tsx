@@ -12,7 +12,7 @@ import axios from 'axios';
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 
 interface Restaurant {
-	placeid: string;
+	placeId: string;
 	name: string;
 	location: {
 		lat: number;
@@ -44,8 +44,12 @@ function RestaurantDrawer({
 	const session = useSession();
 	const [messageApi, contextHolder] = message.useMessage();
 	const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+	const [tableContent, setTableContent] = useState<
+		Array<{ key: string; image: string; date: string; items: string; content: string }>
+	>([]);
 	useEffect(() => {
 		const FetchRestaurant = async () => {
+			let diaries = [];
 			const res = await axios.get(
 				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${show}`,
 				{
@@ -53,7 +57,19 @@ function RestaurantDrawer({
 				},
 			);
 			setRestaurant(res?.data);
-			
+			for (let i = 0; i < res.data.diaries.length; i++) {
+				const tmp = await axios.get(
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${res.data.diaries[i].id}`,
+				);
+				diaries.push({
+					key: `${i}`,
+					image: tmp.data.photos[0],
+					date: tmp.data.createdAt,
+					items: tmp.data.items,
+					content: tmp.data.content,
+				});
+			}
+			setTableContent(diaries);
 		};
 		if (show !== null) {
 			FetchRestaurant();
@@ -88,15 +104,7 @@ function RestaurantDrawer({
 			}}
 			footer={
 				<Table
-					dataSource={[
-						{
-							key: '1',
-							image: '/website/images/food2.jpg',
-							date: '2024/2/29',
-							items: '漢寶寶一個',
-							content: '漢寶寶裡沒有寶寶，真的很令人失望 ...',
-						},
-					]}
+					dataSource={tableContent}
 					columns={[
 						{
 							title: '',
@@ -132,7 +140,7 @@ function RestaurantDrawer({
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
 						<img
 							src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${restaurant.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
-							alt={restaurant.name + "_icon"}
+							alt={restaurant.name + '_icon'}
 							width={105}
 							height={105}
 						/>
@@ -142,7 +150,7 @@ function RestaurantDrawer({
 									className="mr-[30px] flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-blue-500"
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/like`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -164,7 +172,7 @@ function RestaurantDrawer({
 								<div
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/like`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
 											{},
 											{
 												headers: {
@@ -191,7 +199,7 @@ function RestaurantDrawer({
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-red-600"
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/dislike`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -214,7 +222,7 @@ function RestaurantDrawer({
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-gray-300"
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/dislike`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
 											{},
 											{
 												headers: {
@@ -255,7 +263,7 @@ function RestaurantDrawer({
 									}}
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/collect`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -281,7 +289,7 @@ function RestaurantDrawer({
 									}}
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeid}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/collect`,
 											{},
 											{
 												headers: {
@@ -303,7 +311,8 @@ function RestaurantDrawer({
 								<NewDiaryDialog
 									idToken=""
 									close={() => setShow(null)}
-									restaurantId={restaurant.placeid}
+									restaurantId={restaurant.placeId}
+									restaurantName={restaurant.name}
 								/>
 							)}
 						</div>
