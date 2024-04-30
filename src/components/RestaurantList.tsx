@@ -29,7 +29,7 @@ interface Restaurant {
 	likeCount: number;
 	dislikeCount: number;
 	hasCollected: boolean;
-	photos: Array<string>;
+	photoUrl: string;
 }
 const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [sort, setSort] = useState('collectCount');
@@ -97,8 +97,9 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						onClick={(e) => {
-							let prefix = "";
-							if(process.env.NEXT_PUBLIC_NODE_ENV !== 'development') prefix = "/website"
+							let prefix = '';
+							if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
+								prefix = '/website';
 							if (type === 'me')
 								router.push(
 									`${prefix}/mymap/map?center=${x.location.lat},${x.location.lng}`,
@@ -112,7 +113,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6">
 								<img
-									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 									alt={x.name + '_icon'}
 									width={105}
 									height={105}
@@ -127,7 +128,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 									{x.collectCount + '收藏'}
 								</div>
 								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
-							</div>``
+							</div>
 							<div>
 								{x.hasCollected ? (
 									<Button

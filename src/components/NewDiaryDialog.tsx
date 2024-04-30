@@ -58,11 +58,10 @@ export function NewDiaryDialog({
 				console.error('Failed to upload image:', error);
 			}
 		}
-		console.log(avatarUrl);
 		setOpen(false);
 		const response = await axios.post(
 			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
-			{ content, restaurantId, photos: [avatarUrl] },
+			{ content, restaurantId, photos: [avatarUrl], items: [item] },
 			{
 				headers: {
 					Authorization: `Bearer ${idToken}`,
