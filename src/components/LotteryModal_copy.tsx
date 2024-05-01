@@ -69,6 +69,7 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 								alt={''}
 								width={86}
 								height={86}
+								priority
 							/>
 						</div>
 						<div

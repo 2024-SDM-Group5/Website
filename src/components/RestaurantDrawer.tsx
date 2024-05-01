@@ -111,7 +111,7 @@ function RestaurantDrawer({
 							dataIndex: 'image',
 							key: 'image',
 							render: (text) => (
-								<Image src={text} alt={text} width={80} height={80} />
+								<Image src={text} alt={text} width={80} height={80} priority />
 							),
 						},
 						{
