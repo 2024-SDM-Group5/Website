@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ import axios from 'axios';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import i18n from '@/lib/i18n';
 
 interface Restaurant {
 	placeId: string;
@@ -36,6 +38,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [search, setSearch] = useState('');
 	const [data, setData] = useState<Array<Restaurant>>([]);
 	const session = useSession();
+	const { t } = useTranslation();
 	const [messageApi, contextHolder] = message.useMessage();
 	const router = useRouter();
 	const [idx, setIdx] = useState(0);
@@ -66,13 +69,13 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 							<Select.Content className="SelectContent">
 								<Select.Viewport className="SelectViewport">
 									<Select.Item value="collectCount" className="SelectItem">
-										<Select.ItemText>按收藏排</Select.ItemText>
+										<Select.ItemText>{t('按收藏排')}</Select.ItemText>
 										<Select.ItemIndicator className="SelectItemIndicator">
 											<CheckIcon />
 										</Select.ItemIndicator>
 									</Select.Item>
 									<Select.Item value="createTime" className="SelectItem">
-										<Select.ItemText>按日期排</Select.ItemText>
+										<Select.ItemText>{t('按日期排')}</Select.ItemText>
 										<Select.ItemIndicator className="SelectItemIndicator">
 											<CheckIcon />
 										</Select.ItemIndicator>
@@ -111,7 +114,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						}}
 					>
 						<CardContent className="flex h-full items-center p-0">
-							<div className="mr-4 w-1/6">
+							<div className="mr-3 w-1/6">
 								<img
 									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 									alt={x.name + '_icon'}
@@ -121,13 +124,15 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 							</div>
 							<div className="w-1/2">
 								<div className="block w-full">{x.name}</div>
-								<div className="block text-gray-400">{'評分 ' + x.rating}</div>
+								<div className="block text-gray-400">
+									{t('評分') + ' ' + x.rating}
+								</div>
 							</div>
 							<div className="mr-4 w-1/5">
 								<div className="block text-gray-500 ">
-									{x.collectCount + '收藏'}
+									{x.collectCount + ' ' + t('收藏')}
 								</div>
-								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
+								<div className="block text-gray-500">{x.viewCount + ' ' + t('瀏覽')}</div>
 							</div>
 							<div>
 								{x.hasCollected ? (
@@ -150,9 +155,15 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 											}
 										}}
 									>
-										解除
-										<br />
-										收藏
+										{i18n.language === 'zh-tw' ? (
+											<>
+												解除
+												<br />
+												收藏
+											</>
+										) : (
+											<>Uncollect</>
+										)}
 									</Button>
 								) : (
 									<Button
@@ -175,7 +186,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 											}
 										}}
 									>
-										收藏
+										{t('收藏')}
 									</Button>
 								)}
 							</div>

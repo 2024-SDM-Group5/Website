@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/hook/useUser';
+import { useTranslation } from 'react-i18next';
 
 function Navbar() {
 	const pathname = usePathname();
@@ -15,7 +16,9 @@ function Navbar() {
 	let rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	const session = useSession();
+	const { t } = useTranslation();
 	const userId = useUser(session.data?.idToken);
+	
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
@@ -24,25 +27,25 @@ function Navbar() {
 	}
 	if (rootPath === 'map') {
 		tabsConfig = [
-			{ value: 'general', label: '總地圖', href: prefix + '/map/0/general' },
-			{ value: 'map', label: '地圖總覽', href: prefix + '/map/map' },
-			{ value: 'restaurant', label: '餐廳總覽', href: prefix + '/map/0/restaurant' },
-			{ value: 'archive', label: '我的收藏', href: prefix + '/map/archive' },
+			{ value: 'general', label: t('地圖'), href: prefix + '/map/0/general' },
+			{ value: 'map', label: t('地圖總覽'), href: prefix + '/map/map' },
+			{ value: 'restaurant', label: t('餐廳總覽'), href: prefix + '/map/0/restaurant' },
+			{ value: 'archive', label: t('我的收藏'), href: prefix + '/map/archive' },
 		];
 	} else if (rootPath === 'community') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: prefix + '/community/overview' },
-			{ value: 'following', label: '追蹤中', href: prefix + '/community/following' },
+			{ value: 'overview', label: t('總覽'), href: prefix + '/community/overview' },
+			{ value: 'following', label: t('追蹤中'), href: prefix + '/community/following' },
 		];
 	} else if (rootPath === 'mymap') {
 		tabsConfig = [
-			{ value: 'map', label: '地圖總覽', href: prefix + '/mymap/map' },
-			{ value: 'restaurants', label: '餐廳總覽', href: prefix + '/mymap/restaurants' },
+			{ value: 'map', label: t('地圖總覽'), href: prefix + '/mymap/map' },
+			{ value: 'restaurants', label: t('餐廳總覽'), href: prefix + '/mymap/restaurants' },
 		];
 	} else if (rootPath === 'profile') {
 		tabsConfig = [
-			{ value: 'overview', label: '總覽', href: prefix + `/profile/${userId}/overview` },
-			{ value: 'archive', label: '我的收藏', href: prefix + `/profile/${userId}/archive` },
+			{ value: 'overview', label: t('總覽'), href: prefix + `/profile/${userId}/overview` },
+			{ value: 'archive', label: t('我的收藏'), href: prefix + `/profile/${userId}/archive` },
 		];
 	}
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -8,6 +9,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import axios from 'axios';
+import i18next from "@/lib/i18n";
 
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
 import SinglePost from '@/components/SinglePost';
@@ -35,6 +37,7 @@ function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
+	const { t, i18n } = useTranslation();
 	const params = useParams<{ id: string }>();
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
@@ -105,7 +108,6 @@ function UserProfile() {
 			fetchUserDiaries();
 		}
 	}, [params.id, userId, session.data?.idToken]);
-
 	if (!userDetail) return <div>Loading...</div>;
 	if (selectedDiaryId) {
 		return (
@@ -129,11 +131,35 @@ function UserProfile() {
 						priority={true}
 						className="rounded-full"
 					/>
-
+					{params.id === userId?.toString() && i18next.language == 'zh-tw' ? (
+						<p
+							style={{
+								fontSize: '24px',
+								display: 'absolute',
+								top: '105px',
+								left: '80px',
+							}}
+							onClick={() => i18n.changeLanguage('en')}
+						>
+							En
+						</p>
+					) : (
+						<p
+							style={{
+								fontSize: '24px',
+								display: 'absolute',
+								top: '105px',
+								left: '80px',
+							}}
+							onClick={() => i18n.changeLanguage('zh-tw')}
+						>
+							Zh
+						</p>
+					)}
 					<div className="ml-4 flex space-x-4">
-						<div>{userDetail.postCount} posts</div>
-						<div>{userDetail.following} following</div>
-						<div>{userDetail.followed} followers</div>
+						<div>{userDetail.postCount} {t("貼文")}</div>
+						<div>{userDetail.following} {t("追蹤中")}</div>
+						<div>{userDetail.followed} {t("追蹤者")}</div>
 					</div>
 				</div>
 				<div className="ml-6 text-left text-xl">{userDetail.displayName}</div>
@@ -143,7 +169,7 @@ function UserProfile() {
 					)}
 					<Link href={`/map/${userDetail.mapId}/general`} className="w-[48%]">
 						<Button className="text-md w-full bg-[#ffcc84] px-3 py-1 text-sm text-black">
-							View Map
+							{t("查看地圖")}
 						</Button>
 					</Link>
 					{params.id !== userId?.toString() && (
@@ -151,7 +177,7 @@ function UserProfile() {
 							className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 							onClick={handleFollowUnfollow}
 						>
-							{userDetail.isFollowing ? 'Unfollow' : 'Follow'}
+							{userDetail.isFollowing ? t("解除追蹤") : t("追蹤")}
 						</Button>
 					)}
 				</div>

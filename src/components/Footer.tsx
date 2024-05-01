@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/hook/useUser';
+import { useTranslation } from 'react-i18next';
 
 let prefix = '/website';
 if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') prefix = '';
@@ -15,11 +16,12 @@ function Footer() {
 	const pathSegments = pathname.split('/').filter(Boolean);
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
+	const { t } = useTranslation();
 	const tabsConfig = [
-		{ value: 'map', label: '地圖探索', href: prefix + '/map/0/general' },
-		{ value: 'community', label: '美食社群', href: prefix + '/community/overview' },
-		{ value: 'mymap', label: '我的地圖', href: prefix + '/mymap/map' },
-		{ value: 'profile', label: '帳戶', href: prefix + `/profile/${userId}/overview` },
+		{ value: 'map', label: t('地圖探索'), href: prefix + '/map/0/general' },
+		{ value: 'community', label: t('美食社群'), href: prefix + '/community/overview' },
+		{ value: 'mymap', label: t('我的地圖'), href: prefix + '/mymap/map' },
+		{ value: 'profile', label: t('帳戶'), href: prefix + `/profile/${userId}/overview` },
 	];
 	let activeTab = pathSegments[1];
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
