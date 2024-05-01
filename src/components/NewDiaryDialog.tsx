@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, message } from 'antd';
 import axios from 'axios';
@@ -31,6 +32,7 @@ export function NewDiaryDialog({
 	const [content, setContent] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
+	const { t } = useTranslation();
 
 	const handleDiscard = () => {
 		setOpen(false);
@@ -88,7 +90,7 @@ export function NewDiaryDialog({
 					style={{ color: '#000000', backgroundColor: '#EDDEA4' }}
 					onClick={close}
 				>
-					新增日記
+					{t('新增日記')}
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="w-[75%] bg-white ">
@@ -96,12 +98,16 @@ export function NewDiaryDialog({
 					<DialogTitle>New Diary</DialogTitle>
 				</DialogHeader>
 				<div className="text-md grid gap-4 py-4">
-					<p>餐廳： {restaurantName}</p>
-					<p>日期： {date_str}</p>
+					<p>
+						{t('餐廳')}： {restaurantName}
+					</p>
+					<p>
+						{t('日期')}： {date_str}
+					</p>
 
 					<div className="grid grid-cols-4 items-center">
 						<Label htmlFor="name" className="text-md">
-							品項：
+							{t('品項')}：
 						</Label>
 						<Input
 							id="item"
@@ -111,7 +117,7 @@ export function NewDiaryDialog({
 					</div>
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-md">
-							內容：
+							{t('內容')}：
 						</Label>
 						<Input
 							id="content"
@@ -121,7 +127,7 @@ export function NewDiaryDialog({
 					</div>
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="avatar" className="text-md">
-							圖片：
+							{t('圖片')}：
 						</Label>
 						<input
 							type="file"
@@ -137,13 +143,13 @@ export function NewDiaryDialog({
 							onClick={handleSaveChanges}
 							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
-							Save{' '}
+							{t('儲存')}{' '}
 						</Button>
 						<Button
 							onClick={handleDiscard}
 							className="w-2/5 bg-[#f7a072] px-3 py-1 text-sm text-black"
 						>
-							Discard
+							{t('取消')}
 						</Button>
 					</div>
 				</DialogFooter>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -16,6 +17,7 @@ import axios from 'axios';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import i18n from '@/lib/i18n';
 
 interface Map {
 	id: number;
@@ -32,6 +34,7 @@ const Archive = () => {
 	const [messageApi, contextHolder] = message.useMessage();
 	const [idx, setIdx] = useState(0);
 	const router = useRouter();
+	const { t } = useTranslation();
 	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchMaps = async () => {
@@ -58,13 +61,13 @@ const Archive = () => {
 							<Select.Content className="SelectContent">
 								<Select.Viewport className="SelectViewport">
 									<Select.Item value="collectCount" className="SelectItem">
-										<Select.ItemText>按收藏排</Select.ItemText>
+										<Select.ItemText>{t('按收藏排')}</Select.ItemText>
 										<Select.ItemIndicator className="SelectItemIndicator">
 											<CheckIcon />
 										</Select.ItemIndicator>
 									</Select.Item>
 									<Select.Item value="createTime" className="SelectItem">
-										<Select.ItemText>按日期排</Select.ItemText>
+										<Select.ItemText>{t('按日期排')}</Select.ItemText>
 										<Select.ItemIndicator className="SelectItemIndicator">
 											<CheckIcon />
 										</Select.ItemIndicator>
@@ -111,9 +114,11 @@ const Archive = () => {
 							</div>
 							<div className="mr-4 w-1/5">
 								<div className="block text-gray-500 ">
-									{x.collectCount + '收藏'}
+									{x.collectCount + ' ' + t('收藏')}
 								</div>
-								<div className="block text-gray-500">{x.viewCount + '瀏覽'}</div>
+								<div className="block text-gray-500">
+									{x.viewCount + ' ' + t('瀏覽')}
+								</div>
 							</div>
 							<div>
 								<Button
@@ -135,9 +140,15 @@ const Archive = () => {
 										}
 									}}
 								>
-									解除
-									<br />
-									收藏
+									{i18n.language === 'zh-tw' ? (
+										<>
+											解除
+											<br />
+											收藏
+										</>
+									) : (
+										<>Uncollect</>
+									)}
 								</Button>
 							</div>
 						</CardContent>

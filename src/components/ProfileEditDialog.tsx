@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
 
@@ -24,6 +25,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 	const [name, setName] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
+	const { t } = useTranslation();
 
 	const handleDiscard = () => {
 		setOpen(false);
@@ -98,18 +100,18 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 					variant="outline"
 					className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 				>
-					Edit Profile
+					{t("編輯檔案")}
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="w-[75%] bg-white">
 				<DialogHeader>
-					<DialogTitle>Edit profile</DialogTitle>
+					<DialogTitle>{t("編輯檔案")}</DialogTitle>
 					<DialogDescription>Make changes to your profile here.</DialogDescription>
 				</DialogHeader>
 				<div className="grid gap-4 py-4">
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-right">
-							Name:
+							{t("姓名")}:
 						</Label>
 						<Input
 							id="name"
@@ -120,7 +122,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 					</div>
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="avatar" className="text-right">
-							Avatar:
+							{t("頭像")}:
 						</Label>
 						<input
 							type="file"
@@ -136,13 +138,13 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 							onClick={handleSaveChanges}
 							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
-							Save{' '}
+							{t("儲存")}{' '}
 						</Button>
 						<Button
 							onClick={handleDiscard}
 							className="w-2/5 bg-[#f7a072] px-3 py-1 text-sm text-black"
 						>
-							Discard
+							{t("取消")}
 						</Button>
 					</div>
 				</DialogFooter>
