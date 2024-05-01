@@ -142,6 +142,7 @@ export default function Page() {
 											height={500}
 											layout="responsive"
 											className="rounded-md bg-[#D9D9D9]"
+											priority
 										/>
 									</div>
 								))}
@@ -164,6 +165,7 @@ export default function Page() {
 									width={50}
 									height={50}
 									className="rounded-full"
+									priority
 								/>
 								<p className="ml-2">{user.displayName}</p>
 							</div>

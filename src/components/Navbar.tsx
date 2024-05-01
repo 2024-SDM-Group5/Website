@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -8,7 +9,6 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/hook/useUser';
-import { useTranslation } from 'react-i18next';
 
 function Navbar() {
 	const pathname = usePathname();
@@ -18,7 +18,7 @@ function Navbar() {
 	const session = useSession();
 	const { t } = useTranslation();
 	const userId = useUser(session.data?.idToken);
-	
+
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
@@ -57,12 +57,12 @@ function Navbar() {
 
 	return (
 		<Tabs value={activeTab} className="h-15 w-full">
-			<TabsList className="h-full w-full rounded-none bg-white p-0">
+			<TabsList className="h-full w-full rounded-none bg-[#FDFBF4] p-0 text-[#2D2327]">
 				{tabsConfig.map((tab) => (
 					<TabsTrigger
 						key={tab.value}
 						value={tab.value}
-						className="border-b-gray text-muted-foreground relative flex-1 rounded-none border-b-4 bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-[#FF990A] [&_a]:text-neutral-500 [&_a]:data-[state=active]:text-[#FF990A]"
+						className="border-b-gray text-muted-foreground relative flex-1 rounded-none border-b-4 bg-transparent pb-3 pt-2 font-semibold shadow-none transition-none focus-visible:ring-0 data-[state=active]:border-b-[#2D2327] [&_a]:text-neutral-500 [&_a]:data-[state=active]:text-[#2D2327]"
 					>
 						<Link href={tab.href} className="text-lg">
 							{tab.label}

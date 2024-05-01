@@ -11,7 +11,7 @@ type Props = {
 
 function Layout({ children }: Props) {
 	return (
-		<div className="flex h-screen w-full flex-col bg-white">
+		<div className="flex h-screen w-full flex-col bg-[#FDFBF4] text-[#2D2327]">
 			<div className="fixed right-4 top-4 z-10">
 				<SearchIcon />
 			</div>
@@ -20,7 +20,7 @@ function Layout({ children }: Props) {
 			</div>
 			<Navbar />
 
-			<main className="mb-[52px] flex flex-1 overflow-hidden bg-white">{children}</main>
+			<main className="mb-[52px] flex flex-1 overflow-hidden ">{children}</main>
 
 			<Footer />
 		</div>

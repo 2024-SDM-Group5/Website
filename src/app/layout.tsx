@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react';
+import React from 'react';
 
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { Inter } from 'next/font/google';
 
-import Provider from '@/app/context/client-provider';
-
 import { options } from './api/auth/[...nextauth]/options';
 import './globals.css';
+
+const Provider = React.lazy(() => import('@/app/context/client-provider'));
 
 const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ async function RootLayout({ children }: RootLayoutProps) {
 	const session = await getServerSession(options);
 	return (
 		<html lang="en">
-			<body className={`${inter.className} min-h-screen bg-white`}>
+			<body className={`${inter.className} min-h-screen bg-[#FDFBF4] text-[#2D2327]`}>
 				<Provider session={session}>{children}</Provider>
 			</body>
 		</html>

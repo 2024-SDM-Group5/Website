@@ -20,7 +20,7 @@ function LotteryFloatButton({ onClick }: { onClick: Function }) {
 				borderRadius: '35px',
 			}}
 		>
-			<Image src={lottery} alt="lottery" />
+			<Image src={lottery} alt="lottery" priority />
 		</div>
 	);
 }

@@ -98,20 +98,20 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 			<DialogTrigger asChild>
 				<Button
 					variant="outline"
-					className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+					className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 				>
-					{t("編輯檔案")}
+					{t('編輯檔案')}
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="w-[75%] bg-white">
 				<DialogHeader>
-					<DialogTitle>{t("編輯檔案")}</DialogTitle>
+					<DialogTitle>{t('編輯檔案')}</DialogTitle>
 					<DialogDescription>Make changes to your profile here.</DialogDescription>
 				</DialogHeader>
 				<div className="grid gap-4 py-4">
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-right">
-							{t("姓名")}:
+							{t('姓名')}:
 						</Label>
 						<Input
 							id="name"
@@ -122,7 +122,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 					</div>
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="avatar" className="text-right">
-							{t("頭像")}:
+							{t('頭像')}:
 						</Label>
 						<input
 							type="file"
@@ -138,13 +138,13 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 							onClick={handleSaveChanges}
 							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
-							{t("儲存")}{' '}
+							{t('儲存')}{' '}
 						</Button>
 						<Button
 							onClick={handleDiscard}
 							className="w-2/5 bg-[#f7a072] px-3 py-1 text-sm text-black"
 						>
-							{t("取消")}
+							{t('取消')}
 						</Button>
 					</div>
 				</DialogFooter>

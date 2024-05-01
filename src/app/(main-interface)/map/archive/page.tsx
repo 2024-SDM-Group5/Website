@@ -106,6 +106,7 @@ const Archive = () => {
 									alt={`${x.name}_icon`}
 									height={80}
 									width={80}
+									priority
 								/>
 							</div>
 							<div className="w-1/2">

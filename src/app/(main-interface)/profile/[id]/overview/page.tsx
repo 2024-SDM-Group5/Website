@@ -9,13 +9,13 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import axios from 'axios';
-import i18next from "@/lib/i18n";
 
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
 import SinglePost from '@/components/SinglePost';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hook/useUser';
+import i18next from '@/lib/i18n';
 
 interface UserDetail {
 	id: number;
@@ -123,61 +123,61 @@ function UserProfile() {
 		<div className="flex w-full flex-1 flex-col">
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
-					<Image
-						src={userDetail.avatarUrl || ''}
-						alt="User Avatar"
-						width={80}
-						height={80}
-						priority={true}
-						className="rounded-full"
-					/>
-					{params.id === userId?.toString() && i18next.language == 'zh-tw' ? (
-						<p
-							style={{
-								fontSize: '24px',
-								display: 'absolute',
-								top: '105px',
-								left: '80px',
-							}}
-							onClick={() => i18n.changeLanguage('en')}
-						>
-							En
-						</p>
-					) : (
-						<p
-							style={{
-								fontSize: '24px',
-								display: 'absolute',
-								top: '105px',
-								left: '80px',
-							}}
-							onClick={() => i18n.changeLanguage('zh-tw')}
-						>
-							Zh
-						</p>
-					)}
+					<div className="mr-10 flex  flex-col items-center justify-center  ">
+						<Image
+							src={userDetail.avatarUrl || ''}
+							alt="User Avatar"
+							width={80}
+							height={80}
+							priority={true}
+							className="aspect-square object-cover"
+						/>
+						<div className="text-xl">{userDetail.displayName}</div>
+					</div>
+
 					<div className="ml-4 flex space-x-4">
-						<div>{userDetail.postCount} {t("貼文")}</div>
-						<div>{userDetail.following} {t("追蹤中")}</div>
-						<div>{userDetail.followed} {t("追蹤者")}</div>
+						<div>
+							{userDetail.postCount} {t('貼文')}
+						</div>
+						<div>
+							{userDetail.following} {t('追蹤中')}
+						</div>
+						<div>
+							{userDetail.followed} {t('追蹤者')}
+						</div>
 					</div>
 				</div>
-				<div className="ml-6 text-left text-xl">{userDetail.displayName}</div>
+
 				<div className="mt-2 flex w-full justify-around">
 					{params.id === userId?.toString() && (
 						<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
 					)}
-					<Link href={`/map/${userDetail.mapId}/general`} className="w-[48%]">
+					<Link href={`/map/${userDetail.mapId}/general`} className="w-[32%]">
 						<Button className="text-md w-full bg-[#ffcc84] px-3 py-1 text-sm text-black">
-							{t("查看地圖")}
+							{t('查看地圖')}
 						</Button>
 					</Link>
 					{params.id !== userId?.toString() && (
 						<Button
-							className="text-md w-[48%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+							className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 							onClick={handleFollowUnfollow}
 						>
-							{userDetail.isFollowing ? t("解除追蹤") : t("追蹤")}
+							{userDetail.isFollowing ? t('解除追蹤') : t('追蹤')}
+						</Button>
+					)}
+					{params.id === userId?.toString() && i18next.language == 'zh-tw' ? (
+						<Button
+							className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+							onClick={() => i18n.changeLanguage('en')}
+						>
+							En
+						</Button>
+					) : (
+						<Button
+							className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
+							onClick={() => i18n.changeLanguage('zh-tw')}
+						>
+							Zh
 						</Button>
 					)}
 				</div>

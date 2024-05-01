@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -128,11 +127,13 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 									{t('評分') + ' ' + x.rating}
 								</div>
 							</div>
-							<div className="mr-4 w-1/5">
+							<div className="w-2/5">
 								<div className="block text-gray-500 ">
 									{x.collectCount + ' ' + t('收藏')}
 								</div>
-								<div className="block text-gray-500">{x.viewCount + ' ' + t('瀏覽')}</div>
+								<div className="block text-gray-500">
+									{x.viewCount + ' ' + t('瀏覽')}
+								</div>
 							</div>
 							<div>
 								{x.hasCollected ? (
