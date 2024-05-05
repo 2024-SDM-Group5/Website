@@ -130,7 +130,7 @@ function UserProfile() {
 							width={80}
 							height={80}
 							priority={true}
-							className="aspect-square object-cover"
+							className="aspect-square rounded-full object-cover"
 						/>
 						<div className="text-xl">{userDetail.displayName}</div>
 					</div>

@@ -18,19 +18,19 @@ export default function Login() {
 	const userId = useUser(session?.idToken);
 	const router = useRouter();
 
-	const redirectToProfile = useCallback(() => {
+	const redirectToMap = useCallback(() => {
 		let prefix = '/website';
 		if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') {
 			prefix = '';
 		}
-		router.push(`${prefix}/profile/${userId}/overview`);
-	}, [userId, router]);
+		router.push(`${prefix}/map/0/general`);
+	}, [router]);
 
 	useEffect(() => {
 		if (authStatus === 'authenticated' && userId) {
-			redirectToProfile();
+			redirectToMap();
 		}
-	}, [authStatus, userId, redirectToProfile]);
+	}, [authStatus, userId, redirectToMap]);
 
 	if (authStatus === 'loading') {
 		return <div>Loading...</div>;

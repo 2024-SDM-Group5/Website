@@ -58,8 +58,8 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 		}
 
 		const profileData = {
-			displayName: name,
-			avatarUrl: avatarUrl,
+			...(name && { displayName: name }),
+			...(avatarUrl && { avatarUrl: avatarUrl }),
 		};
 
 		try {

@@ -128,7 +128,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		<div>
 			{diaryDetail ? (
 				<div className="flex w-full flex-col items-center justify-center">
-					<div className="mb-4 mt-4 flex w-full items-center justify-start pl-4">
+					<div className="flex w-full items-center justify-start pb-4 pl-4 pt-4">
 						<Link href={`/profile/${diaryDetail.userId}/overview`}>
 							<Image
 								src={diaryDetail.avatarUrl}
@@ -138,7 +138,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								className="rounded-full"
 								priority={true}
 							/>
-							<span className="ml-4">{diaryDetail.username}</span>
+							<span className="pl-1 pt-2">{diaryDetail.username}</span>
 						</Link>
 					</div>
 					<Image
@@ -149,8 +149,8 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						className="w-full"
 						priority={true}
 					/>
-					<div className="m-4 mb-4 flex w-full flex-col items-start">
-						<div className="mb-4 ml-4 flex items-center justify-center">
+					<div className="flex w-full flex-col items-start p-4">
+						<div className="ml-4 flex items-center justify-center pb-4">
 							<button onClick={toggleFavorite} className="flex text-xl ">
 								{diaryDetail.hasFavorited ? (
 									<HeartFilledIcon width="24" height="24" />
@@ -161,7 +161,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 
 							<button
 								onClick={toggleCollect}
-								className="ml-4 flex items-center text-xl"
+								className="flex items-center pl-4 text-xl"
 							>
 								{diaryDetail.hasCollected ? (
 									<StarFilledIcon width="24" height="24" />
@@ -175,7 +175,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								{reply.authorId === userId ? (
 									<div
 										key={reply.id}
-										className="mt-4 flex w-full justify-around "
+										className="flex w-full justify-around pt-4 "
 									>
 										<Link href={`/profile/${reply.authorId}/overview`}>
 											{reply.username}: {reply.content}
@@ -190,7 +190,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										</div>
 									</div>
 								) : (
-									<div key={reply.id} className="ml-8 mt-4 w-full text-left">
+									<div key={reply.id} className="w-full pl-8 pt-4 text-left">
 										<span>
 											{reply.username}: {reply.content}
 										</span>
@@ -198,7 +198,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								)}
 							</>
 						))}
-						<div className="mt-2 flex w-full justify-around ">
+						<div className="flex w-full justify-around pt-2 ">
 							<input
 								type="text"
 								value={newComment}

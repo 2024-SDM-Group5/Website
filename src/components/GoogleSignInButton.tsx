@@ -34,11 +34,12 @@ function GoogleIcon() {
 }
 
 function GoogleSignInButton() {
+	const prefix = process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? '' : '/website';
 	return (
 		<div className="flex justify-center">
 			<Button
 				variant="outline"
-				onClick={() => signIn('google')}
+				onClick={() => signIn('google', { callbackUrl: `${prefix}/map/0/general` })}
 				className="rounded-xl bg-white px-10 py-10 text-2xl hover:bg-gray-200"
 			>
 				<GoogleIcon />
