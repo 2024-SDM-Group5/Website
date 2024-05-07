@@ -28,7 +28,12 @@ interface MapDetailType {
 function MapInfoHoverCard({ mapId }: { mapId: string }) {
 	const [mapDetails, setMapDetails] = useState<MapDetailType | null>(null);
 	const session = useSession();
-	const toggleCollect = async () => {
+	let prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+	}
+	const toggleCollect = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
 		const method = mapDetails?.hasCollected ? 'DELETE' : 'POST';
 		try {
 			await axios({
@@ -50,6 +55,13 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 				const response = await axios.get(
 					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${mapId}`,
 				);
+				if (
+					!response.data.center ||
+					response.data.center.lat === null ||
+					response.data.center.lng === null
+				) {
+					response.data.center = { lat: 25.0299042, lng: 121.503305 };
+				}
 				setMapDetails(response.data);
 			} catch (error) {
 				console.error('Failed to fetch map details:', error);
@@ -72,16 +84,16 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 				<div className="flex w-4/5 flex-col">
 					<div className="flex">
 						<Image
-							src={mapDetails.iconUrl}
+							src={mapDetails.iconUrl || `${prefix}/images/map.jpg`}
 							alt="Map Icon"
-							width="100"
-							height="100"
+							width="200"
+							height="200"
 							priority={true}
 						/>
 						<div className="ml-4">
 							<h4 className="text-xl font-semibold">{mapDetails.name}</h4>
 							<div className="mt-2 flex">
-								<Link href={`/profile/${mapDetails.authorId}/overview`}>
+								<Link href={`${prefix}/profile/${mapDetails.authorId}/overview`}>
 									<HomeIcon width="24" height="24" />
 								</Link>
 								<p className="ml-2">作者： {mapDetails.author}</p>
