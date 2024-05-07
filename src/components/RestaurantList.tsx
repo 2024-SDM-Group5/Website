@@ -13,7 +13,7 @@ import axios from 'axios';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import i18n from '@/lib/i18n';
+import i18next from '@/lib/i18n';
 
 interface Restaurant {
 	placeId: string;
@@ -37,7 +37,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [search, setSearch] = useState('');
 	const [data, setData] = useState<Array<Restaurant>>([]);
 	const session = useSession();
-	const { t } = useTranslation();
+	const {t, i18n} = useTranslation("translation", { i18n: i18next });
 	const [messageApi, contextHolder] = message.useMessage();
 	const router = useRouter();
 	const [idx, setIdx] = useState(0);

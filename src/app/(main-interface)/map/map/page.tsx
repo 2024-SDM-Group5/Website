@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import i18next from "@/lib/i18n"
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
@@ -35,7 +36,7 @@ function MapOverview() {
 	const session = useSession();
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
-	const { t } = useTranslation();
+	const { t } = useTranslation("translation", {i18n: i18next});
 	useEffect(() => {
 		const FetchData = async () => {
 			try {
