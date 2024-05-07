@@ -102,7 +102,7 @@ const Archive = () => {
 						>
 							<div className="mr-4 w-1/6">
 								<Image
-									src={x.iconUrl}
+									src={x.iconUrl || `/images/map.jpg`}
 									alt={`${x.name}_icon`}
 									height={80}
 									width={80}
