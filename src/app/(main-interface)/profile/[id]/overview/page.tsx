@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -16,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hook/useUser';
 import i18next from '@/lib/i18n';
+import {useTranslation} from "react-i18next"
 
 interface UserDetail {
 	id: number;
@@ -37,7 +37,7 @@ function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
-	const { t, i18n } = useTranslation();
+	const {t, i18n} = useTranslation("translation", { i18next });
 	const params = useParams<{ id: string }>();
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
@@ -168,7 +168,7 @@ function UserProfile() {
 							{userDetail.isFollowing ? t('解除追蹤') : t('追蹤')}
 						</Button>
 					)}
-					{params.id === userId?.toString() && i18next.language == 'zh-tw' ? (
+					{params.id !== userId?.toString()  && (i18n.language == 'zh-tw' ? (
 						<Button
 							className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
 							onClick={() => i18n.changeLanguage('en')}
@@ -182,8 +182,8 @@ function UserProfile() {
 						>
 							Zh
 						</Button>
-					)}
-				</div>
+					))}
+					</div>
 			</div>
 			<Separator className="mt-4" />
 			<div className="flex w-full flex-1 overflow-auto">

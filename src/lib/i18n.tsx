@@ -16,7 +16,6 @@ i18n
 				(process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? '' : '/website') +
 				'/locales/{{lng}}/{{ns}}.json',
 		},
-		// 當目前的語言檔找不到對應的字詞時，會用 fallbackLng (en) 作為預設語言
 		fallbackLng: 'zh-tw',
 		// 預設語言
 		lng: 'zh-tw',
