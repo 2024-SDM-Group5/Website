@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import i18next from "@/lib/i18n"
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
@@ -35,7 +36,7 @@ function MapOverview() {
 	const session = useSession();
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
-	const { t } = useTranslation();
+	const { t } = useTranslation("translation", {i18n: i18next});
 	useEffect(() => {
 		const FetchData = async () => {
 			try {
@@ -142,6 +143,7 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = false;
+		data[i].collectCount -= 1;
 												setData(Array.from(data));
 												messageApi.success('解除收藏成功');
 											}
@@ -173,7 +175,8 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = true;
-												setData(Array.from(data));
+		data[i].collectCount += 1;
+		setData(Array.from(data));
 												messageApi.success('收藏成功');
 											}
 										}}

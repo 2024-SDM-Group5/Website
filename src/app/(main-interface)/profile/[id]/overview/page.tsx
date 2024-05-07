@@ -37,7 +37,7 @@ function UserProfile() {
 	const [userDetail, setUserDetail] = useState<UserDetail | null>(null);
 	const [userDiaries, setUserDiaries] = useState<Diary[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
-	const {t, i18n} = useTranslation("translation", { i18next });
+	const {t, i18n} = useTranslation("translation", { i18n: i18next });
 	const params = useParams<{ id: string }>();
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);

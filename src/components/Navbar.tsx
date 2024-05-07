@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/hook/useUser';
+import i18next from "@/lib/i18n"
 
 function Navbar() {
 	const pathname = usePathname();
@@ -16,7 +17,7 @@ function Navbar() {
 	let rootPath = pathSegments[1];
 	const [activeTab, setActiveTab] = useState('');
 	const session = useSession();
-	const { t } = useTranslation();
+	const {t, i18n} = useTranslation("translation", { i18n: i18next });
 	const userId = useUser(session.data?.idToken);
 
 	let tabsConfig: { value: string; label: string; href: string }[] = [];
