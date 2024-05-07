@@ -37,7 +37,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 	const [search, setSearch] = useState('');
 	const [data, setData] = useState<Array<Restaurant>>([]);
 	const session = useSession();
-	const {t, i18n} = useTranslation("translation", { i18n: i18next });
+	const { t, i18n } = useTranslation('translation', { i18n: i18next });
 	const [messageApi, contextHolder] = message.useMessage();
 	const router = useRouter();
 	const [idx, setIdx] = useState(0);
@@ -151,7 +151,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = false;
-		data[i].collectCount -= 1;
+												data[i].collectCount -= 1;
 												setData(Array.from(data));
 												messageApi.success('解除收藏成功');
 											}
@@ -183,8 +183,8 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = true;
-		data[i].collectCount += 1;
-		setData(Array.from(data));
+												data[i].collectCount += 1;
+												setData(Array.from(data));
 												messageApi.success('收藏成功');
 											}
 										}}

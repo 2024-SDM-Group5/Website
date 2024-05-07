@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import i18next from "@/lib/i18n"
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
@@ -16,6 +15,7 @@ import axios from 'axios';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import i18next from '@/lib/i18n';
 import i18n from '@/lib/i18n';
 
 interface Map {
@@ -36,10 +36,9 @@ function MapOverview() {
 	const session = useSession();
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
-	const { t } = useTranslation("translation", {i18n: i18next});
+	const { t } = useTranslation('translation', { i18n: i18next });
 	let prefix = '';
-	if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
-		prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development') prefix = '/website';
 	useEffect(() => {
 		const FetchData = async () => {
 			try {
@@ -103,7 +102,6 @@ function MapOverview() {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						onClick={(e) => {
-
 							router.push(`${prefix}/map/${x.id}/general`);
 						}}
 					>
@@ -144,7 +142,7 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = false;
-		data[i].collectCount -= 1;
+												data[i].collectCount -= 1;
 												setData(Array.from(data));
 												messageApi.success('解除收藏成功');
 											}
@@ -176,8 +174,8 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = true;
-		data[i].collectCount += 1;
-		setData(Array.from(data));
+												data[i].collectCount += 1;
+												setData(Array.from(data));
 												messageApi.success('收藏成功');
 											}
 										}}

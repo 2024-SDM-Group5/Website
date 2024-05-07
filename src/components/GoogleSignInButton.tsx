@@ -40,10 +40,10 @@ function GoogleSignInButton() {
 			<Button
 				variant="outline"
 				onClick={() => signIn('google', { callbackUrl: `${prefix}/map/0/general` })}
-				className="rounded-xl bg-white px-10 py-10 text-2xl hover:bg-gray-200"
+				className="rounded-xl bg-white px-5 py-8 text-2xl hover:bg-gray-200"
 			>
 				<GoogleIcon />
-				<p className="ml-4">Sign In With Google</p>
+				<p className="ml-4">Sign In</p>
 			</Button>
 		</div>
 	);

@@ -44,7 +44,7 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 		};
 		FetchRestaurant();
 	}, [bounds, id]);
-	
+
 	return (
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">

@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import i18next from "@/lib/i18n"
+import i18next from '@/lib/i18n';
 
 interface NewDiaryDialogProps {
 	idToken: string;
@@ -33,7 +33,7 @@ export function NewDiaryDialog({
 	const [content, setContent] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
-	const {t, i18n} = useTranslation("translation", { i18n: i18next });
+	const { t, i18n } = useTranslation('translation', { i18n: i18next });
 
 	const handleDiscard = () => {
 		setOpen(false);

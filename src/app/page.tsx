@@ -7,8 +7,8 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import i18next from '@/lib/i18n';
 import { useUser } from '@/hook/useUser';
+import i18next from '@/lib/i18n';
 
 const GoogleSignInButton = dynamic(() => import('@/components/GoogleSignInButton'), {
 	ssr: false,
@@ -39,6 +39,15 @@ export default function Login() {
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center">
+			<div className="mb-10 mt-[-20px]">
+				<Image
+					src="/images/logo.png"
+					alt="title"
+					width={250}
+					height={250}
+					priority={true}
+				/>
+			</div>
 			<div className="mb-10 mt-[-20px]">
 				<Image
 					src="/images/title.png"

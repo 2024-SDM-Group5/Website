@@ -15,9 +15,6 @@ function Layout({ children }: Props) {
 			<div className="fixed right-4 top-4 z-10">
 				<SearchIcon />
 			</div>
-			<div className="mx-0 max-w-6xl px-4 py-5 text-center">
-				<h1 className="text-left text-xl font-bold text-gray-700">12:34</h1>
-			</div>
 			<Navbar />
 
 			<main className="mb-[52px] flex flex-1 overflow-hidden ">{children}</main>
