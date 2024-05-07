@@ -107,7 +107,7 @@ export default function Page() {
 	}
 	return (
 		<div className="flex w-full flex-1 flex-col">
-			<div className="p-4 h-15 w-full flex items-center space-x-2">
+			<div className="h-15 flex w-full items-center space-x-2 p-4">
 				<ChevronLeftIcon className="h-5 w-5 cursor-pointer" onClick={handleBackClick} />
 				<Input
 					placeholder="Search..."
@@ -132,7 +132,7 @@ export default function Page() {
 				<TabsContent value="diary">
 					<div className="flex w-full flex-1 flex-col ">
 						<div className="flex w-full flex-1 overflow-auto">
-							<div className="grid auto-rows-min w-full grid-cols-3 gap-1 bg-white ">
+							<div className="grid w-full auto-rows-min grid-cols-3 gap-1 bg-white ">
 								{userDiaries.map((diary) => (
 									<div
 										key={diary.id}
@@ -168,7 +168,7 @@ export default function Page() {
 									alt={`User ${user.id}`}
 									width={50}
 									height={50}
-									className="rounded-full aspect-square object-cover"
+									className="aspect-square rounded-full object-cover"
 									priority
 								/>
 								<p className="ml-2">{user.displayName}</p>

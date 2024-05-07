@@ -78,12 +78,9 @@ function UserProfile() {
 					: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}`;
 			try {
 				const response = await axios.get(url, {
-					headers:
-						params.id === userId?.toString()
-							? {
-									Authorization: `Bearer ${session.data?.idToken}`,
-								}
-							: {},
+					headers: {
+						Authorization: `Bearer ${session.data?.idToken}`,
+					},
 				});
 				setUserDetail(response.data);
 			} catch (error) {
@@ -188,7 +185,7 @@ function UserProfile() {
 			</div>
 			<Separator className="mt-4" />
 			<div className="flex w-full flex-1 overflow-auto">
-				<div className="grid auto-rows-min w-full grid-cols-3 gap-1 bg-[#FDFBF4]">
+				<div className="grid w-full auto-rows-min grid-cols-3 gap-1 bg-[#FDFBF4]">
 					{userDiaries.map((diary) => (
 						<div
 							key={diary.id}

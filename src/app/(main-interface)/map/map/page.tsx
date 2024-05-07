@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -11,7 +12,7 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Input, message } from 'antd';
 import axios from 'axios';
-import Image from 'next/image';
+
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';

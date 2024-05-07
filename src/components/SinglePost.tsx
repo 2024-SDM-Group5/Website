@@ -73,9 +73,13 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		};
 
 		try {
-			await axios.post('https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments', commentData, {
-				headers: { Authorization: `Bearer ${session.data?.idToken}` },
-			});
+			await axios.post(
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments',
+				commentData,
+				{
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				},
+			);
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
@@ -179,9 +183,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								{reply.authorId === userId ? (
 									<div
 										key={reply.id}
-										className="flex w-full justify-between pt-4 px-4"
+										className="flex w-full justify-between px-4 pt-4"
 									>
-										<Link href={`${prefix}/profile/${reply.authorId}/overview`} >
+										<Link href={`${prefix}/profile/${reply.authorId}/overview`}>
 											{reply.username}: {reply.content}
 										</Link>
 										<div>
@@ -194,7 +198,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										</div>
 									</div>
 								) : (
-									<div key={reply.id} className="w-full pt-4 text-left pl-2">
+									<div key={reply.id} className="w-full pl-2 pt-4 text-left">
 										<span>
 											{reply.username}: {reply.content}
 										</span>
@@ -202,7 +206,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								)}
 							</>
 						))}
-						<div className="flex w-full justify-between pt-2 px-4">
+						<div className="flex w-full justify-between px-4 pt-2">
 							<input
 								type="text"
 								value={newComment}
