@@ -46,8 +46,10 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 		const FetchData = async () => {
 			let suffix = '';
 			if (search) suffix = `&q=${search}`;
+			let api = `api/v1/maps/${id}/restaurants`;
+			if (id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${id}/restaurants?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+				`https://mainserver-fdhzgisj6a-de.a.run.app/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 					suffix,
 			);
 			setTotal(res?.data.total);
