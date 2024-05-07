@@ -11,7 +11,7 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Input, message } from 'antd';
 import axios from 'axios';
-
+import Image from 'next/image';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -107,7 +107,7 @@ function MapOverview() {
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6">
-								<img
+								<Image
 									src={x.iconUrl || `/images/map.jpg`}
 									alt={`${x.name}_icon`}
 									height={80}
