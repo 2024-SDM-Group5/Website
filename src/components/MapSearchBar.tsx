@@ -40,9 +40,10 @@ function MapSearchBar({
 		const FetchData = async () => {
 			let suffix = '';
 			if (search) suffix = `&q=${search}`;
+			let api = `api/v1/maps/${map_id}/restaurants`;
+			if (map_id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${map_id}/restaurants?limit=10` +
-					suffix,
+				`https://mainserver-fdhzgisj6a-de.a.run.app/${api}?limit=10` + suffix,
 			);
 			let tmp = [];
 			for (let i = 0; i < res?.data.restaurants.length; i++) {
@@ -60,6 +61,7 @@ function MapSearchBar({
 		<AutoComplete
 			className="h-full w-[80%]"
 			options={options}
+			value={search}
 			onSelect={(value, option) => {
 				if (map) {
 					map.panTo(

@@ -30,7 +30,7 @@ interface Restaurant {
 	collectCount: number;
 	likeCount: number;
 	dislikeCount: number;
-	photos: Array<string>;
+	photoUrl: string;
 }
 function RestaurantDrawer({
 	show,
@@ -139,7 +139,7 @@ function RestaurantDrawer({
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
 						<img
-							src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${restaurant.photos[0]}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+							src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 							alt={restaurant.name + '_icon'}
 							width={105}
 							height={105}
