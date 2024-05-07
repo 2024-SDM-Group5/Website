@@ -34,7 +34,7 @@ export function NewDiaryDialog({
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
 	const { t, i18n } = useTranslation('translation', { i18n: i18next });
-
+	const [isFormValid, setIsFormValid] = useState(false);
 	const handleDiscard = () => {
 		setOpen(false);
 		setAvatar(null);
@@ -42,6 +42,7 @@ export function NewDiaryDialog({
 	};
 
 	const handleSaveChanges = async () => {
+		if (!isFormValid) return;
 		let avatarUrl = '';
 		if (avatar) {
 			const avatarFormData = new FormData();
@@ -82,6 +83,13 @@ export function NewDiaryDialog({
 	};
 	const date = new Date();
 	let date_str = `${date.getFullYear()}/${date.getMonth() + 1 > 10 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)}/${date.getDate() > 10 ? date.getDate() : '0' + date.getDate()}`;
+	const validateForm = () => {
+		setIsFormValid(item.trim() !== '' && content.trim() !== '' && avatar !== null);
+	};
+
+	useEffect(() => {
+		validateForm();
+	}, [item, content, avatar]);
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -142,6 +150,7 @@ export function NewDiaryDialog({
 					<div className="flex w-full flex-row-reverse">
 						<Button
 							onClick={handleSaveChanges}
+							disabled={!isFormValid}
 							className="ml-2 w-2/5 bg-[#ffcc84] px-3 py-1 text-sm text-black"
 						>
 							{t('儲存')}{' '}
