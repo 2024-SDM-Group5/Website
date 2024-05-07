@@ -23,10 +23,10 @@ const MyPagination = ({
 		<Pagination>
 			<PaginationContent>
 				<PaginationItem
-					onClick={(e) => setIdx((prev) => prev - 1)}
-					tabIndex={idx == 0 ? -1 : undefined}
-					aria-disabled={idx == 0 ? true : false}
-					className={idx == 0 ? 'pointer-event-none opacity-50' : ''}
+					onClick={(e) => {if(idx !== 0) setIdx((prev) => prev - 1)}}
+					tabIndex={idx === 0 ? -1 : undefined}
+					aria-disabled={idx === 0 ? true : false}
+					className={idx === 0 ? 'pointer-event-none opacity-50' : ''}
 				>
 					<PaginationPrevious href="#" />
 				</PaginationItem>
@@ -46,10 +46,10 @@ const MyPagination = ({
 					</PaginationItem>
 				)}
 				<PaginationItem
-					onClick={(e) => setIdx((prev) => prev + 1)}
-					tabIndex={idx == Math.floor(total / 10) ? -1 : undefined}
-					aria-disabled={idx == Math.floor(total / 10) ? true : false}
-					className={idx == Math.floor(total / 10) ? 'pointer-event-none opacity-50' : ''}
+					onClick={(e) => {if(idx !== Math.floor(total / 10)) setIdx((prev) => prev + 1)}}
+					tabIndex={idx === Math.floor(total / 10) ? -1 : undefined}
+					aria-disabled={idx === Math.floor(total / 10) ? true : false}
+					className={idx === Math.floor(total / 10) ? 'pointer-event-none opacity-50' : ''}
 				>
 					<PaginationNext href="#" />
 				</PaginationItem>

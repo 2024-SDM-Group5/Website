@@ -142,6 +142,7 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = false;
+		data[i].collectCount -= 1;
 												setData(Array.from(data));
 												messageApi.success('解除收藏成功');
 											}
@@ -173,7 +174,8 @@ function MapOverview() {
 											);
 											if (res?.data.success) {
 												data[i].hasCollected = true;
-												setData(Array.from(data));
+		data[i].collectCount += 1;
+		setData(Array.from(data));
 												messageApi.success('收藏成功');
 											}
 										}}
