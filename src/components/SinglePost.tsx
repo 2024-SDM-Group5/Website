@@ -187,7 +187,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										<div>
 											<button
 												onClick={() => handleDeleteComment(reply.id)}
-												className="rounded bg-red-500 px-4 py-2 text-white"
+												className="rounded bg-[#f7a072] px-4 py-2 text-black"
 											>
 												Delete
 											</button>
@@ -212,7 +212,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 							/>
 							<button
 								onClick={handlePostComment}
-								className="rounded bg-blue-500 px-4 py-2 text-white"
+								className="rounded bg-[#ffcc84] px-4 py-2 text-black"
 							>
 								Post
 							</button>
@@ -220,7 +220,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					</div>
 				</div>
 			) : (
-				<div>Loading or diary detail not available...</div>
+				<></>
 			)}
 		</div>
 	);

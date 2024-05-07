@@ -65,7 +65,7 @@ function UserArchive() {
 	return (
 		<div className="flex w-full flex-1 flex-col ">
 			<div className="flex w-full flex-1 overflow-auto">
-				<div className="grid min-h-min w-full grid-cols-3 gap-1 ">
+				<div className="grid auto-rows-min w-full grid-cols-3 gap-1 ">
 					{userArchives.map((diary) => (
 						<div
 							key={diary.id}
@@ -78,6 +78,7 @@ function UserArchive() {
 								width={500}
 								height={500}
 								priority={true}
+								className="aspect-square object-cover"
 							/>
 						</div>
 					))}

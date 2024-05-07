@@ -1,14 +1,11 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
-
+import { useCallback, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from 'next/navigation'; 
 import { useUser } from '@/hook/useUser';
-import i18next from '@/lib/i18n';
 
 const GoogleSignInButton = dynamic(() => import('@/components/GoogleSignInButton'), {
 	ssr: false,
@@ -18,6 +15,7 @@ export default function Login() {
 	const { data: session, status: authStatus } = useSession();
 	const userId = useUser(session?.idToken);
 	const router = useRouter();
+	const [isUserValidated, setIsUserValidated] = useState(false);
 
 	const redirectToMap = useCallback(() => {
 		let prefix = '/website';
@@ -28,10 +26,20 @@ export default function Login() {
 	}, [router]);
 
 	useEffect(() => {
-		if (authStatus === 'authenticated' && userId) {
+		if (session?.expires) {
+			const sessionExpirationDate = new Date(session.expires);
+			const isSessionExpired = sessionExpirationDate < new Date();
+			if (!isSessionExpired) {
+				setIsUserValidated(true);
+			}
+		}
+	}, [session]);
+
+	useEffect(() => {
+		if (authStatus === 'authenticated' && userId && isUserValidated) {
 			redirectToMap();
 		}
-	}, [authStatus, userId, redirectToMap]);
+	}, [authStatus, userId, redirectToMap, isUserValidated]);
 
 	if (authStatus === 'loading') {
 		return <div>Loading...</div>;

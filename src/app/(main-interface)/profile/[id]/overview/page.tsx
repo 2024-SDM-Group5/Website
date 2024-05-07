@@ -111,7 +111,7 @@ function UserProfile() {
 			fetchUserDiaries();
 		}
 	}, [params.id, userId, session.data?.idToken]);
-	if (!userDetail) return <div>Loading...</div>;
+	if (!userDetail) return <></>;
 	if (selectedDiaryId) {
 		return (
 			<div className="w-full">
@@ -188,7 +188,7 @@ function UserProfile() {
 			</div>
 			<Separator className="mt-4" />
 			<div className="flex w-full flex-1 overflow-auto">
-				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-[#FDFBF4]">
+				<div className="grid auto-rows-min w-full grid-cols-3 gap-1 bg-[#FDFBF4]">
 					{userDiaries.map((diary) => (
 						<div
 							key={diary.id}
@@ -201,6 +201,7 @@ function UserProfile() {
 								width={500}
 								height={500}
 								priority={true}
+								className="aspect-square object-cover"
 							/>
 						</div>
 					))}

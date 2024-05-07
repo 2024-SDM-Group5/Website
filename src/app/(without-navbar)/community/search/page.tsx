@@ -132,7 +132,7 @@ export default function Page() {
 				<TabsContent value="diary">
 					<div className="flex w-full flex-1 flex-col ">
 						<div className="flex w-full flex-1 overflow-auto">
-							<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white ">
+							<div className="grid auto-rows-min w-full grid-cols-3 gap-1 bg-white ">
 								{userDiaries.map((diary) => (
 									<div
 										key={diary.id}
@@ -145,7 +145,7 @@ export default function Page() {
 											width={500}
 											height={500}
 											layout="responsive"
-											className="rounded-md bg-[#D9D9D9]"
+											className="aspect-square object-cover"
 											priority
 										/>
 									</div>
@@ -168,7 +168,7 @@ export default function Page() {
 									alt={`User ${user.id}`}
 									width={50}
 									height={50}
-									className="rounded-full"
+									className="rounded-full aspect-square object-cover"
 									priority
 								/>
 								<p className="ml-2">{user.displayName}</p>
