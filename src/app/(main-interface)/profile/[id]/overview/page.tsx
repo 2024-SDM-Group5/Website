@@ -168,7 +168,7 @@ function UserProfile() {
 							{userDetail.isFollowing ? t('解除追蹤') : t('追蹤')}
 						</Button>
 					)}
-					{params.id !== userId?.toString() &&
+					{params.id === userId?.toString() &&
 						(i18n.language == 'zh-tw' ? (
 							<Button
 								className="text-md w-[32%] bg-[#ffcc84] px-3 py-1 text-sm text-black"
