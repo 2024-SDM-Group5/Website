@@ -84,7 +84,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 				<div className="flex w-4/5 flex-col">
 					<div className="flex">
 						<Image
-							src={mapDetails.iconUrl || `${prefix}/images/map.jpg`}
+							src={mapDetails.iconUrl || `/images/map.jpg`}
 							alt="Map Icon"
 							width="200"
 							height="200"

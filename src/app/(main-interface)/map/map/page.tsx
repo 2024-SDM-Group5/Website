@@ -37,6 +37,9 @@ function MapOverview() {
 	const [idx, setIdx] = useState(0);
 	const [total, setTotal] = useState(0);
 	const { t } = useTranslation("translation", {i18n: i18next});
+	let prefix = '';
+	if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
+		prefix = '/website';
 	useEffect(() => {
 		const FetchData = async () => {
 			try {
@@ -100,16 +103,14 @@ function MapOverview() {
 						key={i}
 						className="mx-2.5 mb-4 h-24 overflow-hidden rounded-lg bg-white p-4 shadow-md"
 						onClick={(e) => {
-							let prefix = '';
-							if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development')
-								prefix = '/website';
+
 							router.push(`${prefix}/map/${x.id}/general`);
 						}}
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-4 w-1/6">
 								<img
-									src={x.iconUrl}
+									src={x.iconUrl || `/images/map.jpg`}
 									alt={`${x.name}_icon`}
 									height={80}
 									width={80}
