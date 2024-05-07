@@ -34,14 +34,17 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 	useEffect(() => {
 		const FetchRestaurant = async () => {
 			if (bounds) {
-				const res = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}`,
-				);
+				let url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}`;
+				if (id === '0') {
+					url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants`;
+				}
+				const res = await axios.get(url);
 				setRestaurants(res?.data.restaurants);
 			}
 		};
 		FetchRestaurant();
-	}, [bounds]);
+	}, [bounds, id]);
+	
 	return (
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">
