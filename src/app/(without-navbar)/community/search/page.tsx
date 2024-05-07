@@ -107,7 +107,7 @@ export default function Page() {
 	}
 	return (
 		<div className="flex w-full flex-1 flex-col">
-			<div className="flex items-center space-x-2">
+			<div className="p-4 h-15 w-full flex items-center space-x-2">
 				<ChevronLeftIcon className="h-5 w-5 cursor-pointer" onClick={handleBackClick} />
 				<Input
 					placeholder="Search..."
@@ -122,7 +122,7 @@ export default function Page() {
 						<TabsTrigger
 							key={tab.value}
 							value={tab.value}
-							className="border-b-gray relative flex-1 rounded-none border-b-4 text-neutral-500 data-[state=active]:border-b-[#FF990A] data-[state=active]:text-[#FF990A]"
+							className="border-b-gray relative flex-1 rounded-none border-b-4 text-neutral-500 data-[state=active]:border-b-[#2D2327] data-[state=active]:text-[#2D2327]"
 						>
 							{tab.name}
 						</TabsTrigger>
@@ -140,7 +140,7 @@ export default function Page() {
 										onClick={() => setSelectedDiaryId(diary.id)}
 									>
 										<Image
-											src={diary.imageUrl}
+											src={diary.imageUrl || `/images/1.jpg`}
 											alt={`Diary ${diary.id}`}
 											width={500}
 											height={500}
@@ -164,7 +164,7 @@ export default function Page() {
 								onClick={() => handleUserClick(user.id)}
 							>
 								<Image
-									src={user.avatarUrl}
+									src={user.avatarUrl || `/images/1.jpg`}
 									alt={`User ${user.id}`}
 									width={50}
 									height={50}

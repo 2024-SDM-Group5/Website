@@ -73,7 +73,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		};
 
 		try {
-			await axios.post('/api/v1/comments', commentData, {
+			await axios.post('https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments', commentData, {
 				headers: { Authorization: `Bearer ${session.data?.idToken}` },
 			});
 		} catch (error) {
@@ -179,9 +179,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								{reply.authorId === userId ? (
 									<div
 										key={reply.id}
-										className="flex w-full justify-around pt-4 "
+										className="flex w-full justify-between pt-4 px-4"
 									>
-										<Link href={`${prefix}/profile/${reply.authorId}/overview`}>
+										<Link href={`${prefix}/profile/${reply.authorId}/overview`} >
 											{reply.username}: {reply.content}
 										</Link>
 										<div>
@@ -194,7 +194,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										</div>
 									</div>
 								) : (
-									<div key={reply.id} className="w-full pl-8 pt-4 text-left">
+									<div key={reply.id} className="w-full pt-4 text-left pl-2">
 										<span>
 											{reply.username}: {reply.content}
 										</span>
@@ -202,7 +202,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								)}
 							</>
 						))}
-						<div className="flex w-full justify-around pt-2 ">
+						<div className="flex w-full justify-between pt-2 px-4">
 							<input
 								type="text"
 								value={newComment}

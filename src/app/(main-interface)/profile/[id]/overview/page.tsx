@@ -123,7 +123,7 @@ function UserProfile() {
 		);
 	}
 	return (
-		<div className="flex w-full flex-1 flex-col">
+		<div className="flex w-full flex-1 flex-col bg-[#FDFBF4]">
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
 					<div className="mr-10 flex  flex-col items-center justify-center  ">
@@ -188,7 +188,7 @@ function UserProfile() {
 			</div>
 			<Separator className="mt-4" />
 			<div className="flex w-full flex-1 overflow-auto">
-				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-white">
+				<div className="grid min-h-min w-full grid-cols-3 gap-1 bg-[#FDFBF4]">
 					{userDiaries.map((diary) => (
 						<div
 							key={diary.id}

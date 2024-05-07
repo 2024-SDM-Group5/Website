@@ -63,7 +63,7 @@ function UserArchive() {
 		);
 	}
 	return (
-		<div className="flex w-full flex-1 flex-col">
+		<div className="flex w-full flex-1 flex-col ">
 			<div className="flex w-full flex-1 overflow-auto">
 				<div className="grid min-h-min w-full grid-cols-3 gap-1 ">
 					{userArchives.map((diary) => (
