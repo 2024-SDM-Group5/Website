@@ -33,15 +33,19 @@ export default function Page() {
 	const router = useRouter();
 	const [users, setUsers] = useState<User[]>([]);
 	const [selectedDiaryId, setSelectedDiaryId] = useState<number | null>(null);
+	let prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+	}
 	const handleBackClick = () => {
-		router.push('/community/overview');
+		router.push(`${prefix}/community/overview`);
 	};
 	const handleBack = () => {
 		setSelectedDiaryId(null);
 	};
 
 	const handleUserClick = (userId: number) => {
-		router.push(`/profile/${userId}/overview`);
+		router.push(`${prefix}/profile/${userId}/overview`);
 	};
 	useEffect(() => {
 		const fetchUserDiaries = async () => {

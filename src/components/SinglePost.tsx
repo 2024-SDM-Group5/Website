@@ -46,6 +46,10 @@ function SinglePost({ diaryId }: SinglePostProps) {
 	const session = useSession();
 	const [diaryDetail, setDiaryDetail] = useState<DiaryDetail | null>(null);
 	const userId = useUser(session.data?.idToken);
+	let prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+	}
 	const toggleFavorite = async () => {
 		const method = diaryDetail?.hasFavorited ? 'DELETE' : 'POST';
 		try {
@@ -129,13 +133,13 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			{diaryDetail ? (
 				<div className="flex w-full flex-col items-center justify-center">
 					<div className="flex w-full items-center justify-start pb-4 pl-4 pt-4">
-						<Link href={`/profile/${diaryDetail.userId}/overview`}>
+						<Link href={`${prefix}/profile/${diaryDetail.userId}/overview`}>
 							<Image
 								src={diaryDetail.avatarUrl}
 								alt="Author"
 								width={60}
 								height={60}
-								className="rounded-full"
+								className="aspect-square rounded-full object-cover"
 								priority={true}
 							/>
 							<span className="pl-1 pt-2">{diaryDetail.username}</span>
@@ -177,7 +181,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 										key={reply.id}
 										className="flex w-full justify-around pt-4 "
 									>
-										<Link href={`/profile/${reply.authorId}/overview`}>
+										<Link href={`${prefix}/profile/${reply.authorId}/overview`}>
 											{reply.username}: {reply.content}
 										</Link>
 										<div>

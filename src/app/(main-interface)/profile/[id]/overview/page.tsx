@@ -41,7 +41,10 @@ function UserProfile() {
 	const params = useParams<{ id: string }>();
 	const session = useSession();
 	const userId = useUser(session.data?.idToken);
-
+	let prefix = '/website';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+	}
 	const handleFollowUnfollow = async () => {
 		const method = userDetail?.isFollowing ? 'delete' : 'post';
 		const url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/follow`;
@@ -152,7 +155,7 @@ function UserProfile() {
 					{params.id === userId?.toString() && (
 						<ProfileEditDialog idToken={session.data?.idToken} userId={userId} />
 					)}
-					<Link href={`/map/${userDetail.mapId}/general`} className="w-[32%]">
+					<Link href={`${prefix}/map/${userDetail.mapId}/general`} className="w-[32%]">
 						<Button className="text-md w-full bg-[#ffcc84] px-3 py-1 text-sm text-black">
 							{t('查看地圖')}
 						</Button>
