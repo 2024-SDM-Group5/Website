@@ -45,7 +45,7 @@ function RestaurantDrawer({
 	const [messageApi, contextHolder] = message.useMessage();
 	const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
 	const [tableContent, setTableContent] = useState<
-		Array<{ key: string; image: string; date: string; items: string; content: string }>
+		Array<{ key: string; image: string; date: Date; items: string; content: string }>
 	>([]);
 	useEffect(() => {
 		const FetchRestaurant = async () => {
@@ -61,10 +61,12 @@ function RestaurantDrawer({
 				const tmp = await axios.get(
 					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${res.data.diaries[i].id}`,
 				);
+				let d = new Date()
+				d.setTime(Date.parse(tmp.data.createdAt));
 				diaries.push({
 					key: `${i}`,
 					image: tmp.data.photos[0],
-					date: tmp.data.createdAt,
+					date: d,
 					items: tmp.data.items,
 					content: tmp.data.content,
 				});
@@ -118,7 +120,9 @@ function RestaurantDrawer({
 							title: '日期',
 							dataIndex: 'date',
 							key: 'date',
-						},
+							render: (date: Date) =>{
+								return <p>{`${date.getFullYear()}/${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}/${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()} ${date.getHours() < 10 ? '0' + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`}</p>
+						}},
 						{
 							title: '購買品項',
 							dataIndex: 'items',
@@ -139,9 +143,8 @@ function RestaurantDrawer({
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
 						<img
-							src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+							src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 							alt={restaurant.name + '_icon'}
-							width={105}
 							height={105}
 						/>
 						<div className="flex w-[105px] flex-row justify-center pt-[15px]">
