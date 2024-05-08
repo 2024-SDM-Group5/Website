@@ -22,7 +22,7 @@ export default function Page() {
 			if (session?.idToken) {
 				try {
 					const response = await axios.get<Diary[]>(
-						'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
+						'https://mainserver-service:8080/api/v1/diaries',
 						{
 							params: { following: true },
 							headers: { Authorization: `Bearer ${session.idToken}` },

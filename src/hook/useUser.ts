@@ -13,7 +13,7 @@ export const useUser = (idToken: string) => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.post<LoginResponse>(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/login',
+					'https://mainserver-service:8080/api/v1/users/login',
 					{
 						idToken,
 					},

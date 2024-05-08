@@ -49,7 +49,7 @@ export function NewDiaryDialog({
 			avatarFormData.append('avatar', avatar);
 			try {
 				const avatarResponse = await axios.post(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+					'https://mainserver-service:8080/api/v1/users/avatar',
 					avatarFormData,
 					{
 						headers: {
@@ -64,7 +64,7 @@ export function NewDiaryDialog({
 		}
 
 		const response = await axios.post(
-			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
+			`https://mainserver-service:8080/api/v1/diaries`,
 			{ content, restaurantId, photos: [avatarUrl], items: [item] },
 			{
 				headers: {

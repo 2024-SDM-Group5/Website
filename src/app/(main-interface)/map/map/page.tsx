@@ -46,7 +46,7 @@ function MapOverview() {
 				let suffix = '';
 				if (search) suffix = `&q=${search}`;
 				let res = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+					`https://mainserver-service:8080/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 						suffix,
 				);
 				setTotal(res?.data.total);
@@ -134,7 +134,7 @@ function MapOverview() {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.delete(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+												`https://mainserver-service:8080/api/v1/maps/${x.id}/collect`,
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -165,7 +165,7 @@ function MapOverview() {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.post(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+												`https://mainserver-service:8080/api/v1/maps/${x.id}/collect`,
 												{},
 												{
 													headers: {
