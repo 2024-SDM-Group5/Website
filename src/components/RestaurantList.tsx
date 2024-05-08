@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
@@ -121,7 +121,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-3 w-1/6">
-								<img
+								<Image
 									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxheight=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 									alt={x.name + '_icon'}
 									width={105}

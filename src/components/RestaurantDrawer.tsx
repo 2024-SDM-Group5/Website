@@ -145,10 +145,11 @@ function RestaurantDrawer({
 				<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
-						<img
+						<Image
 							src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 							alt={restaurant.name + '_icon'}
 							height={105}
+							width={105}
 						/>
 						<div className="flex w-[105px] flex-row justify-center pt-[15px]">
 							{restaurant.hasLiked ? (

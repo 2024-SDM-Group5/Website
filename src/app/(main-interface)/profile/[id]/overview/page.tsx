@@ -125,7 +125,7 @@ function UserProfile() {
 				<div className="flex items-center justify-center ">
 					<div className="mr-10 flex  flex-col items-center justify-center  ">
 						<Image
-							src={userDetail.avatarUrl || ''}
+							src={userDetail.avatarUrl || '/images/1.jpg'}
 							alt="User Avatar"
 							width={80}
 							height={80}

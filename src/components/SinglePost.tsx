@@ -81,6 +81,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 				},
 			);
 			setNewComment("")
+	
 			setDiaryDetail((prev) => ({
 				...prev!,
 				replies: [...prev!.replies, response.data]
@@ -148,7 +149,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					<div className="flex w-full items-center justify-start pb-4 pl-4 pt-4">
 						<Link href={`${prefix}/profile/${diaryDetail.userId}/overview`}>
 							<Image
-								src={diaryDetail.avatarUrl}
+								src={diaryDetail.avatarUrl || '/images/1.jpg'}
 								alt="Author"
 								width={60}
 								height={60}
