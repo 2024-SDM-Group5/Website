@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { SearchOutlined } from '@ant-design/icons';
@@ -121,8 +122,11 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 					>
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-3 w-1/6">
-								<img
-									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxheight=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+								<Image
+									src={
+										`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxheight=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}` ||
+										'/images/1.jpg'
+									}
 									alt={x.name + '_icon'}
 									width={105}
 									height={105}

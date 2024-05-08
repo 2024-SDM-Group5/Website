@@ -73,7 +73,7 @@ function UserArchive() {
 							onClick={() => setSelectedDiaryId(diary.id)}
 						>
 							<Image
-								src={diary.imageUrl}
+								src={diary.imageUrl || '/images/1.jpg'}
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}

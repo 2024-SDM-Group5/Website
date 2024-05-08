@@ -9,7 +9,7 @@ import {
 	DialogTrigger,
 	DialogContent,
 	DialogHeader,
-	DialogTitle, 
+	DialogTitle,
 	DialogFooter,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -78,8 +78,16 @@ export function NewDiaryDialog({
 		setContent('');
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files && event.target.files.length > 0) {
-			setAvatar(event.target.files[0]);
+		const file = event.target.files ? event.target.files[0] : null;
+
+		if (file) {
+			
+			if (file.size > 10485760) { 
+				message.error(t('檔案大小不能超過 10MB'));
+				return;
+			}
+	
+			setAvatar(file);
 		} else {
 			setAvatar(null);
 		}
@@ -141,9 +149,11 @@ export function NewDiaryDialog({
 						<Label htmlFor="avatar" className="text-md">
 							{t('圖片')}：
 						</Label>
+						
 						<input
 							type="file"
 							id="avatar"
+							accept=".jpg, .jpeg, .png"
 							onChange={handleFileChange}
 							className="col-span-3"
 						/>

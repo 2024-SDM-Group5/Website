@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { message } from 'antd';
 import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
@@ -87,8 +87,16 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 		}
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files && event.target.files.length > 0) {
-			setAvatar(event.target.files[0]);
+		const file = event.target.files ? event.target.files[0] : null;
+
+		if (file) {
+			
+			if (file.size > 10485760) { 
+				message.error(t('檔案大小不能超過 10MB'));
+				return;
+			}
+	
+			setAvatar(file);
 		} else {
 			setAvatar(null);
 		}
@@ -129,6 +137,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 							id="avatar"
 							onChange={handleFileChange}
 							className="col-span-3"
+							accept=".jpg, .jpeg, .png"
 						/>
 					</div>
 				</div>
