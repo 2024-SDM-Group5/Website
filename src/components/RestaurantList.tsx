@@ -117,7 +117,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 						<CardContent className="flex h-full items-center p-0">
 							<div className="mr-3 w-1/6">
 								<img
-									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxwidth=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+									src={`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${x.photoUrl}&maxheight=105&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
 									alt={x.name + '_icon'}
 									width={105}
 									height={105}
