@@ -61,7 +61,7 @@ function RestaurantDrawer({
 				const tmp = await axios.get(
 					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${res.data.diaries[i].id}`,
 				);
-				let d = new Date()
+				let d = new Date();
 				d.setTime(Date.parse(tmp.data.createdAt));
 				diaries.push({
 					key: `${i}`,
@@ -120,9 +120,12 @@ function RestaurantDrawer({
 							title: '日期',
 							dataIndex: 'date',
 							key: 'date',
-							render: (date: Date) =>{
-								return <p>{`${date.getFullYear()}/${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}/${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()} ${date.getHours() < 10 ? '0' + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`}</p>
-						}},
+							render: (date: Date) => {
+								return (
+									<p>{`${date.getFullYear()}/${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}/${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()} ${date.getHours() < 10 ? '0' + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`}</p>
+								);
+							},
+						},
 						{
 							title: '購買品項',
 							dataIndex: 'items',
