@@ -73,7 +73,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		};
 
 		try {
-			await axios.post(
+			const response = await axios.post(
 				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments',
 				commentData,
 				{
@@ -81,6 +81,11 @@ function SinglePost({ diaryId }: SinglePostProps) {
 				},
 			);
 			setNewComment("")
+			console.log(response.data);
+			setDiaryDetail((prev) => ({
+				...prev!,
+				replies: [...prev!.replies, response.data]
+			}));
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
@@ -94,6 +99,10 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
 			);
+			setDiaryDetail((prev) => ({
+				...prev!,
+				replies: prev!.replies.filter(comment => comment.id !== commentId)
+			}));
 		} catch (error) {
 			console.error('Failed to delete comment:', error);
 		}
