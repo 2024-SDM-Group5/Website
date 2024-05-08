@@ -48,6 +48,11 @@ function MapOverview() {
 				let res = await axios.get(
 					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 						suffix,
+					{
+						headers: {
+							Authorization: `Bearer ${session.data?.idToken}`,
+						},
+					},
 				);
 				setTotal(res?.data.total);
 				setData(res?.data.maps);
