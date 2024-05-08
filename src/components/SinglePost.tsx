@@ -80,11 +80,11 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
 			);
-			setNewComment("")
-	
+			setNewComment('');
+
 			setDiaryDetail((prev) => ({
 				...prev!,
-				replies: [...prev!.replies, response.data]
+				replies: [...prev!.replies, response.data],
 			}));
 		} catch (error) {
 			console.error('Failed to post comment:', error);
@@ -101,7 +101,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			);
 			setDiaryDetail((prev) => ({
 				...prev!,
-				replies: prev!.replies.filter(comment => comment.id !== commentId)
+				replies: prev!.replies.filter((comment) => comment.id !== commentId),
 			}));
 		} catch (error) {
 			console.error('Failed to delete comment:', error);
@@ -160,7 +160,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						</Link>
 					</div>
 					<Image
-						src={diaryDetail.photos[0]}
+						src={diaryDetail.photos[0] || '/images/1.jpg'}
 						alt="Diary"
 						width={800}
 						height={800}

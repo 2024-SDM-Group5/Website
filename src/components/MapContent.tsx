@@ -49,7 +49,7 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">
 				<MapSearchBar map_id={id} map={map as google.maps.Map} setDrawer={setDrawer} />
-				{id !== "0" && <MapInfoHoverCard mapId={id} />}
+				{id !== '0' && <MapInfoHoverCard mapId={id} />}
 			</div>
 
 			<Map

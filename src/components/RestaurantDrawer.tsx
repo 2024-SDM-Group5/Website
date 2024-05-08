@@ -113,7 +113,13 @@ function RestaurantDrawer({
 							dataIndex: 'image',
 							key: 'image',
 							render: (text) => (
-								<Image src={text} alt={text} width={80} height={80} priority />
+								<Image
+									src={text || '/images/1.jpg'}
+									alt={text}
+									width={80}
+									height={80}
+									priority
+								/>
 							),
 						},
 						{
@@ -146,7 +152,10 @@ function RestaurantDrawer({
 					{contextHolder}
 					<div style={{ width: '174px', paddingLeft: '20px' }}>
 						<Image
-							src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}`}
+							src={
+								`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}` ||
+								'/images/1.jpg'
+							}
 							alt={restaurant.name + '_icon'}
 							height={105}
 							width={105}

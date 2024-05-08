@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
+import { ExitIcon } from '@radix-ui/react-icons';
 import axios from 'axios';
 
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
@@ -121,6 +123,11 @@ function UserProfile() {
 	}
 	return (
 		<div className="flex w-full flex-1 flex-col bg-[#FDFBF4]">
+			<div className="fixed right-4 top-16 z-50">
+				<button onClick={() => signOut({ callbackUrl: '/' })} aria-label="Logout">
+					<ExitIcon />
+				</button>
+			</div>
 			<div className="p-4 pt-8">
 				<div className="flex items-center justify-center ">
 					<div className="mr-10 flex  flex-col items-center justify-center  ">
@@ -193,7 +200,7 @@ function UserProfile() {
 							onClick={() => setSelectedDiaryId(diary.id)}
 						>
 							<Image
-								src={diary.imageUrl}
+								src={diary.imageUrl || '/images/1.jpg'}
 								alt={`Diary ${diary.id}`}
 								width={500}
 								height={500}
