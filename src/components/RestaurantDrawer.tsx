@@ -51,7 +51,7 @@ function RestaurantDrawer({
 		const FetchRestaurant = async () => {
 			let diaries = [];
 			const res = await axios.get(
-				`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${show}`,
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${show}`,
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
@@ -59,7 +59,7 @@ function RestaurantDrawer({
 			setRestaurant(res?.data);
 			for (let i = 0; i < res.data.diaries.length; i++) {
 				const tmp = await axios.get(
-					`https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${res.data.diaries[i].id}`,
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${res.data.diaries[i].id}`,
 				);
 				let d = new Date();
 				d.setTime(Date.parse(tmp.data.createdAt));
@@ -156,7 +156,7 @@ function RestaurantDrawer({
 									className="mr-[30px] flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-blue-500"
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/like`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -178,7 +178,7 @@ function RestaurantDrawer({
 								<div
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/like`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/like`,
 											{},
 											{
 												headers: {
@@ -205,7 +205,7 @@ function RestaurantDrawer({
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-red-600"
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/dislike`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -228,7 +228,7 @@ function RestaurantDrawer({
 									className="flex h-[35px] w-[35px] flex-row items-center justify-center rounded-full border-2 border-solid border-gray-300"
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/dislike`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/dislike`,
 											{},
 											{
 												headers: {
@@ -269,7 +269,7 @@ function RestaurantDrawer({
 									}}
 									onClick={async (e) => {
 										const res = await axios.delete(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/collect`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,
@@ -295,7 +295,7 @@ function RestaurantDrawer({
 									}}
 									onClick={async (e) => {
 										const res = await axios.post(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${restaurant.placeId}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${restaurant.placeId}/collect`,
 											{},
 											{
 												headers: {

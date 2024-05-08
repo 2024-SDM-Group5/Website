@@ -13,7 +13,7 @@ export const useUser = (idToken: string) => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.post<LoginResponse>(
-					'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/login',
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/login',
 					{
 						idToken,
 					},

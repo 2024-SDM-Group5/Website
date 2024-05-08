@@ -47,7 +47,7 @@ function UserProfile() {
 	}
 	const handleFollowUnfollow = async () => {
 		const method = userDetail?.isFollowing ? 'delete' : 'post';
-		const url = `https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}/follow`;
+		const url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/follow`;
 
 		try {
 			await axios({
@@ -74,8 +74,8 @@ function UserProfile() {
 		const fetchUserDetail = async () => {
 			const url =
 				params.id === userId?.toString()
-					? 'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/me'
-					: `https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}`;
+					? 'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me'
+					: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}`;
 			try {
 				const response = await axios.get(url, {
 					headers: {
@@ -91,7 +91,7 @@ function UserProfile() {
 		const fetchUserDiaries = async () => {
 			try {
 				const response = await axios.get(
-					`https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}/diaries`,
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/diaries`,
 				);
 				setUserDiaries(response.data);
 			} catch (error) {

@@ -19,7 +19,7 @@ export default function Page() {
 		const fetchDiaries = async () => {
 			try {
 				const response = await axios.get<Diary[]>(
-					'https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries',
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
 				);
 				const diaryPosts = response.data.map((diary: Diary) => ({
 					diaryId: diary.id,

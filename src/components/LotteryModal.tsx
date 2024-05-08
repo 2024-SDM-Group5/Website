@@ -30,7 +30,7 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 			console.log(foodType);
 			try {
 				const response = await axios.post(
-					'https://pc214.ee.ntu.edu.tw/backend/api/v1/bots/question',
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/bots/question',
 					{
 						req: foodType,
 						position,

@@ -39,7 +39,7 @@ const Archive = () => {
 	useEffect(() => {
 		const FetchMaps = async () => {
 			const res = await axios.get(
-				'https://pc214.ee.ntu.edu.tw/backend/api/v1/collections/map',
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/map',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
@@ -127,7 +127,7 @@ const Archive = () => {
 									onClick={async (e) => {
 										e.stopPropagation();
 										const res = await axios.delete(
-											`https://pc214.ee.ntu.edu.tw/backend/api/v1/maps/${x.id}/collect`,
+											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,

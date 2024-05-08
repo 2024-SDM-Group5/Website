@@ -41,7 +41,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 
 			try {
 				const avatarResponse = await axios.post(
-					'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/avatar',
+					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
 					avatarFormData,
 					{
 						headers: {
@@ -64,7 +64,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 
 		try {
 			const profileResponse = await axios.put(
-				`https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${userId}`,
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${userId}`,
 				profileData,
 				{
 					headers: {

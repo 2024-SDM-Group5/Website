@@ -55,7 +55,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		try {
 			await axios({
 				method: method,
-				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}/favorite`,
+				url: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${diaryId}/favorite`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setDiaryDetail((prev) => ({
@@ -74,7 +74,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 
 		try {
 			const response = await axios.post(
-				'https://pc214.ee.ntu.edu.tw/backend/api/v1/comments',
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments',
 				commentData,
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
@@ -93,7 +93,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 	const handleDeleteComment = async (commentId: number) => {
 		try {
 			await axios.delete(
-				`https://pc214.ee.ntu.edu.tw/backend/api/v1/comments/${commentId}`,
+				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/comments/${commentId}`,
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
@@ -111,7 +111,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		try {
 			await axios({
 				method,
-				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}/collect`,
+				url: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${diaryId}/collect`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setDiaryDetail((prev) => ({
@@ -127,7 +127,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			if (diaryId) {
 				try {
 					const response = await axios.get(
-						`https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}`,
+						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries/${diaryId}`,
 						{
 							headers: { Authorization: `Bearer ${session.data?.idToken}` },
 						},

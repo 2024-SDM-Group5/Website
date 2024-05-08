@@ -28,7 +28,7 @@ function UserArchive() {
 		const fetchUserArchives = async () => {
 			try {
 				const response = await axios.get(
-					`https://pc214.ee.ntu.edu.tw/backend/api/v1/collections/diary`,
+					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/diary`,
 					{
 						headers: { Authorization: `Bearer ${session.data?.idToken}` },
 					},

@@ -15,7 +15,7 @@ function MyRestaurantPage() {
 	useEffect(() => {
 		let FetchId = async () => {
 			let res = await axios.get(
-				'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/me',
+				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
