@@ -9,7 +9,7 @@ import {
 	DialogTrigger,
 	DialogContent,
 	DialogHeader,
-	DialogTitle, // DialogDescription,
+	DialogTitle, 
 	DialogFooter,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -62,7 +62,7 @@ export function NewDiaryDialog({
 				console.error('Failed to upload image:', error);
 			}
 		}
-		setOpen(false);
+
 		const response = await axios.post(
 			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
 			{ content, restaurantId, photos: [avatarUrl], items: [item] },
@@ -73,6 +73,9 @@ export function NewDiaryDialog({
 			},
 		);
 		message.success('日記新增成功');
+		setOpen(false);
+		setAvatar(null);
+		setContent('');
 	};
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files.length > 0) {

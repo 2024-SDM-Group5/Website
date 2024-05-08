@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import i18next from '@/lib/i18n';
 
 interface MapDetailType {
 	id: number;
@@ -28,6 +30,7 @@ interface MapDetailType {
 function MapInfoHoverCard({ mapId }: { mapId: string }) {
 	const [mapDetails, setMapDetails] = useState<MapDetailType | null>(null);
 	const session = useSession();
+	const { t, i18n } = useTranslation('translation', { i18n: i18next });
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
 		prefix = '';
@@ -96,7 +99,9 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 								<Link href={`${prefix}/profile/${mapDetails.authorId}/overview`}>
 									<HomeIcon width="24" height="24" />
 								</Link>
-								<p className="ml-2">作者： {mapDetails.author}</p>
+								<p className="ml-2">
+									{t('作者')}:{mapDetails.author}
+								</p>
 							</div>
 							<div className="mt-2 flex">
 								<button onClick={toggleCollect}>
@@ -106,7 +111,9 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 										<StarIcon width="24" height="24" />
 									)}
 								</button>
-								<p className="ml-2">{mapDetails.collectCount} 收藏</p>
+								<p className="ml-2">
+									{mapDetails.collectCount} {t('收藏')}
+								</p>
 							</div>
 						</div>
 					</div>

@@ -1,4 +1,9 @@
 {
+	"作者": "Author",
+	"上傳圖片": "Upload Image",
+	"描述": "Description",
+	"地圖名稱": "Map Name",
+	"編輯地圖": "Edit Map",
 	"地圖": "map",
 	"地圖總覽": "maps",
 	"餐廳總覽": "restaurants",

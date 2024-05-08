@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import axios from 'axios';
 
-import MapContent from '@/components/MapContent';
+import MyMapContent from '@/components/MyMapContent';
 
 function MyMapPage() {
 	const [id, setId] = useState<number | null>(null);
@@ -40,7 +40,7 @@ function MyMapPage() {
 			apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
 			libraries={['geometry']}
 		>
-			{id && center && <MapContent id={`${id}`} center={center} />}
+			{id && center && <MyMapContent id={`${id}`} center={center} />}
 		</APIProvider>
 	);
 }
