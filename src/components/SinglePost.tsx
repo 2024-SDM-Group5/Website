@@ -80,6 +80,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
 			);
+			setNewComment("")
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
