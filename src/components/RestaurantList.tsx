@@ -155,7 +155,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 												data[i].hasCollected = false;
 												data[i].collectCount -= 1;
 												setData(Array.from(data));
-												messageApi.success('解除收藏成功');
+												messageApi.success(t('解除收藏成功'));
 											}
 										}}
 									>
@@ -187,7 +187,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 												data[i].hasCollected = true;
 												data[i].collectCount += 1;
 												setData(Array.from(data));
-												messageApi.success('收藏成功');
+												messageApi.success(t('收藏成功'));
 											}
 										}}
 									>

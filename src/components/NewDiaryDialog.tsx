@@ -33,7 +33,7 @@ export function NewDiaryDialog({
 	const [content, setContent] = useState('');
 	const [avatar, setAvatar] = useState<File | null>(null);
 	const [open, setOpen] = useState(false);
-	const { t, i18n } = useTranslation('translation', { i18n: i18next });
+	const { t } = useTranslation('translation', { i18n: i18next });
 	const [isFormValid, setIsFormValid] = useState(false);
 	const handleDiscard = () => {
 		setOpen(false);
@@ -72,7 +72,7 @@ export function NewDiaryDialog({
 				},
 			},
 		);
-		message.success('日記新增成功');
+		message.success(t('日記新增成功'));
 		setOpen(false);
 		setAvatar(null);
 		setContent('');

@@ -36,5 +36,8 @@
 	"圖片": "Image",
 	"餐廳": "Resaurant",
 	"日期": "Date",
-	"新增日記": "New Diary"
+	"新增日記": "New Diary",
+	"日記新增成功": "Diary successfully created",
+	"解除收藏成功": "Successfully uncollected",
+	"收藏成功": "Successfully collected"
 }
