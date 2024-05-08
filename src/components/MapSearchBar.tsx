@@ -43,7 +43,7 @@ function MapSearchBar({
 			let api = `api/v1/maps/${map_id}/restaurants`;
 			if (map_id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-service:8080/${api}?limit=10` + suffix,
+				`https://pc214.ee.ntu.edu.tw/backend/${api}?limit=10` + suffix,
 			);
 			let tmp = [];
 			for (let i = 0; i < res?.data.restaurants.length; i++) {

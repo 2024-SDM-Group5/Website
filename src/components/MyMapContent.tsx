@@ -36,9 +36,9 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 	useEffect(() => {
 		const FetchRestaurant = async () => {
 			if (bounds) {
-				let url = `https://mainserver-service:8080/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
+				let url = `https://pc214.ee.ntu.edu.tw/backend/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
 				if (id === '0') {
-					url = `https://mainserver-service:8080/api/v1/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
+					url = `https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
 				}
 				const res = await axios.get(url);
 				setRestaurants(res?.data.restaurants);

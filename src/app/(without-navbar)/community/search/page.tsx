@@ -51,7 +51,7 @@ export default function Page() {
 		const fetchUserDiaries = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-service:8080/api/v1/diaries`,
+					`https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries`,
 					{
 						params: { q: searchQuery },
 					},
@@ -76,7 +76,7 @@ export default function Page() {
 			if (searchQuery) {
 				try {
 					const response = await axios.get(
-						`https://mainserver-service:8080/api/v1/users`,
+						`https://pc214.ee.ntu.edu.tw/backend/api/v1/users`,
 						{
 							params: { q: searchQuery },
 						},

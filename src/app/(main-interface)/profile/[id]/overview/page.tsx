@@ -47,7 +47,7 @@ function UserProfile() {
 	}
 	const handleFollowUnfollow = async () => {
 		const method = userDetail?.isFollowing ? 'delete' : 'post';
-		const url = `https://mainserver-service:8080/api/v1/users/${params.id}/follow`;
+		const url = `https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}/follow`;
 
 		try {
 			await axios({
@@ -74,8 +74,8 @@ function UserProfile() {
 		const fetchUserDetail = async () => {
 			const url =
 				params.id === userId?.toString()
-					? 'https://mainserver-service:8080/api/v1/users/me'
-					: `https://mainserver-service:8080/api/v1/users/${params.id}`;
+					? 'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/me'
+					: `https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}`;
 			try {
 				const response = await axios.get(url, {
 					headers: {
@@ -91,7 +91,7 @@ function UserProfile() {
 		const fetchUserDiaries = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-service:8080/api/v1/users/${params.id}/diaries`,
+					`https://pc214.ee.ntu.edu.tw/backend/api/v1/users/${params.id}/diaries`,
 				);
 				setUserDiaries(response.data);
 			} catch (error) {

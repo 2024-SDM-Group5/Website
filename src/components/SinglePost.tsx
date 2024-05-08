@@ -55,7 +55,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		try {
 			await axios({
 				method: method,
-				url: `https://mainserver-service:8080/api/v1/diaries/${diaryId}/favorite`,
+				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}/favorite`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setDiaryDetail((prev) => ({
@@ -74,7 +74,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 
 		try {
 			const response = await axios.post(
-				'https://mainserver-service:8080/api/v1/comments',
+				'https://pc214.ee.ntu.edu.tw/backend/api/v1/comments',
 				commentData,
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
@@ -93,7 +93,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 	const handleDeleteComment = async (commentId: number) => {
 		try {
 			await axios.delete(
-				`https://mainserver-service:8080/api/v1/comments/${commentId}`,
+				`https://pc214.ee.ntu.edu.tw/backend/api/v1/comments/${commentId}`,
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
@@ -111,7 +111,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		try {
 			await axios({
 				method,
-				url: `https://mainserver-service:8080/api/v1/diaries/${diaryId}/collect`,
+				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}/collect`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setDiaryDetail((prev) => ({
@@ -127,7 +127,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			if (diaryId) {
 				try {
 					const response = await axios.get(
-						`https://mainserver-service:8080/api/v1/diaries/${diaryId}`,
+						`https://pc214.ee.ntu.edu.tw/backend/api/v1/diaries/${diaryId}`,
 						{
 							headers: { Authorization: `Bearer ${session.data?.idToken}` },
 						},

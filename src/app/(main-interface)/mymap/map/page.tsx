@@ -18,7 +18,7 @@ function MyMapPage() {
 	useEffect(() => {
 		let FetchId = async () => {
 			let res = await axios.get(
-				'https://mainserver-service:8080/api/v1/users/me',
+				'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/me',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},

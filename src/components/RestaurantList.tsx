@@ -49,7 +49,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 			let api = `api/v1/maps/${id}/restaurants`;
 			if (id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-service:8080/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+				`https://pc214.ee.ntu.edu.tw/backend/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 					suffix,
 			);
 			setTotal(res?.data.total);
@@ -144,7 +144,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.delete(
-												`https://mainserver-service:8080/api/v1/restaurants/${x.placeId}/collect`,
+												`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${x.placeId}/collect`,
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -175,7 +175,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.post(
-												`https://mainserver-service:8080/api/v1/restaurants/${x.placeId}/collect`,
+												`https://pc214.ee.ntu.edu.tw/backend/api/v1/restaurants/${x.placeId}/collect`,
 												{},
 												{
 													headers: {

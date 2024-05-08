@@ -45,7 +45,7 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		avatarFormData.append('avatar', file);
 		try {
 			const response = await axios.post(
-				'https://mainserver-service:8080/api/v1/users/avatar',
+				'https://pc214.ee.ntu.edu.tw/backend/api/v1/users/avatar',
 				avatarFormData,
 				{
 					headers: {
@@ -67,7 +67,7 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		try {
 			const response = await axios({
 				method: 'PUT',
-				url: `https://mainserver-service:8080/api/v1/maps/${mapId}`,
+				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/maps/${mapId}`,
 				headers: { Authorization: `Bearer ${session?.idToken}` },
 				data: {
 					...mapDetails,

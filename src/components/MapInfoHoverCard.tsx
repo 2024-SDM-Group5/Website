@@ -41,7 +41,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 		try {
 			await axios({
 				method,
-				url: `https://mainserver-service:8080/api/v1/maps/${mapId}/collect`,
+				url: `https://pc214.ee.ntu.edu.tw/backend/api/v1/maps/${mapId}/collect`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setMapDetails((prev) => ({
@@ -56,7 +56,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 		async function fetchMapDetails() {
 			try {
 				const response = await axios.get(
-					`https://mainserver-service:8080/api/v1/maps/${mapId}`,
+					`https://pc214.ee.ntu.edu.tw/backend/api/v1/maps/${mapId}`,
 				);
 				if (
 					!response.data.center ||
