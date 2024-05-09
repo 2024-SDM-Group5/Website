@@ -174,7 +174,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								{diaryDetail.hasFavorited ? (
 									<HeartFilledIcon width="24" height="24" />
 								) : (
-									<HeartIcon width="24" height="24" />
+									<HeartIcon width="24" height="24" data-testid="heart-icon"/>
 								)}
 							</button>
 						    <span className="pl-1">{diaryDetail.favCount}</span>
