@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development';
-
+console.log(isDev)
 const nextConfig = {
 	reactStrictMode: false,
 	assetPrefix: isDev ? undefined : 'https://pc214.ee.ntu.edu.tw/website/',

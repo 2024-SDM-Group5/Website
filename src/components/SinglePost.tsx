@@ -61,6 +61,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			setDiaryDetail((prev) => ({
 				...prev!,
 				hasFavorited: !prev?.hasFavorited,
+				favCount: prev ? (prev.hasFavorited ? prev.favCount - 1 : prev.favCount + 1) : 0,
 			}));
 		} catch (error) {
 			console.error('Failed to toggle favorite:', error);
@@ -168,7 +169,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 						priority={true}
 					/>
 					<div className="flex w-full flex-col items-start p-4">
-						<div className="ml-4 flex items-center justify-center pb-4">
+						<div className="ml-2 flex items-center justify-center pb-4">
 							<button onClick={toggleFavorite} className="flex text-xl ">
 								{diaryDetail.hasFavorited ? (
 									<HeartFilledIcon width="24" height="24" />
@@ -176,6 +177,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 									<HeartIcon width="24" height="24" />
 								)}
 							</button>
+						    <span className="pl-1">{diaryDetail.favCount}</span>
 
 							<button
 								onClick={toggleCollect}
@@ -193,7 +195,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								{reply.authorId === userId ? (
 									<div
 										key={reply.id}
-										className="flex w-full justify-between px-4 pt-4"
+										className="flex w-full justify-between px-2 pt-4"
 									>
 										<Link href={`${prefix}/profile/${reply.authorId}/overview`}>
 											{reply.username}: {reply.content}
@@ -216,7 +218,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								)}
 							</>
 						))}
-						<div className="flex w-full justify-between px-4 pt-2">
+						<div className="flex w-full justify-between px-2 pt-2">
 							<input
 								type="text"
 								value={newComment}
