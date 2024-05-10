@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { message } from 'antd';
 import axios from 'axios';
 
@@ -90,12 +91,11 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 		const file = event.target.files ? event.target.files[0] : null;
 
 		if (file) {
-			
-			if (file.size > 10485760) { 
+			if (file.size > 10485760) {
 				message.error(t('檔案大小不能超過 10MB'));
 				return;
 			}
-	
+
 			setAvatar(file);
 		} else {
 			setAvatar(null);

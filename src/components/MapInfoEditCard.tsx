@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { message } from 'antd';
+
 import { Pencil1Icon } from '@radix-ui/react-icons';
+import { message } from 'antd';
 import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
@@ -37,16 +38,15 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		const file = event.target.files ? event.target.files[0] : null;
 
 		if (file) {
-			if (file.size > 10485760) { 
+			if (file.size > 10485760) {
 				message.error(t('檔案大小不能超過 10MB'));
 				return;
 			}
-	
+
 			setFile(file);
 		} else {
 			setFile(null);
 		}
-		
 	};
 
 	const uploadImage = async () => {
@@ -129,14 +129,18 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 					</div>
 					<div>
 						<label htmlFor="file">{t('上傳圖片')}:</label>
-						<input type="file" id="file" onChange={handleFileChange} accept=".jpg, .jpeg, .png"/>
+						<input
+							type="file"
+							id="file"
+							onChange={handleFileChange}
+							accept=".jpg, .jpeg, .png"
+						/>
 						{file && (
 							<Image
 								src={URL.createObjectURL(file)}
 								alt="Map Icon Preview"
 								width="200"
 								height="200"
-								
 							/>
 						)}
 					</div>
