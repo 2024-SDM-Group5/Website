@@ -51,6 +51,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		prefix = '';
 	}
 	const toggleFavorite = async () => {
+		console.log('Toggling favorite...');
+		console.log(diaryDetail?.hasFavorited);
+		// This will log when the favorite button is clicked
 		const method = diaryDetail?.hasFavorited ? 'DELETE' : 'POST';
 		try {
 			await axios({
@@ -82,7 +85,6 @@ function SinglePost({ diaryId }: SinglePostProps) {
 				},
 			);
 			setNewComment('');
-
 			setDiaryDetail((prev) => ({
 				...prev!,
 				replies: [...prev!.replies, response.data],
@@ -170,14 +172,18 @@ function SinglePost({ diaryId }: SinglePostProps) {
 					/>
 					<div className="flex w-full flex-col items-start p-4">
 						<div className="ml-2 flex items-center justify-center pb-4">
-							<button onClick={toggleFavorite} className="flex text-xl ">
+							<button
+								onClick={toggleFavorite}
+								className="flex text-xl "
+								data-testid="favorite-button"
+							>
 								{diaryDetail.hasFavorited ? (
 									<HeartFilledIcon width="24" height="24" />
 								) : (
-									<HeartIcon width="24" height="24" data-testid="heart-icon"/>
+									<HeartIcon width="24" height="24" data-testid="heart-icon" />
 								)}
 							</button>
-						    <span className="pl-1">{diaryDetail.favCount}</span>
+							<span className="pl-1">{diaryDetail.favCount}</span>
 
 							<button
 								onClick={toggleCollect}

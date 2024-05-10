@@ -81,12 +81,11 @@ export function NewDiaryDialog({
 		const file = event.target.files ? event.target.files[0] : null;
 
 		if (file) {
-			
-			if (file.size > 10485760) { 
+			if (file.size > 10485760) {
 				message.error(t('檔案大小不能超過 10MB'));
 				return;
 			}
-	
+
 			setAvatar(file);
 		} else {
 			setAvatar(null);
@@ -149,7 +148,7 @@ export function NewDiaryDialog({
 						<Label htmlFor="avatar" className="text-md">
 							{t('圖片')}：
 						</Label>
-						
+
 						<input
 							type="file"
 							id="avatar"
