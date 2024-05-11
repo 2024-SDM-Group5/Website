@@ -50,7 +50,6 @@ function UserProfile() {
 	const handleFollowUnfollow = async () => {
 		const method = userDetail?.isFollowing ? 'delete' : 'post';
 		const url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/follow`;
-
 		try {
 			await axios({
 				method,
@@ -104,7 +103,6 @@ function UserProfile() {
 				}
 			}
 		};
-
 		if (params.id) {
 			fetchUserDetail();
 			fetchUserDiaries();
