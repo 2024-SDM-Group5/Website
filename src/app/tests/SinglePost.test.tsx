@@ -1,8 +1,8 @@
 import { SessionProvider } from 'next-auth/react';
 
-import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import axios from 'axios';
+import '@testing-library/jest-dom';
 
 import SinglePost from '@/components/SinglePost';
 import * as userHook from '@/hook/useUser';
