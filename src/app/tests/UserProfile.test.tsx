@@ -129,7 +129,6 @@ describe('UserProfile Component', () => {
       });
     });
 
-    // Update mock to reflect the follow state
     mockedAxios.get.mockResolvedValueOnce({
       data: {
         ...mockedAxios.get.mock.results[0].value.data,
