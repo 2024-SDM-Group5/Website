@@ -1,7 +1,7 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor} from '@testing-library/react';
 import { SessionProvider } from 'next-auth/react';
 import axios from 'axios';
-import UserArchive from '@/app/(main-interface)/profile/[id]/archive/page';
+import CommunityFollowing from '@/app/(main-interface)/community/following/page';
 import '@testing-library/jest-dom';
 
 jest.mock('axios');
@@ -23,7 +23,7 @@ const sessionMock = {
 	status: 'authenticated',
   };
 
-describe('UserArchive Component', () => {
+describe('CommunityFollowing Component', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockedAxios.get.mockResolvedValue({
@@ -35,42 +35,26 @@ describe('UserArchive Component', () => {
 	
   });
 
-  it('renders UserArchive and displays diaries', async () => {
+  it('renders CommunityFollowing and displays diaries', async () => {
     render(
       <SessionProvider session={sessionMock}>
-        <UserArchive />
+        <CommunityFollowing />
       </SessionProvider>
     );
 
     await waitFor(() => {
-      expect(screen.getByAltText('Diary 1')).toBeInTheDocument();
-      expect(screen.getByAltText('Diary 2')).toBeInTheDocument();
+      expect(screen.getByText(/Mocked Single Post Component for diaryId 1/i)).toBeInTheDocument();
+      expect(screen.getByText(/Mocked Single Post Component for diaryId 2/i)).toBeInTheDocument();
 	  
 	  expect(mockedAxios.get).toHaveBeenCalledWith(
-        'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/diary', 
+        'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries', 
         {
           headers: { Authorization: `Bearer mock-token` }, 
+		  params: { following: true },
         }
       );
 	  
     });
   });
-  it('handles diary selection and navigation', async () => {
-	render(
-	  <SessionProvider session={sessionMock}>
-		<UserArchive />
-	  </SessionProvider>
-	);
-  
-	await waitFor(() => {
-	  expect(screen.getByAltText('Diary 1')).toBeInTheDocument();
-	});
-  
-	fireEvent.click(screen.getByAltText('Diary 1'));
-  
-	await waitFor(() => {
-	  expect(screen.getByText(/Mocked Single Post Component for diaryId 1/)).toBeInTheDocument();
-	});
-  });
-  
+
 });
