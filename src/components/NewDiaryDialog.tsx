@@ -48,15 +48,11 @@ export function NewDiaryDialog({
 			const avatarFormData = new FormData();
 			avatarFormData.append('avatar', avatar);
 			try {
-				const avatarResponse = await axios.post(
-					'/api/v1/users/avatar',
-					avatarFormData,
-					{
-						headers: {
-							Authorization: `Bearer ${idToken}`,
-						},
+				const avatarResponse = await axios.post('/api/v1/users/avatar', avatarFormData, {
+					headers: {
+						Authorization: `Bearer ${idToken}`,
 					},
-				);
+				});
 				avatarUrl = avatarResponse.data.avatarUrl;
 			} catch (error) {
 				console.error('Failed to upload image:', error);

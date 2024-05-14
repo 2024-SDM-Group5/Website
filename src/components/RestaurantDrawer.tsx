@@ -11,7 +11,7 @@ import { Drawer, Button, Table, message } from 'antd';
 import { NewDiaryDialog } from '@/components/NewDiaryDialog';
 import axios from '@/lib/axios';
 
-interface Restaurant {
+export interface Restaurant {
 	placeId: string;
 	name: string;
 	location: {
@@ -50,17 +50,12 @@ function RestaurantDrawer({
 	useEffect(() => {
 		const FetchRestaurant = async () => {
 			let diaries = [];
-			const res = await axios.get(
-				`/api/v1/restaurants/${show}`,
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			const res = await axios.get(`/api/v1/restaurants/${show}`, {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setRestaurant(res?.data);
 			for (let i = 0; i < res.data.diaries.length; i++) {
-				const tmp = await axios.get(
-					`/api/v1/diaries/${res.data.diaries[i].id}`,
-				);
+				const tmp = await axios.get(`/api/v1/diaries/${res.data.diaries[i].id}`);
 				let d = new Date();
 				d.setTime(Date.parse(tmp.data.createdAt));
 				diaries.push({

@@ -50,12 +50,9 @@ export default function Page() {
 	useEffect(() => {
 		const fetchUserDiaries = async () => {
 			try {
-				const response = await axios.get(
-					`/api/v1/diaries`,
-					{
-						params: { q: searchQuery },
-					},
-				);
+				const response = await axios.get(`/api/v1/diaries`, {
+					params: { q: searchQuery },
+				});
 				setUserDiaries(response.data);
 			} catch (error) {
 				console.error('Failed to fetch user diaries:', error);
@@ -71,12 +68,9 @@ export default function Page() {
 		const fetchUsers = async () => {
 			if (searchQuery) {
 				try {
-					const response = await axios.get(
-						`/api/v1/users`,
-						{
-							params: { q: searchQuery },
-						},
-					);
+					const response = await axios.get(`/api/v1/users`, {
+						params: { q: searchQuery },
+					});
 					setUsers(response.data);
 				} catch (error) {
 					console.error('Failed to fetch users:', error);

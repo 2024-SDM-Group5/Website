@@ -92,9 +92,7 @@ function UserProfile() {
 
 		const fetchUserDiaries = async () => {
 			try {
-				const response = await axios.get(
-					`/api/v1/users/${params.id}/diaries`,
-				);
+				const response = await axios.get(`/api/v1/users/${params.id}/diaries`);
 				setUserDiaries(response.data);
 			} catch (error) {
 				console.error(`Error fetching diaries: ${error}`);

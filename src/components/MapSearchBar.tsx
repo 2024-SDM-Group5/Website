@@ -43,9 +43,7 @@ function MapSearchBar({
 			if (search) suffix = `&q=${search}`;
 			let api = `api/v1/maps/${map_id}/restaurants`;
 			if (map_id === '0') api = 'api/v1/restaurants';
-			const res = await axios.get(
-				`/${api}?limit=10` + suffix,
-			);
+			const res = await axios.get(`/${api}?limit=10` + suffix);
 			let tmp = [];
 			for (let i = 0; i < res?.data.restaurants.length; i++) {
 				tmp.push({

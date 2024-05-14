@@ -38,12 +38,9 @@ const Archive = () => {
 	const [total, setTotal] = useState(0);
 	useEffect(() => {
 		const FetchMaps = async () => {
-			const res = await axios.get(
-				'/api/v1/collections/map',
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			const res = await axios.get('/api/v1/collections/map', {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setData(res?.data);
 		};
 		FetchMaps();

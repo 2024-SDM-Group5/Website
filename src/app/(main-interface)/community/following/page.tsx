@@ -20,13 +20,10 @@ export default function Page() {
 		const fetchDiaries = async () => {
 			if (session?.idToken) {
 				try {
-					const response = await axios.get<Diary[]>(
-						'/api/v1/diaries',
-						{
-							params: { following: true },
-							headers: { Authorization: `Bearer ${session.idToken}` },
-						},
-					);
+					const response = await axios.get<Diary[]>('/api/v1/diaries', {
+						params: { following: true },
+						headers: { Authorization: `Bearer ${session.idToken}` },
+					});
 					const diaryPosts = response.data.map((diary: Diary) => ({
 						diaryId: diary.id,
 					}));

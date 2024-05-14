@@ -50,8 +50,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 			let api = `api/v1/maps/${id}/restaurants`;
 			if (id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
-					suffix,
+				`/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` + suffix,
 				{
 					headers: {
 						Authorization: `Bearer ${session.data?.idToken}`,

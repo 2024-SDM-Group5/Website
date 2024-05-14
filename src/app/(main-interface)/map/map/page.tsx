@@ -46,8 +46,7 @@ function MapOverview() {
 				let suffix = '';
 				if (search) suffix = `&q=${search}`;
 				let res = await axios.get(
-					`/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` +
-						suffix,
+					`/api/v1/maps?orderBy=${sort}&offset=${idx * 10}&limit=10` + suffix,
 					{
 						headers: {
 							Authorization: `Bearer ${session.data?.idToken}`,
