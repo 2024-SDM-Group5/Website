@@ -45,6 +45,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 	const [newComment, setNewComment] = useState('');
 	const session = useSession();
 	const [diaryDetail, setDiaryDetail] = useState<DiaryDetail | null>(null);
+	const [updateKey, setUpdateKey] = useState(0);
 	const userId = useUser(session.data?.idToken);
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
@@ -81,10 +82,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 				headers: { Authorization: `Bearer ${session.data?.idToken}` },
 			});
 			setNewComment('');
-			setDiaryDetail((prev) => ({
-				...prev!,
-				replies: [...prev!.replies, response.data],
-			}));
+			setUpdateKey((prev) => prev + 1);
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
@@ -133,7 +131,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			}
 		};
 		fetchDiaryDetail();
-	}, [diaryId]);
+	}, [diaryId, updateKey]);
 
 	return (
 		<div>
