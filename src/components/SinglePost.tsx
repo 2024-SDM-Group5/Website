@@ -45,6 +45,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 	const [newComment, setNewComment] = useState('');
 	const session = useSession();
 	const [diaryDetail, setDiaryDetail] = useState<DiaryDetail | null>(null);
+	const [updateKey, setUpdateKey] = useState(0);
 	const userId = useUser(session.data?.idToken);
 	let prefix = '/website';
 	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
@@ -77,18 +78,11 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		};
 
 		try {
-			const response = await axios.post(
-				'/api/v1/comments',
-				commentData,
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			const response = await axios.post('/api/v1/comments', commentData, {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setNewComment('');
-			setDiaryDetail((prev) => ({
-				...prev!,
-				replies: [...prev!.replies, response.data],
-			}));
+			setUpdateKey((prev) => prev + 1);
 		} catch (error) {
 			console.error('Failed to post comment:', error);
 		}
@@ -96,12 +90,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 
 	const handleDeleteComment = async (commentId: number) => {
 		try {
-			await axios.delete(
-				`/api/v1/comments/${commentId}`,
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			await axios.delete(`/api/v1/comments/${commentId}`, {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setDiaryDetail((prev) => ({
 				...prev!,
 				replies: prev!.replies.filter((comment) => comment.id !== commentId),
@@ -130,12 +121,9 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		const fetchDiaryDetail = async () => {
 			if (diaryId) {
 				try {
-					const response = await axios.get(
-						`/api/v1/diaries/${diaryId}`,
-						{
-							headers: { Authorization: `Bearer ${session.data?.idToken}` },
-						},
-					);
+					const response = await axios.get(`/api/v1/diaries/${diaryId}`, {
+						headers: { Authorization: `Bearer ${session.data?.idToken}` },
+					});
 					setDiaryDetail(response.data);
 				} catch (error) {
 					console.error('Failed to fetch diary details:', error);
@@ -143,7 +131,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 			}
 		};
 		fetchDiaryDetail();
-	}, [diaryId]);
+	}, [diaryId, updateKey]);
 
 	return (
 		<div>
