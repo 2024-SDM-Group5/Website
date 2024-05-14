@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 
-import axios from 'axios';
-
 import PostList from '@/components/PostList';
+import axios from '@/lib/axios';
 
 interface Diary {
 	id: number;
@@ -19,7 +18,7 @@ export default function Page() {
 		const fetchDiaries = async () => {
 			try {
 				const response = await axios.get<Diary[]>(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
+					'/api/v1/diaries',
 				);
 				const diaryPosts = response.data.map((diary: Diary) => ({
 					diaryId: diary.id,

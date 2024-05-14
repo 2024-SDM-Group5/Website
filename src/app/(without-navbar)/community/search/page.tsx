@@ -6,11 +6,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
-import axios from 'axios';
 
 import SinglePost from '@/components/SinglePost';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import axios from '@/lib/axios';
 
 const tabs = [
 	{ value: 'diary', name: '日記' },
@@ -51,18 +51,14 @@ export default function Page() {
 		const fetchUserDiaries = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
+					`/api/v1/diaries`,
 					{
 						params: { q: searchQuery },
 					},
 				);
 				setUserDiaries(response.data);
 			} catch (error) {
-				if (axios.isAxiosError(error) && error.response) {
-					console.error(`Error fetching diaries: ${error.response.status}`);
-				} else {
-					console.error('Failed to fetch user diaries:', error);
-				}
+				console.error('Failed to fetch user diaries:', error);
 			}
 		};
 
@@ -76,18 +72,14 @@ export default function Page() {
 			if (searchQuery) {
 				try {
 					const response = await axios.get(
-						`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users`,
+						`/api/v1/users`,
 						{
 							params: { q: searchQuery },
 						},
 					);
 					setUsers(response.data);
 				} catch (error) {
-					if (axios.isAxiosError(error) && error.response) {
-						console.error(`Error fetching users: ${error.response.status}`);
-					} else {
-						console.error('Failed to fetch users:', error);
-					}
+					console.error('Failed to fetch users:', error);
 				}
 			}
 		};

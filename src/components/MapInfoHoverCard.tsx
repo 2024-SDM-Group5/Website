@@ -7,10 +7,10 @@ import Link from 'next/link';
 
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { HomeIcon, StarIcon, StarFilledIcon } from '@radix-ui/react-icons';
-import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import axios from '@/lib/axios';
 import i18next from '@/lib/i18n';
 
 interface MapDetailType {
@@ -41,7 +41,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 		try {
 			await axios({
 				method,
-				url: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${mapId}/collect`,
+				url: `/api/v1/maps/${mapId}/collect`,
 				headers: { Authorization: `Bearer ${session?.data?.idToken}` },
 			});
 			setMapDetails((prev) => ({
@@ -56,7 +56,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 		async function fetchMapDetails() {
 			try {
 				const response = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${mapId}`,
+					`/api/v1/maps/${mapId}`,
 				);
 				if (
 					!response.data.center ||

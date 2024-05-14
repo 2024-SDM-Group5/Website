@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 interface LoginResponse {
 	userId: number;
@@ -13,7 +13,7 @@ export const useUser = (idToken: string) => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.post<LoginResponse>(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/login',
+					'/api/v1/users/login',
 					{
 						idToken,
 					},

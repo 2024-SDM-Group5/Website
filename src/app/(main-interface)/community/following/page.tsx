@@ -4,9 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useSession } from 'next-auth/react';
 
-import axios from 'axios';
-
 import PostList from '@/components/PostList';
+import axios from '@/lib/axios';
 
 interface Diary {
 	id: number;
@@ -22,7 +21,7 @@ export default function Page() {
 			if (session?.idToken) {
 				try {
 					const response = await axios.get<Diary[]>(
-						'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
+						'/api/v1/diaries',
 						{
 							params: { following: true },
 							headers: { Authorization: `Bearer ${session.idToken}` },

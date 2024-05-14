@@ -9,11 +9,11 @@ import { SearchOutlined } from '@ant-design/icons';
 import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Input, message } from 'antd';
-import axios from 'axios';
 
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import axios from '@/lib/axios';
 import i18next from '@/lib/i18n';
 
 interface Restaurant {
@@ -50,7 +50,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 			let api = `api/v1/maps/${id}/restaurants`;
 			if (id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
+				`/${api}?orderBy=${sort}&offset=${idx * 10}&limit=10` +
 					suffix,
 				{
 					headers: {
@@ -153,7 +153,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.delete(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												`/api/v1/restaurants/${x.placeId}/collect`,
 												{
 													headers: {
 														Authorization: `Bearer ${session.data?.idToken}`,
@@ -184,7 +184,7 @@ const RestaurantList = ({ id, type }: { id: string; type: string | null }) => {
 										onClick={async (e) => {
 											e.stopPropagation();
 											const res = await axios.post(
-												`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants/${x.placeId}/collect`,
+												`/api/v1/restaurants/${x.placeId}/collect`,
 												{},
 												{
 													headers: {

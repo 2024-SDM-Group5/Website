@@ -6,9 +6,8 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-import axios from 'axios';
-
 import SinglePost from '@/components/SinglePost';
+import axios from '@/lib/axios';
 
 interface Diary {
 	id: number;
@@ -28,24 +27,14 @@ function UserArchive() {
 		const fetchUserArchives = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/diary`,
+					`/api/v1/collections/diary`,
 					{
 						headers: { Authorization: `Bearer ${session.data?.idToken}` },
 					},
 				);
 				setUserArchives(response.data);
 			} catch (error) {
-				if (axios.isAxiosError(error)) {
-					if (error.response && error.response.status === 404) {
-						console.error('User not found:', error.response.data);
-					} else if (error.response && error.response.status === 500) {
-						console.error('System error:', error.response.data);
-					} else {
-						console.error('Error fetching user archives:', error.message);
-					}
-				} else {
-					console.error('Non-Axios error:', error);
-				}
+				console.error('Error fetching user archives:', error);
 			}
 		};
 

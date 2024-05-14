@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, message } from 'antd';
-import axios from 'axios';
 
 import {
 	Dialog,
@@ -14,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import axios from '@/lib/axios';
 import i18next from '@/lib/i18n';
 
 interface NewDiaryDialogProps {
@@ -49,7 +49,7 @@ export function NewDiaryDialog({
 			avatarFormData.append('avatar', avatar);
 			try {
 				const avatarResponse = await axios.post(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+					'/api/v1/users/avatar',
 					avatarFormData,
 					{
 						headers: {
@@ -64,7 +64,7 @@ export function NewDiaryDialog({
 		}
 
 		const response = await axios.post(
-			`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries`,
+			`/api/v1/diaries`,
 			{ content, restaurantId, photos: [avatarUrl], items: [item] },
 			{
 				headers: {

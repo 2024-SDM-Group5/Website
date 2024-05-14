@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { message } from 'antd';
-import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,6 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import axios from '@/lib/axios';
 
 interface ProfileEditDialogProps {
 	idToken: string;
@@ -42,7 +42,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 
 			try {
 				const avatarResponse = await axios.post(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+					'/api/v1/users/avatar',
 					avatarFormData,
 					{
 						headers: {
@@ -65,7 +65,7 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 
 		try {
 			const profileResponse = await axios.put(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${userId}`,
+				`/api/v1/users/${userId}`,
 				profileData,
 				{
 					headers: {

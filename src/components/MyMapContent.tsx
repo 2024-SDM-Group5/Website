@@ -3,13 +3,13 @@
 import React, { useEffect } from 'react';
 
 import { Map, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
-import axios from 'axios';
 
 import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
 import MapInfoEditCard from '@/components/MapInfoEditCard';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
+import axios from '@/lib/axios';
 
 import MapInfoHoverCard from './MapInfoHoverCard';
 
@@ -36,9 +36,9 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 	useEffect(() => {
 		const FetchRestaurant = async () => {
 			if (bounds) {
-				let url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
+				let url = `/api/v1/maps/${id}/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
 				if (id === '0') {
-					url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
+					url = `/api/v1/restaurants?sw=${bounds[0]?.lat()},${bounds[0]?.lng()}&ne=${bounds[1]?.lat()},${bounds[1]?.lng()}&limit=50`;
 				}
 				const res = await axios.get(url);
 				setRestaurants(res?.data.restaurants);
