@@ -55,9 +55,7 @@ function MapInfoHoverCard({ mapId }: { mapId: string }) {
 	useEffect(() => {
 		async function fetchMapDetails() {
 			try {
-				const response = await axios.get(
-					`/api/v1/maps/${mapId}`,
-				);
+				const response = await axios.get(`/api/v1/maps/${mapId}`);
 				if (
 					!response.data.center ||
 					response.data.center.lat === null ||

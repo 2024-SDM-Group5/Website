@@ -17,12 +17,9 @@ function MyMapPage() {
 	const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
 	useEffect(() => {
 		let FetchId = async () => {
-			let res = await axios.get(
-				'/api/v1/users/me',
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			let res = await axios.get('/api/v1/users/me', {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setId(res.data.mapId);
 		};
 		FetchId();

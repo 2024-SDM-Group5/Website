@@ -14,12 +14,9 @@ function MyRestaurantPage() {
 	const session = useSession();
 	useEffect(() => {
 		let FetchId = async () => {
-			let res = await axios.get(
-				'/api/v1/users/me',
-				{
-					headers: { Authorization: `Bearer ${session.data?.idToken}` },
-				},
-			);
+			let res = await axios.get('/api/v1/users/me', {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
 			setId(res.data.mapId);
 		};
 		FetchId();

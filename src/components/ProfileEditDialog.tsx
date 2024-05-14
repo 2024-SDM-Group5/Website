@@ -41,15 +41,11 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 			avatarFormData.append('avatar', avatar);
 
 			try {
-				const avatarResponse = await axios.post(
-					'/api/v1/users/avatar',
-					avatarFormData,
-					{
-						headers: {
-							Authorization: `Bearer ${idToken}`,
-						},
+				const avatarResponse = await axios.post('/api/v1/users/avatar', avatarFormData, {
+					headers: {
+						Authorization: `Bearer ${idToken}`,
 					},
-				);
+				});
 				avatarUrl = avatarResponse.data.avatarUrl;
 			} catch (error) {
 				console.error('Failed to upload avatar:', error);
@@ -64,15 +60,11 @@ export function ProfileEditDialog({ idToken, userId }: ProfileEditDialogProps) {
 		};
 
 		try {
-			const profileResponse = await axios.put(
-				`/api/v1/users/${userId}`,
-				profileData,
-				{
-					headers: {
-						Authorization: `Bearer ${idToken}`,
-					},
+			const profileResponse = await axios.put(`/api/v1/users/${userId}`, profileData, {
+				headers: {
+					Authorization: `Bearer ${idToken}`,
 				},
-			);
+			});
 
 			if (profileResponse.data.success) {
 				console.log('Profile updated:', profileResponse.data.message);

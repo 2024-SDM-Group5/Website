@@ -54,15 +54,11 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		const avatarFormData = new FormData();
 		avatarFormData.append('avatar', file);
 		try {
-			const response = await axios.post(
-				'/api/v1/users/avatar',
-				avatarFormData,
-				{
-					headers: {
-						Authorization: `Bearer ${session?.idToken}`,
-					},
+			const response = await axios.post('/api/v1/users/avatar', avatarFormData, {
+				headers: {
+					Authorization: `Bearer ${session?.idToken}`,
 				},
-			);
+			});
 			return response.data.avatarUrl;
 		} catch (error) {
 			console.error('Failed to upload image:', error);

@@ -12,12 +12,9 @@ export const useUser = (idToken: string) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.post<LoginResponse>(
-					'/api/v1/users/login',
-					{
-						idToken,
-					},
-				);
+				const response = await axios.post<LoginResponse>('/api/v1/users/login', {
+					idToken,
+				});
 				setUserId(response.data.userId);
 			} catch (error) {
 				console.error('Failed to login:', error);

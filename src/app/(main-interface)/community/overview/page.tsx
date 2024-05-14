@@ -17,9 +17,7 @@ export default function Page() {
 	useEffect(() => {
 		const fetchDiaries = async () => {
 			try {
-				const response = await axios.get<Diary[]>(
-					'/api/v1/diaries',
-				);
+				const response = await axios.get<Diary[]>('/api/v1/diaries');
 				const diaryPosts = response.data.map((diary: Diary) => ({
 					diaryId: diary.id,
 				}));

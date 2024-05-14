@@ -26,12 +26,9 @@ function UserArchive() {
 	useEffect(() => {
 		const fetchUserArchives = async () => {
 			try {
-				const response = await axios.get(
-					`/api/v1/collections/diary`,
-					{
-						headers: { Authorization: `Bearer ${session.data?.idToken}` },
-					},
-				);
+				const response = await axios.get(`/api/v1/collections/diary`, {
+					headers: { Authorization: `Bearer ${session.data?.idToken}` },
+				});
 				setUserArchives(response.data);
 			} catch (error) {
 				console.error('Error fetching user archives:', error);
