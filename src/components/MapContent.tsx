@@ -44,7 +44,6 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 		};
 		FetchRestaurant();
 	}, [bounds, id]);
-
 	return (
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">
@@ -52,7 +51,7 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 				{id !== '0' && <MapInfoHoverCard mapId={id} />}
 			</div>
 
-			<Map
+			 <Map
 				onClick={() => setDrawer(null)}
 				disableDefaultUI={true}
 				mapId="1234"
@@ -61,6 +60,7 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 				onTilesLoaded={(e) => {
 					const SW = e.map.getBounds()?.getSouthWest();
 					const NE = e.map.getBounds()?.getNorthEast();
+					console.log("Tiles loaded")
 					setBounds([SW, NE]);
 				}}
 				onZoomChanged={(e) => {
