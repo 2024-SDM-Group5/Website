@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { message } from 'antd';
-import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,6 +16,7 @@ import {
 	DialogTitle,
 	DialogFooter,
 } from '@/components/ui/dialog';
+import axios from '@/lib/axios';
 import i18next from '@/lib/i18n';
 
 function MapInfoEditCard({ mapId }: { mapId: string }) {
@@ -55,7 +55,7 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		avatarFormData.append('avatar', file);
 		try {
 			const response = await axios.post(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+				'/api/v1/users/avatar',
 				avatarFormData,
 				{
 					headers: {
@@ -77,7 +77,7 @@ function MapInfoEditCard({ mapId }: { mapId: string }) {
 		try {
 			const response = await axios({
 				method: 'PUT',
-				url: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${mapId}`,
+				url: `/api/v1/maps/${mapId}`,
 				headers: { Authorization: `Bearer ${session?.idToken}` },
 				data: {
 					...mapDetails,

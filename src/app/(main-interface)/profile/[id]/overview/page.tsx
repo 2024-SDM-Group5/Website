@@ -10,13 +10,13 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import { ExitIcon } from '@radix-ui/react-icons';
-import axios from 'axios';
 
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
 import SinglePost from '@/components/SinglePost';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hook/useUser';
+import axios from '@/lib/axios';
 import i18next from '@/lib/i18n';
 
 interface UserDetail {
@@ -49,7 +49,7 @@ function UserProfile() {
 	}
 	const handleFollowUnfollow = async () => {
 		const method = userDetail?.isFollowing ? 'delete' : 'post';
-		const url = `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/follow`;
+		const url = `/api/v1/users/${params.id}/follow`;
 
 		try {
 			await axios({
@@ -76,8 +76,8 @@ function UserProfile() {
 		const fetchUserDetail = async () => {
 			const url =
 				params.id === userId?.toString()
-					? 'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me'
-					: `https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}`;
+					? '/api/v1/users/me'
+					: `/api/v1/users/${params.id}`;
 			try {
 				const response = await axios.get(url, {
 					headers: {
@@ -93,15 +93,11 @@ function UserProfile() {
 		const fetchUserDiaries = async () => {
 			try {
 				const response = await axios.get(
-					`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/${params.id}/diaries`,
+					`/api/v1/users/${params.id}/diaries`,
 				);
 				setUserDiaries(response.data);
 			} catch (error) {
-				if (axios.isAxiosError(error) && error.response) {
-					console.error(`Error fetching diaries: ${error.response.status}`);
-				} else {
-					console.error('Failed to fetch user diaries:', error);
-				}
+				console.error(`Error fetching diaries: ${error}`);
 			}
 		};
 

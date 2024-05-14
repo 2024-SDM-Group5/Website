@@ -12,11 +12,11 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import * as Select from '@radix-ui/react-select';
 import { Input } from 'antd';
 import { message } from 'antd';
-import axios from 'axios';
 
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import axios from '@/lib/axios';
 import i18n from '@/lib/i18n';
 
 interface Map {
@@ -39,7 +39,7 @@ const Archive = () => {
 	useEffect(() => {
 		const FetchMaps = async () => {
 			const res = await axios.get(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/map',
+				'/api/v1/collections/map',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
@@ -127,7 +127,7 @@ const Archive = () => {
 									onClick={async (e) => {
 										e.stopPropagation();
 										const res = await axios.delete(
-											`https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/maps/${x.id}/collect`,
+											`/api/v1/maps/${x.id}/collect`,
 											{
 												headers: {
 													Authorization: `Bearer ${session.data?.idToken}`,

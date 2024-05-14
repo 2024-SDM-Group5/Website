@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
-import axios from 'axios';
 
 import RestaurantList from '@/components/RestaurantList';
+import axios from '@/lib/axios';
 
 function MyRestaurantPage() {
 	const [id, setId] = useState<number | null>(null);
@@ -15,7 +15,7 @@ function MyRestaurantPage() {
 	useEffect(() => {
 		let FetchId = async () => {
 			let res = await axios.get(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me',
+				'/api/v1/users/me',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},

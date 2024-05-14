@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, Modal, Input, message } from 'antd';
-import axios from 'axios';
+
+import axios from '@/lib/axios';
 
 function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function }) {
 	const [suggestion, setSuggestion] = useState<string | null>(null);
@@ -30,7 +31,7 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 			console.log(foodType);
 			try {
 				const response = await axios.post(
-					'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/bots/question',
+					'/api/v1/bots/question',
 					{
 						req: foodType,
 						position,

@@ -2,7 +2,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, AutoComplete } from 'antd';
-import axios from 'axios';
+
+import axios from '@/lib/axios';
 
 interface Restaurant {
 	placeId: string;
@@ -43,7 +44,7 @@ function MapSearchBar({
 			let api = `api/v1/maps/${map_id}/restaurants`;
 			if (map_id === '0') api = 'api/v1/restaurants';
 			const res = await axios.get(
-				`https://mainserver-fdhzgisj6a-de.a.run.app/${api}?limit=10` + suffix,
+				`/${api}?limit=10` + suffix,
 			);
 			let tmp = [];
 			for (let i = 0; i < res?.data.restaurants.length; i++) {

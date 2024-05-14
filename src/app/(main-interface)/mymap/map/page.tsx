@@ -6,9 +6,9 @@ import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
-import axios from 'axios';
 
 import MyMapContent from '@/components/MyMapContent';
+import axios from '@/lib/axios';
 
 function MyMapPage() {
 	const [id, setId] = useState<number | null>(null);
@@ -18,7 +18,7 @@ function MyMapPage() {
 	useEffect(() => {
 		let FetchId = async () => {
 			let res = await axios.get(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/me',
+				'/api/v1/users/me',
 				{
 					headers: { Authorization: `Bearer ${session.data?.idToken}` },
 				},
