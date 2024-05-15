@@ -61,7 +61,6 @@ function MapSearchBar({
 			className="h-full w-[80%]"
 			options={options}
 			value={search}
-			data-testid="autocomplete"
 			onSelect={(value, option) => {
 				if (map) {
 					map.panTo(

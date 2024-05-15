@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SessionProvider } from 'next-auth/react';
 
-import { initialize, Map, Marker, mockInstances } from '@googlemaps/jest-mocks';
+import { initialize, PinElement, mockInstances } from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act, createEvent } from '@testing-library/react';
 import { APIProvider } from '@vis.gl/react-google-maps';
@@ -17,7 +17,7 @@ jest.mock('@/hook/useUser', () => ({
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-beforeEach(() => {
+beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
 	google.maps.event.addListener = jest.fn(() => {
@@ -69,7 +69,7 @@ const sessionMock = {
 };
 
 describe('MapContent Component', () => {
-	it('renders without crashing and show two marker', async () => {
+	it('renders without crashing and successfully request with bound', async () => {
 		const effect = jest.spyOn(React, 'useEffect');
 		let container = render(
 			<SessionProvider session={sessionMock}>
@@ -81,11 +81,67 @@ describe('MapContent Component', () => {
 				</APIProvider>
 			</SessionProvider>,
 		);
-		const mapInstance = mockInstances.get(Map)[0];
-		expect(google.maps.event.addListener).toHaveBeenCalledTimes(9);
-		for(let call of google.maps.event.addListener.mock.calls){
-			if(call[1] === "tilesloaded") call[2]();
-		}
+		expect(google.maps.event.addListener).toHaveBeenCalled();
+		act(() => {
+			for (let call of google.maps.event.addListener.mock.calls) {
+				if (call[1] === 'tilesloaded') call[2]();
+			}
+		});
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(
+				expect.stringContaining('api/v1/restaurants?sw='),
+			);
+			expect(effect).toHaveBeenCalled();
+		});
+		let marker0 = await screen.getByTestId('marker0');
+		let marker1 = await screen.getByTestId('marker1');
+
+		expect(marker0).toBeInTheDocument();
+		expect(marker1).toBeInTheDocument();
+	});
+	it('dragend callback', async () => {
+		const effect = jest.spyOn(React, 'useEffect');
+		let container = render(
+			<SessionProvider session={sessionMock}>
+				<APIProvider
+					apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
+					libraries={['geometry']}
+				>
+					<MapContent id="0" center={{ lat: 23, lng: 120 }} />
+				</APIProvider>
+			</SessionProvider>,
+		);
+		expect(google.maps.event.addListener).toHaveBeenCalled();
+		act(() => {
+			for (let call of google.maps.event.addListener.mock.calls) {
+				if (call[1] === 'dragend') call[2]();
+			}
+		});
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(
+				expect.stringContaining('api/v1/restaurants?sw='),
+			);
+			expect(effect).toHaveBeenCalled();
+		});
+	});
+	it('zoom_changed callback', async () => {
+		const effect = jest.spyOn(React, 'useEffect');
+		let container = render(
+			<SessionProvider session={sessionMock}>
+				<APIProvider
+					apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
+					libraries={['geometry']}
+				>
+					<MapContent id="0" center={{ lat: 23, lng: 120 }} />
+				</APIProvider>
+			</SessionProvider>,
+		);
+		expect(google.maps.event.addListener).toHaveBeenCalled();
+		act(() => {
+			for (let call of google.maps.event.addListener.mock.calls) {
+				if (call[1] === 'zoom_changed') call[2]();
+			}
+		});
 		await waitFor(() => {
 			expect(mockedAxios.get).toHaveBeenCalledWith(
 				expect.stringContaining('api/v1/restaurants?sw='),
