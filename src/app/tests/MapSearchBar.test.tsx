@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SessionProvider } from 'next-auth/react';
 
-import { initialize } from '@googlemaps/jest-mocks';
+import { initialize, mockInstances, Map } from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import axios from 'axios';
@@ -17,7 +17,7 @@ jest.mock('@/hook/useUser', () => ({
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-beforeEach(() => {
+beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
 	(userHook.useUser as jest.Mock).mockReturnValue(123);
@@ -106,5 +106,29 @@ describe('MapSearchBar Component', () => {
 		const input = await screen.findByTestId('input');
 		expect(input).toBeInTheDocument();
 		expect(effect).toHaveBeenCalled();
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(
+				expect.stringContaining('api/v1/maps/123/restaurants'),
+			);
+		});
+	});
+	it('autocomplete test', async () => {
+		const effect = jest.spyOn(React, 'useEffect');
+		render(
+			<SessionProvider session={sessionMock}>
+				<div>
+					<MapSearchBar
+						map_id="123"
+						map={new google.maps.Map(document.createElement('div'))}
+						setDrawer={jest.fn()}
+					/>
+				</div>
+			</SessionProvider>,
+		);
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(
+				expect.stringContaining('api/v1/maps/123/restaurants'),
+			);
+		});
 	});
 });

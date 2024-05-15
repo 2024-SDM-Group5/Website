@@ -51,7 +51,7 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 				{id !== '0' && <MapInfoHoverCard mapId={id} />}
 			</div>
 
-			 <Map
+			<Map
 				onClick={() => setDrawer(null)}
 				disableDefaultUI={true}
 				mapId="1234"
@@ -60,7 +60,6 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 				onTilesLoaded={(e) => {
 					const SW = e.map.getBounds()?.getSouthWest();
 					const NE = e.map.getBounds()?.getNorthEast();
-					console.log("Tiles loaded")
 					setBounds([SW, NE]);
 				}}
 				onZoomChanged={(e) => {
@@ -74,15 +73,20 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 					setBounds([SW, NE]);
 				}}
 			>
-				{restaurants.map((x, i) => (
-					<AdvancedMarker
-						key={i}
-						position={x.location}
-						onClick={() => setDrawer(x.placeId)}
-					>
-						<Pin />
-					</AdvancedMarker>
-				))}
+				{restaurants.map((x, i) => {
+					return (
+						<>
+							<AdvancedMarker
+								key={i}
+								position={x.location}
+								onClick={() => setDrawer(x.placeId)}
+							>
+								<Pin />
+							</AdvancedMarker>
+							<div data-testid={'marker' + i} />
+						</>
+					);
+				})}
 			</Map>
 			<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 			<LotteryFloatButton onClick={() => setModal(true)} />
