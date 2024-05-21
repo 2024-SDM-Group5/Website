@@ -21,12 +21,6 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
-	useSearchParams.mockReturnValue({
-		get: () => undefined,
-	});
-	useParams.mockReturnValue({
-		id: "0",
-	});
 	google.maps.event.addListener = jest.fn(() => {
 		return {
 			remove: jest.fn(),
@@ -88,7 +82,13 @@ const sessionMock = {
 };
 
 describe('MapGeneral Component', () => {
-	it('renders without crashing and successfully request with bound', async () => {
+	it('renders without crashing with navigator', async () => {
+		useSearchParams.mockReturnValue({
+			get: () => undefined,
+		});
+		useParams.mockReturnValue({
+			id: '0',
+		});
 		const effect = jest.spyOn(React, 'useEffect');
 		let container = render(
 			<SessionProvider session={sessionMock}>
@@ -108,9 +108,44 @@ describe('MapGeneral Component', () => {
 			);
 			expect(effect).toHaveBeenCalled();
 		});
-		let marker0 = await screen.getByTestId('map');
+		let map = await screen.getByTestId('map');
+		let marker0 = await screen.getByTestId('marker0');
 		let marker1 = await screen.getByTestId('marker1');
 
+		expect(map).toBeInTheDocument();
+		expect(marker0).toBeInTheDocument();
+		expect(marker1).toBeInTheDocument();
+	});
+	it('renders without crashing with given center', async () => {
+		useSearchParams.mockReturnValue({
+			get: () => "51.1,45.3"
+		});
+		useParams.mockReturnValue({
+			id: '0',
+		});
+		const effect = jest.spyOn(React, 'useEffect');
+		let container = render(
+			<SessionProvider session={sessionMock}>
+				<MapGeneral />
+			</SessionProvider>,
+		);
+		expect(google.maps.event.addListener).toHaveBeenCalled();
+		act(() => {
+			for (let call of google.maps.event.addListener.mock.calls) {
+				if (call[1] === 'tilesloaded') call[2]();
+			}
+		});
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(
+				expect.stringContaining('api/v1/restaurants?sw='),
+			);
+			expect(effect).toHaveBeenCalled();
+		});
+		let map = await screen.getByTestId('map');
+		let marker0 = await screen.getByTestId('marker0');
+		let marker1 = await screen.getByTestId('marker1');
+
+		expect(map).toBeInTheDocument();
 		expect(marker0).toBeInTheDocument();
 		expect(marker1).toBeInTheDocument();
 	});
