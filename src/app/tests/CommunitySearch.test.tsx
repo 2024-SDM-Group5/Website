@@ -2,11 +2,11 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import axios from 'axios';
 
 import Page from '@/app/(without-navbar)/community/search/page';
+import axios from '@/lib/axios';
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 jest.mock('next/navigation', () => ({
 	useRouter: () => ({
 		push: jest.fn(),

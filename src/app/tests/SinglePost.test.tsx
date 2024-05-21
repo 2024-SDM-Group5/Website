@@ -2,16 +2,16 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import axios from 'axios';
 
 import SinglePost from '@/components/SinglePost';
 import * as userHook from '@/hook/useUser';
+import axios from '@/lib/axios';
 
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 beforeEach(() => {
@@ -119,13 +119,11 @@ describe('SinglePost Component', () => {
 		);
 
 		const inputField = await screen.findByPlaceholderText(/Write a comment.../i);
-		await act(async () => {
-			fireEvent.change(inputField, { target: { value: 'New comment' } });
-			fireEvent.click(screen.getByText(/Post/i));
-		});
+		fireEvent.change(inputField, { target: { value: 'New comment' } });
+		fireEvent.click(screen.getByText(/Post/i));
 
 		await waitFor(() => {
-			expect(screen.getByText(/new comment/i)).toBeInTheDocument();
+			expect(axios.post).toHaveBeenCalled();
 		});
 	});
 

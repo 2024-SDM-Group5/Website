@@ -2,11 +2,11 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
 
 import CommunityFollowing from '@/app/(main-interface)/community/following/page';
+import axios from '@/lib/axios';
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 jest.mock('next/navigation', () => ({
 	useParams: () => ({ id: '123' }),
 }));
@@ -53,13 +53,10 @@ describe('CommunityFollowing Component', () => {
 				screen.getByText(/Mocked Single Post Component for diaryId 2/i),
 			).toBeInTheDocument();
 
-			expect(mockedAxios.get).toHaveBeenCalledWith(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
-				{
-					headers: { Authorization: `Bearer mock-token` },
-					params: { following: true },
-				},
-			);
+			expect(mockedAxios.get).toHaveBeenCalledWith('/api/v1/diaries', {
+				headers: { Authorization: `Bearer mock-token` },
+				params: { following: true },
+			});
 		});
 	});
 });

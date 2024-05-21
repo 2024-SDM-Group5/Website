@@ -2,12 +2,12 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import axios from 'axios';
 
 import CommunityOverview from '@/app/(main-interface)/community/overview/page';
 import { ProfileEditDialog } from '@/components/ProfileEditDialog';
+import axios from '@/lib/axios';
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 jest.mock('next/navigation', () => ({
 	useParams: () => ({ id: '123' }),
 }));
@@ -54,9 +54,7 @@ describe('CommunityOverview Component', () => {
 				screen.getByText(/Mocked Single Post Component for diaryId 2/i),
 			).toBeInTheDocument();
 
-			expect(mockedAxios.get).toHaveBeenCalledWith(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/diaries',
-			);
+			expect(mockedAxios.get).toHaveBeenCalledWith('/api/v1/diaries');
 		});
 	});
 
@@ -86,7 +84,7 @@ describe('CommunityOverview Component', () => {
 
 		await waitFor(() => {
 			expect(mockedAxios.post).toHaveBeenCalledWith(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/avatar',
+				'/api/v1/users/avatar',
 				expect.any(FormData),
 				{
 					headers: {
@@ -95,7 +93,7 @@ describe('CommunityOverview Component', () => {
 				},
 			);
 			expect(mockedAxios.put).toHaveBeenCalledWith(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/123',
+				'/api/v1/users/123',
 				expect.objectContaining({
 					displayName: 'New Name',
 					avatarUrl: 'path/to/avatar.jpg',

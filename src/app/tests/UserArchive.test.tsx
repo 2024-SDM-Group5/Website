@@ -2,11 +2,11 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import axios from 'axios';
 
 import UserArchive from '@/app/(main-interface)/profile/[id]/archive/page';
+import axios from '@/lib/axios';
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 jest.mock('next/navigation', () => ({
 	useParams: () => ({ id: '123' }),
 }));
@@ -49,12 +49,9 @@ describe('UserArchive Component', () => {
 			expect(screen.getByAltText('Diary 1')).toBeInTheDocument();
 			expect(screen.getByAltText('Diary 2')).toBeInTheDocument();
 
-			expect(mockedAxios.get).toHaveBeenCalledWith(
-				'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/collections/diary',
-				{
-					headers: { Authorization: `Bearer mock-token` },
-				},
-			);
+			expect(mockedAxios.get).toHaveBeenCalledWith('/api/v1/collections/diary', {
+				headers: { Authorization: `Bearer mock-token` },
+			});
 		});
 	});
 	it('handles diary selection and navigation', async () => {

@@ -2,12 +2,12 @@ import { SessionProvider } from 'next-auth/react';
 
 import '@testing-library/jest-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import axios from 'axios';
 
 import UserProfile from '@/app/(main-interface)/profile/[id]/overview/page';
 import * as userHook from '@/hook/useUser';
+import axios from '@/lib/axios';
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 jest.mock('@/hook/useUser');
 jest.mock('react-i18next', () => ({
 	useTranslation: () => {
@@ -121,7 +121,7 @@ describe('UserProfile Component', () => {
 		await waitFor(() => {
 			expect(mockedAxios).toHaveBeenCalledWith({
 				method: 'post',
-				url: 'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/123/follow',
+				url: '/api/v1/users/123/follow',
 				headers: { Authorization: `Bearer ${sessionMock.idToken}` },
 			});
 		});
@@ -145,7 +145,7 @@ describe('UserProfile Component', () => {
 		await waitFor(() => {
 			expect(mockedAxios).toHaveBeenCalledWith({
 				method: 'delete',
-				url: 'https://mainserver-fdhzgisj6a-de.a.run.app/api/v1/users/123/follow',
+				url: '/api/v1/users/123/follow',
 				headers: { Authorization: `Bearer ${sessionMock.idToken}` },
 			});
 		});
