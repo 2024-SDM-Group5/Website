@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import MapSearchBar from '@/components/MapSearchBar';
 import * as userHook from '@/hook/useUser';
+Object.assign(global, { TextDecoder, TextEncoder });
 
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
