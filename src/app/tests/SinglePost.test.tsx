@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import SinglePost from '@/components/SinglePost';
 import * as userHook from '@/hook/useUser';
-
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
