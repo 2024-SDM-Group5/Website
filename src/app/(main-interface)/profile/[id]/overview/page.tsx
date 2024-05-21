@@ -98,7 +98,6 @@ function UserProfile() {
 				console.error(`Error fetching diaries: ${error}`);
 			}
 		};
-
 		if (params.id) {
 			fetchUserDetail();
 			fetchUserDiaries();
