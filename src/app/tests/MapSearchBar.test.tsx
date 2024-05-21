@@ -5,17 +5,16 @@ import { SessionProvider } from 'next-auth/react';
 import { initialize, mockInstances, Map } from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import axios from 'axios';
+import axios from '@/lib/axios';
 
 import MapSearchBar from '@/components/MapSearchBar';
 import * as userHook from '@/hook/useUser';
-Object.assign(global, { TextDecoder, TextEncoder });
 
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
 
-jest.mock('axios');
+jest.mock('@/lib/axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 beforeAll(() => {

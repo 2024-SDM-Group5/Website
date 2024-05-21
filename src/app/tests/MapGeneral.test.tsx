@@ -1,26 +1,32 @@
 import React from 'react';
 
 import { SessionProvider } from 'next-auth/react';
+import { useSearchParams, useParams } from 'next/navigation';
 
 import { initialize, PinElement, mockInstances } from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act, createEvent } from '@testing-library/react';
-import axios from 'axios';
 
 import MapGeneral from '@/app/(main-interface)/map/[id]/general/page';
 import * as userHook from '@/hook/useUser';
-
-Object.assign(global, { TextDecoder, TextEncoder });
+import axios from '@/lib/axios';
 
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
 
-jest.mock('axios');
+jest.mock('next/navigation');
+jest.mock('@/lib/axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
+	useSearchParams.mockReturnValue({
+		get: () => undefined,
+	});
+	useParams.mockReturnValue({
+		id: 0,
+	});
 	google.maps.event.addListener = jest.fn(() => {
 		return {
 			remove: jest.fn(),

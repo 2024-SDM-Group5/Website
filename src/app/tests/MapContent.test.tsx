@@ -6,20 +6,20 @@ import { initialize } from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act, createEvent } from '@testing-library/react';
 import { APIProvider } from '@vis.gl/react-google-maps';
-import axios from 'axios';
 
 import MapContent from '@/components/MapContent';
 import * as userHook from '@/hook/useUser';
+import axios from '@/lib/axios';
 
 jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
-
-jest.mock('axios');
+jest.mock('@/lib/axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
+	
 	google.maps.event.addListener = jest.fn(() => {
 		return {
 			remove: jest.fn(),
