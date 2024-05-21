@@ -25,7 +25,7 @@ beforeAll(() => {
 		get: () => undefined,
 	});
 	useParams.mockReturnValue({
-		id: 0,
+		id: "0",
 	});
 	google.maps.event.addListener = jest.fn(() => {
 		return {
@@ -33,16 +33,14 @@ beforeAll(() => {
 		};
 	});
 	const mockGeolocation = {
-		getCurrentPosition: jest.fn().mockImplementationOnce((success) =>
-			Promise.resolve(
-				success({
-					coords: {
-						latitude: 51.1,
-						longitude: 45.3,
-					},
-				}),
-			),
-		),
+		getCurrentPosition: jest.fn().mockImplementationOnce((success) => {
+			success({
+				coords: {
+					latitude: 51.1,
+					longitude: 45.3,
+				},
+			});
+		}),
 	};
 	global.navigator.geolocation = mockGeolocation;
 
@@ -110,7 +108,7 @@ describe('MapGeneral Component', () => {
 			);
 			expect(effect).toHaveBeenCalled();
 		});
-		let marker0 = await screen.getByTestId('marker0');
+		let marker0 = await screen.getByTestId('map');
 		let marker1 = await screen.getByTestId('marker1');
 
 		expect(marker0).toBeInTheDocument();
