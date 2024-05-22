@@ -6,12 +6,12 @@ import { Map, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 
 import LotteryFloatButton from '@/components/FloatButton';
 import LotteryModal from '@/components/LotteryModal';
-import MapInfoEditCard from '@/components/MapInfoEditCard';
+import MapInfoHoverCard from '@/components/MapInfoHoverCard';
 import MapSearchBar from '@/components/MapSearchBar';
 import RestaurantDrawer from '@/components/RestaurantDrawer';
 import axios from '@/lib/axios';
 
-import MapInfoHoverCard from './MapInfoHoverCard';
+import MapInfoEditCard from './MapInfoEditCard';
 
 interface Restaurant {
 	name: string;
@@ -46,12 +46,11 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 		};
 		FetchRestaurant();
 	}, [bounds, id]);
-
 	return (
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">
 				<MapSearchBar map_id={id} map={map as google.maps.Map} setDrawer={setDrawer} />
-				<MapInfoHoverCard mapId={id} />
+				{id !== '0' && <MapInfoHoverCard mapId={id} />}
 				<MapInfoEditCard mapId={id} />
 			</div>
 
@@ -77,15 +76,20 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 					setBounds([SW, NE]);
 				}}
 			>
-				{restaurants.map((x, i) => (
-					<AdvancedMarker
-						key={i}
-						position={x.location}
-						onClick={() => setDrawer(x.placeId)}
-					>
-						<Pin />
-					</AdvancedMarker>
-				))}
+				{restaurants.map((x, i) => {
+					return (
+						<>
+							<AdvancedMarker
+								key={i}
+								position={x.location}
+								onClick={() => setDrawer(x.placeId)}
+							>
+								<Pin />
+							</AdvancedMarker>
+							<div data-testid={'marker' + i} />
+						</>
+					);
+				})}
 			</Map>
 			<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 			<LotteryFloatButton onClick={() => setModal(true)} />

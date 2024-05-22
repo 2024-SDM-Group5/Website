@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor, act, createEvent } from '@testing-library/react';
 import { APIProvider } from '@vis.gl/react-google-maps';
 
-import MapContent from '@/components/MapContent';
+import MapContent from '@/components/MyMapContent';
 import * as userHook from '@/hook/useUser';
 import axios from '@/lib/axios';
 
@@ -15,12 +15,17 @@ jest.mock('@/hook/useUser', () => ({
 	useUser: jest.fn(),
 }));
 jest.mock('@/lib/axios');
-
+jest.mock('@/components/MapInfoEditCard', () => {
+	return {
+		__esModule: true,
+		default: ({ mapId }: { mapId: number }) => <div>Mocked Info Edit Card {mapId}</div>,
+	};
+});
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
-
+	
 	google.maps.event.addListener = jest.fn(() => {
 		return {
 			remove: jest.fn(),
@@ -69,7 +74,7 @@ const sessionMock = {
 	status: 'authenticated',
 };
 
-describe('MapContent Component', () => {
+describe('MyMapContent Component', () => {
 	it('renders without crashing and successfully request with bound', async () => {
 		const effect = jest.spyOn(React, 'useEffect');
 		let container = render(
@@ -82,6 +87,7 @@ describe('MapContent Component', () => {
 				</APIProvider>
 			</SessionProvider>,
 		);
+		screen.debug()
 		expect(google.maps.event.addListener).toHaveBeenCalled();
 		act(() => {
 			for (let call of google.maps.event.addListener.mock.calls) {

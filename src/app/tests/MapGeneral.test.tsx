@@ -95,8 +95,10 @@ describe('MapGeneral Component', () => {
 				<MapGeneral />
 			</SessionProvider>,
 		);
-		expect(google.maps.event.addListener).toHaveBeenCalled();
-		expect(global.navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(1);
+		await waitFor(() => {
+			expect(google.maps.event.addListener).toHaveBeenCalled();
+			expect(global.navigator.geolocation.getCurrentPosition).toHaveBeenCalledTimes(1);
+		});
 		act(() => {
 			for (let call of google.maps.event.addListener.mock.calls) {
 				if (call[1] === 'tilesloaded') call[2]();
@@ -118,7 +120,7 @@ describe('MapGeneral Component', () => {
 	});
 	it('renders without crashing with given center', async () => {
 		useSearchParams.mockReturnValue({
-			get: () => "51.1,45.3"
+			get: () => '51.1,45.3',
 		});
 		useParams.mockReturnValue({
 			id: '0',
@@ -129,7 +131,9 @@ describe('MapGeneral Component', () => {
 				<MapGeneral />
 			</SessionProvider>,
 		);
-		expect(google.maps.event.addListener).toHaveBeenCalled();
+		await waitFor(() => {
+			expect(google.maps.event.addListener).toHaveBeenCalled();
+		});
 		act(() => {
 			for (let call of google.maps.event.addListener.mock.calls) {
 				if (call[1] === 'tilesloaded') call[2]();

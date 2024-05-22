@@ -37,7 +37,7 @@ function MyMapPage() {
 			apiKey={process.env.NEXT_PUBLIC_MAP_API_KEY as string}
 			libraries={['geometry']}
 		>
-			{id && center && <MyMapContent id={`${id}`} center={center} />}
+			{id !== null && center && <MyMapContent id={`${id}`} center={center} />}
 		</APIProvider>
 	);
 }
