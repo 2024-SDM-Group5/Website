@@ -44,7 +44,6 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 		};
 		FetchRestaurant();
 	}, [bounds, id]);
-
 	return (
 		<div className="h-full w-full">
 			<div className="absolute z-10 flex w-full items-center justify-around p-4">
@@ -74,15 +73,20 @@ const MapContent = ({ id, center }: { id: string; center: { lat: number; lng: nu
 					setBounds([SW, NE]);
 				}}
 			>
-				{restaurants.map((x, i) => (
-					<AdvancedMarker
-						key={i}
-						position={x.location}
-						onClick={() => setDrawer(x.placeId)}
-					>
-						<Pin />
-					</AdvancedMarker>
-				))}
+				{restaurants.map((x, i) => {
+					return (
+						<>
+							<AdvancedMarker
+								key={i}
+								position={x.location}
+								onClick={() => setDrawer(x.placeId)}
+							>
+								<Pin />
+							</AdvancedMarker>
+							<div data-testid={'marker' + i} />
+						</>
+					);
+				})}
 			</Map>
 			<RestaurantDrawer newDiary={true} show={drawer} setShow={setDrawer} />
 			<LotteryFloatButton onClick={() => setModal(true)} />
