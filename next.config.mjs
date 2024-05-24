@@ -5,7 +5,7 @@ const nextConfig = {
 	reactStrictMode: false,
 	assetPrefix: isDev ? undefined : 'https://pc214.ee.ntu.edu.tw/website/',
 	images: {
-		domains: ['picsum.photos', 'myphotos.com', 'storage.googleapis.com'],
+		domains: ['picsum.photos', 'myphotos.com', 'storage.googleapis.com', 'maps.googleapis.com'],
 		path: isDev ? undefined : '/website/_next/image',
 	},
 };
