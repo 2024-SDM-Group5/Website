@@ -320,7 +320,7 @@ function RestaurantDrawer({
 							)}
 							{newDiary && (
 								<NewDiaryDialog
-									idToken=""
+									idToken={session.data?.idToken}
 									close={() => setShow(null)}
 									restaurantId={restaurant.placeId}
 									restaurantName={restaurant.name}
