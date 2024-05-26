@@ -10,13 +10,20 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 const SearchIcon: React.FC = () => {
 	const pathname = usePathname();
 	const pathSegments = pathname.split('/').filter(Boolean);
-
+	const len = pathSegments.length;
+	let prefix = '/website',
+		path = '/community/search';
+	if (process.env.NEXT_PUBLIC_NODE_ENV == 'development') {
+		prefix = '';
+	}
+	path = prefix + path;
 	if (
-		pathSegments.length >= 2 && pathSegments[pathSegments.length-2] === 'community' &&
-		(pathSegments[pathSegments.length-1] === 'overview' || pathSegments[pathSegments.length-1] === 'following')
+		len >= 2 &&
+		pathSegments[len - 2] === 'community' &&
+		(pathSegments[len - 1] === 'overview' || pathSegments[len - 1] === 'following')
 	) {
 		return (
-			<Link href="/community/search">
+			<Link href={`${prefix}/community/search`}>
 				<MagnifyingGlassIcon width="28" height="28" />
 			</Link>
 		);

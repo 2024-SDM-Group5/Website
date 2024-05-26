@@ -25,7 +25,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 beforeAll(() => {
 	jest.resetAllMocks();
 	initialize();
-	
+
 	google.maps.event.addListener = jest.fn(() => {
 		return {
 			remove: jest.fn(),
@@ -87,7 +87,7 @@ describe('MyMapContent Component', () => {
 				</APIProvider>
 			</SessionProvider>,
 		);
-		screen.debug()
+		screen.debug();
 		expect(google.maps.event.addListener).toHaveBeenCalled();
 		act(() => {
 			for (let call of google.maps.event.addListener.mock.calls) {
