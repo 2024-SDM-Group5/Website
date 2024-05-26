@@ -12,8 +12,8 @@ const SearchIcon: React.FC = () => {
 	const pathSegments = pathname.split('/').filter(Boolean);
 
 	if (
-		pathSegments.length >= 2 && pathSegments[-2] === 'community' &&
-		(pathSegments[-1] === 'overview' || pathSegments[-1] === 'following')
+		pathSegments.length >= 2 && pathSegments[pathSegments.length-2] === 'community' &&
+		(pathSegments[pathSegments.length-1] === 'overview' || pathSegments[pathSegments.length-1] === 'following')
 	) {
 		return (
 			<Link href="/community/search">
