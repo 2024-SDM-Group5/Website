@@ -184,6 +184,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 								)}
 							</button>
 						</div>
+						<div className="pl-2">{diaryDetail.content}</div>
 						{diaryDetail.replies.map((reply) => (
 							<>
 								{reply.authorId === userId ? (
