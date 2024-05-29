@@ -71,7 +71,16 @@ function UserProfile() {
 	const handleBack = () => {
 		setSelectedDiaryId(null);
 	};
-
+	const handleDelete = async (postId: number) => {
+		try {
+			await axios.delete(`/api/v1/diaries/${postId}`, {
+				headers: { Authorization: `Bearer ${session.data?.idToken}` },
+			});
+			handleBack()
+		} catch (error) {
+			console.error('Failed to delete comment:', error);
+		}
+	};
 	useEffect(() => {
 		const fetchUserDetail = async () => {
 			const url =
@@ -109,6 +118,9 @@ function UserProfile() {
 			<div className="w-full">
 				<button onClick={handleBack} className="m-4">
 					Back
+				</button>
+				<button onClick={() => handleDelete(selectedDiaryId)} className="m-4">
+					Delete
 				</button>
 				<SinglePost diaryId={selectedDiaryId} />
 			</div>
