@@ -110,15 +110,17 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 				<>
 					<br />
 					<div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-						<Image
-							src={
-								`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant?.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}` ||
-								'/images/1.jpg'
-							}
-							alt={restaurant?.name + '_icon'}
-							height={105}
-							width={105}
-						/>
+						{restaurant && (
+							<Image
+								src={
+									`https://maps.googleapis.com/maps/api/place/photo?maxheight=105&photo_reference=${restaurant?.photoUrl}&key=${process.env.NEXT_PUBLIC_MAP_API_KEY}` ||
+									'/images/1.jpg'
+								}
+								alt={restaurant?.name + '_icon'}
+								height={105}
+								width={105}
+							/>
+						)}
 						<div
 							style={{
 								fontWeight: 500,
@@ -145,19 +147,21 @@ function LotteryModal({ open, onCancel }: { open: boolean; onCancel: Function })
 					>
 						{suggestion}
 					</p>
-					<Link
-						style={{
-							color: '#000000',
-							backgroundColor: '#ffcc84',
-							width: '60vw',
-							height: '10vw',
+					{restaurant && (
+						<Link
+							style={{
+								color: '#000000',
+								backgroundColor: '#ffcc84',
+								width: '60vw',
+								height: '10vw',
 
-							marginBottom: '15px',
-						}}
-						href={`https://www.google.com/maps/search/?api=1&query=qqq&query_place_id=${restaurant?.placeId}`}
-					>
-						詳細資訊
-					</Link>
+								marginBottom: '15px',
+							}}
+							href={`https://www.google.com/maps/search/?api=1&query=qqq&query_place_id=${restaurant?.placeId}`}
+						>
+							詳細資訊
+						</Link>
+					)}
 				</>
 			)}
 		</Modal>
