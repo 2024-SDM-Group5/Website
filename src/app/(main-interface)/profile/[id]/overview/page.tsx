@@ -117,7 +117,7 @@ function UserProfile() {
 	return (
 		<div className="flex w-full flex-1 flex-col bg-[#FDFBF4]">
 			<div className="fixed right-4 top-16 z-50">
-				<button onClick={() => signOut({ callbackUrl: '/' })} aria-label="Logout">
+				<button onClick={() => signOut({ callbackUrl: '/website' })} aria-label="Logout">
 					<ExitIcon />
 				</button>
 			</div>
