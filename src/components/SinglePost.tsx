@@ -72,6 +72,7 @@ function SinglePost({ diaryId }: SinglePostProps) {
 		}
 	};
 	const handlePostComment = async () => {
+		if(newComment.length == 0) return;
 		const commentData = {
 			content: newComment,
 			diaryId: diaryId,
